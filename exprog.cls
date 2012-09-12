@@ -10,6 +10,13 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newif\ifexprogTwelvePoints
+\exprogTwelvePointsfalse
+\DeclareOption{12pt}{%
+  \exprogTwelvePointstrue
+  \PassOptionsToClass{\CurrentOption}{article}%
+}
+
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 
 \ProcessOptions
@@ -18,7 +25,11 @@
 \RequirePackage{a4}
 \addtolength{\textwidth}{2cm}
 \addtolength{\oddsidemargin}{-1cm}
-\addtolength{\textheight}{2cm}
+\ifexprogTwelvePoints
+  \addtolength{\textheight}{2cm}
+\else
+  \addtolength{\textheight}{1cm}
+\fi
 \setlength{\parindent}{0pt}
 
 %\RequirePackage[T1]{fontenc}
@@ -54,7 +65,7 @@
   }%
 }
 
-                                   
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,11 +105,11 @@
 \AtBeginDocument{% => override any other package (amsmath,...)
 \ifx\@ptsize\undefined
   %%% Maybe, using "slides" (SliTeX) class
-  \typeout{Warning: \string\big, \string\Big, \bigg, \string\Bigg\space 
+  \typeout{Warning: \string\big, \string\Big, \bigg, \string\Bigg\space
     are NOT re-defined and may be incorrect.}
 \else
 \ifcase \@ptsize
-  %%% 10pt ----------  
+  %%% 10pt ----------
   \def\big#1{\Delimiter@Enlarge@to@factor{1.1333333}{#1}}  % 8.5pt
   \def\Big#1{\Delimiter@Enlarge@to@factor{1.5333333}{#1}}  % 11.5 pt
   \def\bigg#1{\Delimiter@Enlarge@to@factor{1.9333333}{#1}} % 14.5 pt
@@ -183,7 +194,7 @@
   \let\@evenhead\@empty
   \let\@evenfoot\@oddfoot}
 
-  
+
 \newlength{\exprog@titleskip}    \setlength{\exprog@titleskip}{6pt}
 \newlength{\exprog@rulethickness}\setlength{\exprog@rulethickness}{0.5pt}
 \newcommand{\exprog@beforetext}{3ex}
@@ -217,7 +228,7 @@
 
 
 \newcommand{\ps@exprog}{%
-  \let\@mkboth\@gobbletwo 
+  \let\@mkboth\@gobbletwo
   \renewcommand{\@oddhead}{{%
       \vbox to 0pt{\vss
         \noindent
@@ -229,7 +240,7 @@
       }%
     }}%
   \renewcommand{\@oddfoot}{\reset@font \hfil \thepage/\thetotalpage}%
-  \let\@evenhead\@empty 
+  \let\@evenhead\@empty
   \let\@evenfoot\@oddfoot}
 
 \pagestyle{exprog}
@@ -300,8 +311,8 @@
   \newcommand\itemizesep{2mm}%
 
   \renewenvironment{itemize}{%
-    \ifnum\@itemdepth >\thr@@ \@toodeep   \else 
-    \advance\@itemdepth\@ne  
+    \ifnum\@itemdepth >\thr@@ \@toodeep   \else
+    \advance\@itemdepth\@ne
     \edef\@itemitem{labelitem\romannumeral\the\@itemdepth}%
     \expandafter\list \csname\@itemitem\endcsname {%
       \setlength{\topsep}{0.3ex}%
@@ -315,8 +326,8 @@
 }
 
 \newenvironment{itemizetext}{%
-  \ifnum\@itemdepth >\thr@@ \@toodeep   \else 
-  \advance\@itemdepth\@ne  
+  \ifnum\@itemdepth >\thr@@ \@toodeep   \else
+  \advance\@itemdepth\@ne
   \edef\@itemitem{labelitem\romannumeral\the\@itemdepth}%
   \expandafter\list \csname\@itemitem\endcsname {%
     \setlength{\topsep}{0.3ex}%
@@ -338,19 +349,19 @@
 \renewcommand\theenumii{\arabic{enumii}}
 
 \renewenvironment{enumerate}{%
-  \ifnum \@enumdepth >\thr@@ \@toodeep 
-  \else 
-    \advance\@enumdepth\@ne 
+  \ifnum \@enumdepth >\thr@@ \@toodeep
+  \else
+    \advance\@enumdepth\@ne
     \edef\@enumctr{enum\romannumeral\the\@enumdepth}%
     \expandafter\list \csname label\@enumctr \endcsname {%
-      \usecounter\@enumctr 
+      \usecounter\@enumctr
       \ifdim\parindent<1.8em \leftmargin=2em \else \leftmargin=\parindent \fi
       \def\makelabel##1{\hss\llap{\textsf{##1}}}%
     }%
     \fi
   }{%
-    \global\advance\@listdepth\m@ne 
-    \endtrivlist 
+    \global\advance\@listdepth\m@ne
+    \endtrivlist
   }
 
 
