@@ -36,7 +36,7 @@
 %\RequirePackage[francais]{babel}
 %\RequirePackage{times}
 
-\RequirePackage{color}
+\RequirePackage{xcolor}
 \definecolor{umons-red}{cmyk}{0., 1., 0.6, 0.2}
 \definecolor{umons-gray}{cmyk}{0, 0, 0, 0.5}
 \definecolor{umons-turquoise}{cmyk}{0.9, 0., 0.2, 0.}
