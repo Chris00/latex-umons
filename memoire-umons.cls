@@ -23,9 +23,13 @@
 % \addtolength{\textheight}{2cm}
 % \setlength{\parindent}{0pt}
 
+\RequirePackage{graphics}
 % For the logos (use `xcolor' to avoid warnings if `xcolor' is used in
-% the document, e.g. with Tikz):
-\RequirePackage{graphics,xcolor}
+% the document, e.g. with Tikz).  `xcolor' is not present in all distrib.
+\IfFileExists{xcolor.sty}{%
+  \RequirePackage{xcolor}}{%
+  \RequirePackage{color}}
+
 
 \definecolor{umonsgreen}{rgb}{0.56862745,0.78039216,0.63137255}
 \definecolor{umonsdarkgreen}{rgb}{0.4,0.47,0.42}
