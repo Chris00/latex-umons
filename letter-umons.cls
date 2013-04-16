@@ -153,8 +153,19 @@
 % ----------------------------------------------------------------------
 
 \def\letterumons@email{}
-
 \newcommand{\email}[1]{\gdef\letterumons@email{#1}}
+
+\def\letterumons@department{D\'epartement de Math\'ematique}
+\newcommand{\department}[1]{\gdef\letterumons@department{#1}}
+
+\def\letterumons@web{math.umons.ac.be}
+\newcommand{\web}[1]{\gdef\letterumons@web{#1}}
+
+\def\letterumons@phone{+32(0)65 37 33 01-02-03}
+\newcommand{\phone}[1]{\gdef\letterumons@phone{#1}}
+
+\def\letterumons@fax{+32(0)65 37 33 18}
+\newcommand{\fax}[1]{\gdef\letterumons@fax{#1}}
 
 
 \def\yourref{\@ifnextchar[{\yourref@}{%select w.r.t. \language
@@ -295,14 +306,14 @@
 
 % Default, if not given in the letter
 \renewcommand{\fromaddress}{%
-  D\'epartement de Math\'ematique\\
+  \letterumons@department\\
   Place du Parc, 20\\
   B-7000 Mons\\
-  t\'el +32(0)65 37 33 01-02-03\\
-  fax +32(0)65 37 33 18\\
+  t\'el \letterumons@phone\\
+  fax \letterumons@fax\\
   \ifthenelse{\equal{\letterumons@email}{}}{%
     math@umons.ac.be}{\letterumons@email}\\
-  www.umons.ac.be\\[3mm]
+  \letterumons@web\\[3mm]
   \includegraphics[height=10mm]{UMONS_FS}%
 }
 
