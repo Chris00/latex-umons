@@ -112,24 +112,21 @@
 
 %% Special Definitions
 %%----------------------------------------------------------------------
-\newcommand\test@titlefont{\fontfamily{phv}\fontseries{m}\fontshape{n}%
-  \fontsize{23}{25}\selectfont}
-\newcommand\test@numberfont{\fontfamily{phv}\fontseries{m}\fontshape{n}%
-  \fontsize{17.28}{19}\selectfont}
-\newcommand\test@smalltitlefont{\fontfamily{phv}\fontseries{m}\fontshape{n}%
-  \fontsize{14}{16}\selectfont}
-\newcommand\test@namesfont{\fontfamily{phv}\fontseries{m}\fontshape{n}%
-  \fontsize{12}{14}\selectfont}
-\newcommand\test@smallnamesfont{\fontfamily{phv}\fontseries{m}\fontshape{n}%
-  \fontsize{9}{14}\selectfont}
+\newcommand{\test@sf}{\fontfamily{phv}\fontseries{m}\fontshape{n}}
+\newcommand\test@titlefont{\test@sf      \fontsize{23}{25}\selectfont
+  \def\normalsize{\@setfontsize\normalsize\@xiipt{14}}%
+}
+\newcommand\test@numberfont{\test@sf     \fontsize{17.28}{19}\selectfont}
+\newcommand\test@smalltitlefont{\test@sf \fontsize{14}{16}\selectfont
+  \def\normalsize{\@setfontsize\normalsize\@xivpt{16}}%
+}
+\newcommand\test@namesfont{\test@sf      \fontsize{12}{14}\selectfont}
+\newcommand\test@smallnamesfont{\test@sf \fontsize{9}{14}\selectfont}
 
-\newcommand\test@correction{\fontfamily{phv}\fontseries{m}\fontshape{n}%
-  \bfseries\fontsize{30}{32}\selectfont
-  \color[gray]{0.6}}
-\newcommand\test@smallcorrection{\fontfamily{phv}\fontseries{m}\fontshape{n}%
-  \bfseries\fontsize{20}{20}\selectfont
-  \color[gray]{0.6}}
-
+\newcommand\test@correction{\test@sf \color[gray]{0.6}%
+  \bfseries\fontsize{30}{32}\selectfont}
+\newcommand\test@smallcorrection{\test@sf \color[gray]{0.6}%
+  \bfseries\fontsize{20}{20}\selectfont}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -318,7 +315,7 @@
   \noindent
   \vbox to\ht0{%
     \halign{##\hfil\crcr
-      \test@titlefont    \test@title\cr
+      {\test@titlefont    \test@title}\cr
       \noalign{\vfill}
       \test@numberfont   \test@thetest %% Test n°...
       \ifx\test@date\empty \else  
@@ -342,7 +339,7 @@
   \noindent
   \vbox to\ht0{%
     \halign{##\hfil\crcr
-      \test@titlefont    \test@title\cr
+      {\test@titlefont    \test@title}\cr
       \noalign{\vfill}
       \test@numberfont   \test@thetest %% Test n°...
       \ifx\test@date\empty \else  
@@ -382,7 +379,7 @@
   \vbox to \ht0{%
     \halign{##\hfil\crcr
       \noalign{\vskip\test@titleskip \vspace*{\test@rulethickness}}
-      \test@titlefont    \test@title\cr
+      {\test@titlefont    \test@title}\cr
       \noalign{\vfill}
       \test@numberfont   \test@thetest %% Test n°...
       {\test@namesfont\strut % make sure you get the correct depth
@@ -415,7 +412,7 @@
         \vbox to\ht0{%
           \halign to\textwidth{####\hfil \tabskip=0pt plus 1000pt&
             ####\tabskip=0pt\crcr
-            \test@smalltitlefont    \test@title\cr
+            {\test@smalltitlefont    \test@title}\cr
             \noalign{\vfill}%
             \test@namesfont\strut   \test@thetest %% Test n°...
             \ifx\test@date\empty \else  \qquad \hfill
@@ -441,7 +438,7 @@
         \vbox to\ht0{%
           \halign to\textwidth{####\hfil \tabskip=0pt plus 1000pt&
             ####\tabskip=0pt\crcr
-            \test@smalltitlefont    \test@title\cr
+            {\test@smalltitlefont    \test@title}\cr
             \noalign{\vfill}%
             \test@namesfont\strut   \test@thetest %% Test n°...
             \ifx\test@date\empty \else  \qquad \hfill
@@ -504,7 +501,7 @@
       \vtop{\hsize=\@tempdima  \addtolength{\baselineskip}{20pt}%
         \halign{####\hfil\crcr
           \noalign{\vspace*{\test@titleskip}\vspace*{\test@rulethickness}}%
-          \test@smalltitlefont    \test@title\cr
+          {\test@smalltitlefont    \test@title}\cr
           \noalign{\vfill}%
           \test@namesfont\strut   \test@thetest %% Test n°...
           \ifx\test@date\empty \else  \qquad \hfill
