@@ -117,7 +117,11 @@
   \def\@directeur@name{Co-directeurs}}
 \def\umons@service{}
 \newcommand{\service}[1]{%
-  \def\umons@service{#1}}
+  \def\umons@service{#1}%
+  \def\@service@name{Service}}
+\newcommand{\services}[1]{%
+  \def\umons@service{#1}%
+  \def\@service@name{Services}}
 \def\@rapporteurs{}
 \newcommand{\rapporteurs}[1]{\def\@rapporteurs{#1}}
 \def\@discipline{math\'ematiques}
@@ -191,7 +195,7 @@
         \textbf{\@directeur@name~:}&
         \begin{tabular}[t]{@{}l@{}} \@directeur \end{tabular}%
         \\[2\jot]
-        \textbf{Service~:}&
+        \textbf{\@service@name~:}&
         \begin{tabular}[t]{@{}l@{}} \umons@service \end{tabular}%
         \\[2\jot]
         % Facultatif:        
