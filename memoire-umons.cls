@@ -243,22 +243,14 @@
   \@mkboth{}{}% many students do not understand what happens otherwise...
 }
 
-% Redefine the content lines of chapters because the Roman numbering
+% Redefine the numering of content lines because the Roman numbering
 % may go into the text.
-\let\l@chapter@ORIG=\l@chapter
-\let\numberline@ORIG=\numberline
-
-\newcommand{\numberline@chapter}[1]{%
+\renewcommand{\numberline}[1]{%
+  % \@tempdima contains the width of the box for the number.
   \settowidth{\@tempdimb}{#1\hspace{0.8ex}}%
-  \ifdim \@tempdimb > \@tempdima  #1\hspace{1ex}%
-  \else  \hb@xt@ \@tempdima {#1\hss}%
+  \ifdim \@tempdimb > \@tempdima  {#1}\hspace{1ex}%
+  \else  \hb@xt@ \@tempdima {#1\hfil}%
   \fi}
-
-\renewcommand{\l@chapter}[2]{%
-  \let\numberline=\numberline@chapter
-  \l@chapter@ORIG{#1}{#2}%
-  \let\numberline=\numberline@ORIG
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
