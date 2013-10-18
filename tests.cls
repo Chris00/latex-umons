@@ -655,7 +655,7 @@
 }
 
 \newcommand\make@question@[1]{%
-  \gdef\@currentlabel{question.\the\c@test@part.\the\c@test@question}%
+  \gdef\@currentlabel{\arabic{test@question}}%
   \iftest@correction \vspace{3ex plus 3ex minus 1ex}\pagebreak[2]\fi
   \noindent\textsf{#1}\quad
   \iftest@correction \itshape \else \upshape\fi
