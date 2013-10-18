@@ -281,6 +281,7 @@
   \setcounter{test@question}{0}%
   \setcounter{equation}{0}%
   \setcounter{footnote}{0}%
+  \setcounter{figure}{0}%
   % Do not let \hyper@refstepcounter treat equations specially because
   % that generate name clashes.
   \edef\name@of@eq{no-equation}%
