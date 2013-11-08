@@ -30,7 +30,6 @@
   \RequirePackage{xcolor}}{%
   \RequirePackage{color}}
 
-
 \definecolor{umonsgreen}{rgb}{0.56862745,0.78039216,0.63137255}
 \definecolor{umonsdarkgreen}{rgb}{0.4,0.47,0.42}
 \definecolor{umonsblue}{rgb}{0.23,0.85,0.98}
@@ -54,7 +53,7 @@
     \hypersetup{%
       pdftitle={\@title},%
       pdfauthor={\@author\space (University of Mons)},%
-      pdfsubject={Mathematical dissertation},%
+      pdfsubject={Master's Thesis},%
       %pdfkeywords={},
       plainpages=false, % => page.i <> page.1
       colorlinks=true,
@@ -94,6 +93,45 @@
 
 \AtBeginDocument{\providecommand{\texorpdfstring}[2]{#1}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%                     T R A N S L A T I O N S
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\AtBeginDocument{%
+  \iflanguage{english}{% -- always defined
+    \def\memoire@directeur{Supervisor}
+    \def\memoire@directeurs{Supervisors}
+    \def\memoire@codirecteurs{Co-supervisors}
+    \def\memoire@rapporteurs{Examiners}
+    \def\memoire@service{Team}
+    \def\memoire@services{Teams}
+    \def\@discipline{Mathematics}
+    \def\@institut{Department of Mathematics}
+    \def\memoire@realise{%
+      Master's Thesis submitted by \@author\\
+      With a view of getting the degree of
+      Master in \@discipline\\[2ex]
+      Academic Year \@date}
+    \def\memoire@faculte{Faculty of Sciences}
+    \def\memoire@universite{University of Mons}
+  }{% Default language assumed to be French
+    \def\memoire@directeur{Directeur}
+    \def\memoire@directeurs{Directeurs}
+    \def\memoire@codirecteurs{Co-directeurs}
+    \def\memoire@rapporteurs{Rapporteurs}
+    \def\memoire@service{Service}
+    \def\memoire@services{Services}
+    \def\@discipline{math\'ematiques}
+    \def\@institut{D\'epartement des Sciences Math\'ematiques}
+    \def\memoire@realise{%
+      M\'emoire r\'ealis\'e par \@author\\
+      pour l'obtention du dipl\^ome de Master en sciences \@discipline\\[2ex]
+      Ann\'ee acad\'emique \@date}
+    \def\memoire@faculte{Facult\'e des Sciences}
+    \def\memoire@universite{Universit\'e de Mons}
+  }}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -108,25 +146,23 @@
 \def\@directeur{}
 \newcommand{\directeur}[1]{%
   \def\@directeur{#1}%
-  \def\@directeur@name{Directeur}}
+  \def\@directeur@name{\memoire@directeur}}
 \newcommand{\directeurs}[1]{%
   \def\@directeur{#1}%
-  \def\@directeur@name{Directeurs}}
+  \def\@directeur@name{\memoire@directeurs}}
 \newcommand{\codirecteurs}[1]{%
   \def\@directeur{#1}%
-  \def\@directeur@name{Co-directeurs}}
+  \def\@directeur@name{\memoire@codirecteurs}}
 \def\umons@service{}
 \newcommand{\service}[1]{%
   \def\umons@service{#1}%
-  \def\@service@name{Service}}
+  \def\@service@name{\memoire@service}}
 \newcommand{\services}[1]{%
   \def\umons@service{#1}%
-  \def\@service@name{Services}}
+  \def\@service@name{\memoire@services}}
 \def\@rapporteurs{}
 \newcommand{\rapporteurs}[1]{\def\@rapporteurs{#1}}
-\def\@discipline{math\'ematiques}
 \newcommand{\discipline}[1]{\def\@discipline{#1}}
-\def\@institut{Math\'ematiques}
 \newcommand{\institut}[1]{\def\@institut{#1}}
 \def\@date{}
 
@@ -161,7 +197,6 @@
           \begin{tabular}[t]{@{}l@{}}
             %\resizebox{!}{20mm}{\includegraphics{lorentz}}\\[-5mm]
             \resizebox{!}{15mm}{\includegraphics{UMONS_FS}}\\%
-            D\'epartement des Sciences
             \@institut
           \end{tabular}%
           %\fi
@@ -185,22 +220,20 @@
         \@title
         \\[1.5ex]}%
       \fontsize{12}{14}\fontfamily{ptm}\selectfont %
-      M\'emoire r\'ealis\'e par \@author\\
-      pour l'obtention du dipl\^ome de Master en sciences \@discipline\\[2ex]
-      Ann\'ee acad\'emique \@date
+      \memoire@realise
       
       \vfill
       \null\hfill
       \begin{tabular}[t]{@{}r@{ }l@{}}
-        \textbf{\@directeur@name~:}&
+        \textbf{\@directeur@name :}&
         \begin{tabular}[t]{@{}l@{}} \@directeur \end{tabular}%
         \\[2\jot]
-        \textbf{\@service@name~:}&
+        \textbf{\@service@name :}&
         \begin{tabular}[t]{@{}l@{}} \umons@service \end{tabular}%
         \\[2\jot]
         % Facultatif:        
         \ifx \@rapporteurs\empty \else
-        \textbf{Rapporteurs~:}&
+        \textbf{\memoire@rapporteurs :}&
         \begin{tabular}[t]{@{}l@{}} \@rapporteurs \end{tabular}%
         \fi
       \end{tabular}
@@ -208,8 +241,8 @@
       \vfill\vfill
       \smash{\raisebox{-23mm}{\vtop{%
             %\centerline{\resizebox{!}{15mm}{\includegraphics{Acad-logoumh}}}
-            Facult\'e des Sciences\bottomsep
-            Universit\'e de Mons\bottomsep
+            \memoire@faculte\bottomsep
+            \memoire@universite\bottomsep
             Place du Parc 20\bottomsep
             B-7000 Mons %(Belgium)
           }}}%
