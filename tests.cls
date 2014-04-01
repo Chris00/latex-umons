@@ -184,7 +184,11 @@
 
 %% If one needs to change ``Mathematique Elementaire'' to something else:
 \newcommand\test@title@change{Math\'ematique \'El\'ementaire}
-\newcommand{\testtitle}[1]{\gdef\test@title@change{#1}}
+\newcommand{\testtitle}[2][]{%
+  \gdef\test@title@firstpage@change{#2}%
+  \xdef\@temp{#1}%
+  \ifx \@temp\empty \gdef\test@title@change{#2}%
+  \else \gdef\test@title@change{#1}\fi}
 
 %% `Test' title is not always right, we also want to typeset exams...
 \newcommand\test@thetest@change{Test n$^\circ$\thinspace\test@number}
@@ -253,6 +257,7 @@
   \test@defexpand\test@date{\test@date@change}%
   \test@defexpand\test@datepdf{\test@datepdf@change}%
   \test@defexpand\section@hook{\section@hook@change}%
+  \test@defexpand\test@title@firstpage{\test@title@firstpage@change}%
   \test@defexpand\test@title{\test@title@change}%
   \test@defexpand\test@thetest{\test@thetest@change}%
   \test@defexpand\test@thetestpdf{\test@thetestpdf@change}%
@@ -340,7 +345,7 @@
   \noindent
   \vbox to\ht0{%
     \halign{##\hfil\crcr
-      {\test@titlefont    \test@title}\cr
+      {\test@titlefont    \test@title@firstpage}\cr
       \noalign{\vfill}
       \test@numberfont   \test@thetest %% Test n°...
       \ifx\test@date\empty \else  
@@ -380,7 +385,7 @@
   \vbox to \ht0{%
     \halign{##\hfil\crcr
       \noalign{\vskip\test@titleskip \vspace*{\test@rulethickness}}
-      {\test@titlefont    \test@title}\cr
+      {\test@titlefont    \test@title@firstpage}\cr
       \noalign{\vfill}
       \test@numberfont   \test@thetest %% Test n°...
       {\test@namesfont\strut % make sure you get the correct depth
