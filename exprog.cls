@@ -36,6 +36,7 @@
 %\RequirePackage[francais]{babel}
 %\RequirePackage{times}
 
+\RequirePackage{graphicx}
 \RequirePackage{xcolor}
 \definecolor{umons-red}{cmyk}{0., 1., 0.6, 0.2}
 \definecolor{umons-gray}{cmyk}{0, 0, 0, 0.5}
@@ -189,7 +190,10 @@
 
 \newcommand\ps@firstpage{%
   \renewcommand\@mkboth[2]{}%
-  \renewcommand\@oddhead{}%
+  \renewcommand\@oddhead{%
+    \smash{\raisebox{12mm}{\hspace{-12mm}% visual
+        \includegraphics[width=0.25\linewidth]{UMONS}}}%
+  }%
   \renewcommand\@oddfoot{\reset@font \hfil \thepage/\thetotalpage}%
   \let\@evenhead\@empty
   \let\@evenfoot\@oddfoot}
