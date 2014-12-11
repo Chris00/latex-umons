@@ -268,8 +268,8 @@
       \vspace{5mm}%
       \hfill
       \smash{\includegraphics[height=11mm]{Pole-Hainuyer-gris}%
-        \hspace{3mm}%
-        \includegraphics[height=11mm]{academie-gris}%
+        %\hspace{3mm}%
+        %\includegraphics[height=11mm]{academie-gris}%
       }%
       \vss}}
 }
