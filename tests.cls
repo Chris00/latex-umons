@@ -184,6 +184,7 @@
 
 %% If one needs to change ``Mathematique Elementaire'' to something else:
 \newcommand\test@title@change{Math\'ematique \'El\'ementaire}
+\newcommand{\test@title@firstpage@change}{\test@title@change}
 \newcommand{\testtitle}[2][]{%
   \gdef\test@title@firstpage@change{#2}%
   \xdef\@temp{#1}%
