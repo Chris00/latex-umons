@@ -142,9 +142,18 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\AtBeginDocument{%
-  \renewcommand{\thepage}{\Roman{page}}% => no clash for PDF links
-  \maketitle}
+\newcommand{\umons@expandonce}[1]{%
+  \unexpanded\expandafter{#1}}
+
+% \maketitle should run in the document and not in the preamble (as
+% with \AtBeginDocument).
+\edef\document{%
+  \umons@expandonce\document
+  \unexpanded{%
+    \renewcommand{\thepage}{\Roman{page}}% => no clash for PDF links
+    \maketitle
+  }%
+}
 
 \def\@directeur{}
 \newcommand{\directeur}[1]{%
