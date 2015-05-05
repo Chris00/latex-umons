@@ -26,18 +26,21 @@
 \RequirePackage{graphics}
 % For the logos (use `xcolor' to avoid warnings if `xcolor' is used in
 % the document, e.g. with Tikz).  `xcolor' is not present in all distrib.
-\IfFileExists{xcolor.sty}{%
-  \RequirePackage{xcolor}}{%
-  \RequirePackage{color}}
+%\PassOptionsToPackage{rgb}{xcolor}
+\AtBeginDocument{%
+  \IfFileExists{xcolor.sty}{%
+    \RequirePackage{xcolor}}{%
+    \RequirePackage{color}}%
 
-\definecolor{umonsgreen}{rgb}{0.56862745,0.78039216,0.63137255}
-\definecolor{umonsdarkgreen}{rgb}{0.4,0.47,0.42}
-\definecolor{umonsblue}{rgb}{0.23,0.85,0.98}
-\definecolor{umonsdarkblue}{rgb}{0.23,0.33,0.95}
-\definecolor{umonsmetalblue}{rgb}{0.21,0.67,0.61}
-\definecolor{umonsred}{RGB}{168, 0, 57}
-\definecolor{umonsgray}{RGB}{150, 150, 150}
-\definecolor{umonsturquoise}{RGB}{0, 171, 204}
+  \definecolor{umonsgreen}{rgb}{0.56862745,0.78039216,0.63137255}
+  \definecolor{umonsdarkgreen}{rgb}{0.4,0.47,0.42}
+  \definecolor{umonsblue}{rgb}{0.23,0.85,0.98}
+  \definecolor{umonsdarkblue}{rgb}{0.23,0.33,0.95}
+  \definecolor{umonsmetalblue}{rgb}{0.21,0.67,0.61}
+  \definecolor{umonsred}{RGB}{168, 0, 57}
+  \definecolor{umonsgray}{RGB}{150, 150, 150}
+  \definecolor{umonsturquoise}{RGB}{0, 171, 204}
+}
 
 \setlength{\overfullrule}{10pt}
 %\errorcontextlines=10 % debugging
