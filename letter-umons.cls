@@ -158,7 +158,7 @@
 \def\letterumons@department{D\'epartement de Math\'ematique}
 \newcommand{\department}[1]{\gdef\letterumons@department{#1}}
 
-\def\letterumons@web{math.umons.ac.be}
+\def\letterumons@web{http\string://math.umons.ac.be}
 \newcommand{\web}[1]{\gdef\letterumons@web{#1}}
 
 \def\letterumons@phone{+32(0)65 37 33 01-02-03}
