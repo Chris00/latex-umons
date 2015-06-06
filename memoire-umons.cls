@@ -127,7 +127,7 @@
     \def\memoire@service{Service}
     \def\memoire@services{Services}
     \def\@discipline{math\'ematiques}
-    \def\@institut{D\'epartement des Sciences Math\'ematiques}
+    \def\@institut{D\'epartement de Math\'ematique}
     \def\memoire@realise{%
       M\'emoire r\'ealis\'e par \@author\\
       pour l'obtention du dipl\^ome de Master en sciences \@discipline\\[2ex]
