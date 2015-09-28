@@ -689,10 +689,10 @@
 }
 
 
-\newcommand{\inlineanswer}[1]{%
-  \upshape
-  \ignorespaces
-  #1}
+\newcommand{\inlineanswer}[1]{{%
+    \upshape
+    \ignorespaces
+    #1}}
 
 \fi
 
