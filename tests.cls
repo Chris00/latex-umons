@@ -626,7 +626,12 @@
 %% Optional <mark>
 \newenvironment{question}[1][]{%
   \stepcounter{test@question}%
-  \make@question{Question~\arabic{test@question}.#1}%
+  \edef\question@comment{#1}%
+  \ifx \question@comment \empty
+  \make@question{Question~\arabic{test@question}.}%
+  \else
+  \make@question{Question~\arabic{test@question} \ignorespaces #1.}%
+  \fi
 }{%
   \par
   \iftest@correction \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
@@ -765,7 +770,7 @@
     \advance\@enumdepth\@ne 
     \edef\@enumctr{enum\romannumeral\the\@enumdepth}%
     \expandafter\list \csname label\@enumctr \endcsname {%
-      \usecounter\@enumctr 
+      \usecounter\@enumctr
       \ifdim\parindent<2.3em \leftmargin=2.3em \else \leftmargin=\parindent \fi
       \setlength{\itemindent}{0pt}%
       \setlength{\topsep}{10.0pt plus 4.0pt minus 6.0pt}%
