@@ -627,11 +627,12 @@
 \newenvironment{question}[1][]{%
   \stepcounter{test@question}%
   \edef\question@comment{#1}%
-  \ifx \question@comment \empty
-  \make@question{Question~\arabic{test@question}.}%
-  \else
-  \make@question{Question~\arabic{test@question} \ignorespaces #1.}%
-  \fi
+  \make@question{%
+    \ifx \question@comment \empty Question~\arabic{test@question}.
+    \else
+    \make@question{Question~\arabic{test@question} \ignorespaces #1.}%
+    \fi
+  }%
 }{%
   \par
   \iftest@correction \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
