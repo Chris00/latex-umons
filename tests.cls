@@ -805,6 +805,66 @@
   \endtrivlist 
 }
 
+%% True/False questions
+%%----------------------------------------------------------------------
+
+\newcommand{\testsTrueLabel}{Vrai~:}
+\newcommand{\testsFalseLabel}{Faux~:}
+
+\newcommand\tests@TF@drawbox{%
+  \hbox{\vrule \vtop{\vbox{\hrule
+        \hbox{\vrule width 0pt height 1.7ex depth 0.3ex\hskip 2ex}}%
+      \hrule}\vrule}}
+
+\newcounter{TrueFalse}
+
+\def\tests@TF@number{\hbox to 1.8em{\textsf{(\alph{TrueFalse})}\hss}}
+
+\newenvironment{TrueFalse}{\bgroup
+  \def\tests@TF@label{\tests@TF@number
+    \testsTrueLabel\ \tests@TF@drawbox\quad
+    \testsFalseLabel\ \tests@TF@drawbox}%
+  \begin{tests@TF@gen}
+  }{%
+  \end{tests@TF@gen}
+  \egroup}
+
+\newenvironment{TrueFalse*}{\bgroup
+  \def\tests@TF@label{\tests@TF@number \drawbox}%
+  \begin{tests@TF@gen}
+  }{%
+  \end{tests@TF@gen}
+  \egroup}
+
+\newenvironment{tests@TF@gen}{%
+  \bgroup
+  \ifnum\@itemdepth >\thr@@ \@toodeep   \else
+    \advance\@itemdepth\@ne
+    \setcounter{TrueFalse}{0}%
+    \expandafter\list{%
+      \addtocounter{TrueFalse}{1}%
+      \gdef\@currentlabel{\alph{TrueFalse}}%
+      \tests@TF@label
+    }{%
+      \settowidth{\labelwidth}{\tests@TF@label}
+      \addtolength{\labelwidth}{6pt}
+      \settowidth{\leftmargin}{\tests@TF@number}
+      \addtolength{\leftmargin}{6pt}% same as for \labelwidth
+      \setlength{\labelsep}{1em}
+      \setlength{\itemindent}{\labelwidth}
+      \addtolength{\itemindent}{\labelsep}
+      \addtolength{\itemindent}{-\leftmargin}
+      \setlength{\topsep}{10.0pt plus 4.0pt minus 6.0pt}
+      \setlength{\itemsep}{5.0pt plus 2.5pt minus 1.0pt}
+      \def\makelabel##1{\hss \llap{##1}}%
+    }%
+    \fi
+}{%
+  \global\advance\@listdepth\m@ne \endtrivlist
+  \egroup
+}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
