@@ -168,8 +168,10 @@
 \newcommand{\prenom@name}{Pr\'enom~:}
 \newcommand\nom@hook{}
 \newcommand\prenom@hook{}
-\newcommand{\testnomname}[1]{\gdef\nom@name{#1}}
-\newcommand{\testprenomname}[1]{\gdef\prenom@name{#1}}
+\newcommand{\testnomname}[1]{\gdef\nom@name{#1}}% deprecated
+\newcommand{\testprenomname}[1]{\gdef\prenom@name{#1}}% deprecated
+\newcommand{\testlastname}[1]{\gdef\nom@name{#1}}
+\newcommand{\testfirstname}[1]{\gdef\prenom@name{#1}}
 
 \newcommand\section@hook@change{}
 \newcommand{\testsection}[1]{%
