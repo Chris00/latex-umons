@@ -168,10 +168,27 @@
 \newcommand{\prenom@name}{Pr\'enom~:}
 \newcommand\nom@hook{}
 \newcommand\prenom@hook{}
-\newcommand{\testnomname}[1]{\gdef\nom@name{#1}}% deprecated
-\newcommand{\testprenomname}[1]{\gdef\prenom@name{#1}}% deprecated
-\newcommand{\testlastname}[1]{\gdef\nom@name{#1}}
-\newcommand{\testfirstname}[1]{\gdef\prenom@name{#1}}
+\newcommand{\testnomname}[1]{\gdef\nom@hook@change{#1}}% deprecated
+\newcommand{\testprenomname}[1]{\gdef\prenom@hook@change{#1}}% deprecated
+\newcommand{\testlastname}[1]{%
+  \def\nom@hook@tmp{#1}%
+  \ifx \nom@hook@tmp\empty
+    \iftest@want@rulers \gdef\nom@hook@change{\nom@hook@rulers}%
+    \else               \gdef\nom@hook@change{}\fi
+  \else
+    \gdef\nom@hook@change{\ #1}% include initial space
+  \fi}
+\newcommand{\testfirstname}[1]{%
+  \def\prenom@hook@tmp{#1}%
+  \ifx \prenom@hook@tmp\empty
+    \iftest@want@rulers \gdef\prenom@hook@change{\prenom@hook@rulers}%
+    \else               \gdef\prenom@hook@change{}\fi
+  \else
+    \gdef\prenom@hook@change{\ #1}%
+  \fi}
+
+\testlastname{}% Only takes effect at \maketitle
+\testfirstname{}
 
 \newcommand\section@hook@change{}
 \newcommand{\testsection}[1]{%
@@ -183,6 +200,7 @@
   \else % replace
     \gdef\section@hook@change{#1}%
   \fi}
+\testsection{}
 
 %% If one needs to change ``Mathematique Elementaire'' to something else:
 \newcommand\test@title@change{Math\'ematique \'El\'ementaire}
@@ -248,7 +266,7 @@
 %% specifically to "activate" the waiting changes, hold in some
 %% macros.  (\edef expands too much.)
 \newcommand\test@defexpand[2]{%
-  \expandafter\def\expandafter#1\expandafter{#2}%
+  \expandafter\gdef\expandafter#1\expandafter{#2}%
 }
 
 \newcommand{\test@activate@changes}{%
@@ -259,6 +277,8 @@
   \test@defexpand\test@number{\test@number@change}%
   \test@defexpand\test@date{\test@date@change}%
   \test@defexpand\test@datepdf{\test@datepdf@change}%
+  \test@defexpand\nom@hook{\nom@hook@change}%
+  \test@defexpand\prenom@hook{\prenom@hook@change}%
   \test@defexpand\section@hook{\section@hook@change}%
   \test@defexpand\test@title@firstpage{\test@title@firstpage@change}%
   \test@defexpand\test@title{\test@title@change}%
@@ -291,7 +311,7 @@
   \setcounter{footnote}{0}%
   \setcounter{figure}{0}%
   % Do not let \hyper@refstepcounter treat equations specially because
-  % that generate name clashes.
+  % that generates name clashes.
   \edef\name@of@eq{no-equation}%
   \def\theHequation{\arabic{equation}-\arabic{test@part}}%
   % Name clashes also happen for pages.  Since I do not know how to
@@ -552,7 +572,7 @@
 
 \iftest@want@rulers
 
-\renewcommand\nom@hook{\bgroup
+\newcommand\nom@hook@rulers{\bgroup
   \color[gray]{0.5}%
   \hspace{3pt}%
   \tests@onechar\tests@onechar\tests@onechar\tests@onechar\tests@onechar
@@ -560,7 +580,7 @@
   \tests@onechar\tests@onechar
   \egroup}
 
-\renewcommand\prenom@hook{\bgroup
+\newcommand\prenom@hook@rulers{\bgroup
   \color[gray]{0.5}%
   \hspace{3pt}%
   \tests@onechar\tests@onechar\tests@onechar\tests@onechar\tests@onechar
@@ -572,8 +592,6 @@
   \hspace{3pt}%
   \tests@onechar[5mm]\tests@onechar[5mm]%
   \tests@onechar[5mm]\tests@onechar[5mm]\tests@onechar[5mm]}}
-
-\renewcommand\section@hook@change{\section@hook@rulers}
 
 \fi
 
