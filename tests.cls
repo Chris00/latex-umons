@@ -838,7 +838,7 @@
 
 \newcounter{TrueFalse}
 
-\def\tests@TF@number{\hbox to 1.8em{\textsf{(\alph{TrueFalse})}\hss}}
+\def\tests@TF@number{\hbox to 1.8em{\textsf{(\theTrueFalse)}\hss}}
 
 \newenvironment{TrueFalse}{\bgroup
   \def\tests@TF@label{\tests@TF@number
@@ -858,12 +858,15 @@
 
 \newenvironment{tests@TF@gen}{%
   \bgroup
-  \ifnum\@itemdepth >\thr@@ \@toodeep   \else
-    \advance\@itemdepth\@ne
+  \ifnum \@enumdepth >\thr@@ \@toodeep  \else
+    \advance \@enumdepth \@ne
     \setcounter{TrueFalse}{0}%
+    \ifnum \@enumdepth > \@ne
+      \def\theTrueFalse{\@roman \c@TrueFalse}%
+    \else \def\theTrueFalse{\@alph \c@TrueFalse}\fi
     \expandafter\list{%
       \addtocounter{TrueFalse}{1}%
-      \gdef\@currentlabel{\alph{TrueFalse}}%
+      \gdef\@currentlabel{\theTrueFalse}%
       \tests@TF@label
     }{%
       \settowidth{\labelwidth}{\tests@TF@label}
