@@ -831,9 +831,14 @@
 \newcommand{\testsTrueLabel}{Vrai~:}
 \newcommand{\testsFalseLabel}{Faux~:}
 
-\newcommand\tests@TF@drawbox{%
+\newcommand{\tests@TF@drawbox}{%
   \hbox{\vrule \vtop{\vbox{\hrule
         \hbox{\vrule width 0pt height 1.7ex depth 0.3ex\hskip 2ex}}%
+      \hrule}\vrule}}
+
+\newcommand{\tests@TF@drawbox@large}{%
+  \hbox{\vrule \vtop{\vbox{\hrule
+        \hbox{\vrule width 0pt height 1.8ex depth 0.5ex\hskip 2.2ex}}%
       \hrule}\vrule}}
 
 \newcounter{TrueFalse}
@@ -849,8 +854,9 @@
   \end{tests@TF@gen}
   \egroup}
 
-\newenvironment{TrueFalse*}{\bgroup
-  \def\tests@TF@label{\tests@TF@number \drawbox}%
+% Boxes to tick (no "True"/"False") prefixed by optional argument
+\newenvironment{TrueFalse*}[1][]{\bgroup
+  \def\tests@TF@label{\tests@TF@number #1\tests@TF@drawbox@large}%
   \begin{tests@TF@gen}
   }{%
   \end{tests@TF@gen}
