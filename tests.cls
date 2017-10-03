@@ -29,6 +29,7 @@
 
 \RequirePackage{a4}
 \RequirePackage{graphics}
+\RequirePackage{keyval}
 \addtolength{\textwidth}{2cm}
 \addtolength{\oddsidemargin}{-1cm}
 \addtolength{\textheight}{2cm}
@@ -836,6 +837,23 @@
         \hbox{\vrule width 0pt height 1.7ex depth 0.3ex\hskip 2ex}}%
       \hrule}\vrule}}
 
+\AtBeginDocument{% Choose the symbol for the tick
+  \ifx\ding\@undefined
+    \ifx\checkmark\@undefined
+    \newcommand{\teststick}{$\times$}%
+    \else
+    \newcommand{\teststick}{$\checkmark$}%
+    \fi
+  \else
+    \newcommand{\teststick}{\ding{51}}%
+  \fi}
+
+\newcommand{\tests@TF@tickedbox}{%
+  \hbox{\vrule \vtop{\vbox{\hrule
+        \hbox{\vrule width 0pt height 1.7ex depth 0.3ex
+          \hbox to 2ex{\hss \teststick \hss}}}%
+      \hrule}\vrule}}
+
 \newcommand{\tests@TF@drawbox@large}{%
   \hbox{\vrule \vtop{\vbox{\hrule
         \hbox{\vrule width 0pt height 1.8ex depth 0.5ex\hskip 2.2ex}}%
@@ -845,10 +863,30 @@
 
 \def\tests@TF@number{\hbox to 1.8em{\textsf{(\theTrueFalse)}\hss}}
 
+% For corrections: allow to put a tick
+
+\let\tests@TF@item@orig=\item
+\newif\iftests@TF@item@thickT
+\newif\iftests@TF@item@thickF
+
+\define@key{tests@TF}{true}[true]{\csname tests@TF@item@thickT#1\endcsname}
+\define@key{tests@TF}{false}[true]{\csname tests@TF@item@thickF#1\endcsname}
+
+\newcommand{\tests@TF@item}[1][]{%
+  % Optional arguments "true" and "false" to tick the box.
+  \tests@TF@item@thickTfalse
+  \tests@TF@item@thickFfalse
+  \setkeys{tests@TF}{#1}%
+  \tests@TF@item@orig}
+
+% Label "True □ False □", with boxes to tick
 \newenvironment{TrueFalse}{\bgroup
   \def\tests@TF@label{\tests@TF@number
-    \testsTrueLabel\ \tests@TF@drawbox\quad
-    \testsFalseLabel\ \tests@TF@drawbox}%
+    \testsTrueLabel\
+    \iftests@TF@item@thickT \tests@TF@tickedbox \else \tests@TF@drawbox\fi\quad
+    \testsFalseLabel\
+    \iftests@TF@item@thickF \tests@TF@tickedbox \else \tests@TF@drawbox\fi}%
+  \let\item\tests@TF@item % locally
   \begin{tests@TF@gen}
   }{%
   \end{tests@TF@gen}
