@@ -226,7 +226,7 @@
   \gdef\test@thetestpdf@change{#1}}
 
 \newcommand{\exam}{\testtype{Examen}}
-\newcommand{\cote}{\testtype[Coté]{Cot\'e}}%% !! 'é' latin1 not TeX encoded !!
+\newcommand{\cote}{\testtype[CotÃ©]{Cot\'e}}%% !! 'Ã©' latin1 not TeX encoded !!
 
 
 % If several ``independent'' tests in a single document:
@@ -347,7 +347,7 @@
     \halign{##\hfil\crcr
       {\test@titlefont    \test@title}\cr
       \noalign{\vfill}
-      \test@numberfont   \test@thetest %% Test n°...
+      \test@numberfont   \test@thetest %% Test nÂ°...
       \ifx\test@date\empty \else  
       \qquad \hfill \test@namesfont (\test@date)\fi
       {\test@namesfont\strut}% make sure you get the correct depth
@@ -371,7 +371,7 @@
     \halign{##\hfil\crcr
       {\test@titlefont    \test@title@firstpage}\cr
       \noalign{\vfill}
-      \test@numberfont   \test@thetest %% Test n°...
+      \test@numberfont   \test@thetest %% Test nÂ°...
       \ifx\test@date\empty \else  
       \qquad \hfill \test@namesfont (\test@date)\fi
       {\test@namesfont\strut}% make sure you get the correct depth
@@ -411,7 +411,7 @@
       \noalign{\vskip\test@titleskip \vspace*{\test@rulethickness}}
       {\test@titlefont    \test@title@firstpage}\cr
       \noalign{\vfill}
-      \test@numberfont   \test@thetest %% Test n°...
+      \test@numberfont   \test@thetest %% Test nÂ°...
       {\test@namesfont\strut % make sure you get the correct depth
         \ifx\test@date\empty \else \qquad \hfill (\test@date)\fi
       }%
@@ -444,7 +444,7 @@
             ####\tabskip=0pt\crcr
             {\test@smalltitlefont    \test@title}\cr
             \noalign{\vfill}%
-            \test@namesfont\strut   \test@thetest %% Test n°...
+            \test@namesfont\strut   \test@thetest %% Test nÂ°...
             \ifx\test@date\empty \else  \qquad \hfill
             \test@smallnamesfont (\test@date)\fi
             &\smash{\box 0}\cr
@@ -470,7 +470,7 @@
             ####\tabskip=0pt\crcr
             {\test@smalltitlefont    \test@title}\cr
             \noalign{\vfill}%
-            \test@namesfont\strut   \test@thetest %% Test n°...
+            \test@namesfont\strut   \test@thetest %% Test nÂ°...
             \ifx\test@date\empty \else  \qquad \hfill
             \test@smallnamesfont (\test@date)\fi
             &\smash{\box 0}\cr
@@ -533,7 +533,7 @@
           \noalign{\vspace*{\test@titleskip}\vspace*{\test@rulethickness}}%
           {\test@smalltitlefont    \test@title}\cr
           \noalign{\vfill}%
-          \test@namesfont\strut   \test@thetest %% Test n°...
+          \test@namesfont\strut   \test@thetest %% Test nÂ°...
           \ifx\test@date\empty \else  \qquad \hfill
           \test@smallnamesfont (\test@date)\fi
           \cr
