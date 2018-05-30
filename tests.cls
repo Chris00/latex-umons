@@ -27,12 +27,11 @@
 \ProcessOptions
 \LoadClass{article}
 
-\RequirePackage{a4}
+%\RequirePackage{a4}
 \RequirePackage{graphics}
 \RequirePackage{keyval}
-\addtolength{\textwidth}{2cm}
-\addtolength{\oddsidemargin}{-1cm}
-\addtolength{\textheight}{2cm}
+\RequirePackage{geometry}
+\geometry{left=18mm, right=22mm, top=40mm, bottom=20mm}
 \setlength{\parindent}{0pt}
 
 %\RequirePackage[T1]{fontenc}
@@ -339,13 +338,13 @@
 %% UMONS logo
 %%......................................................................
 \newcommand\tests@FirstPage{{%
-  \vspace*{-15mm}%
+  \vspace*{-19mm}%
   \thispagestyle{firstpage}%
   \setbox0=\hbox{\includegraphics[height=15mm]{UMONS+txt}}%
   \noindent
   \vbox to\ht0{%
     \halign{##\hfil\crcr
-      {\test@titlefont    \test@title}\cr
+      {\test@titlefont    \test@title@firstpage}\cr
       \noalign{\vfill}
       \test@numberfont   \test@thetest %% Test n°...
       \ifx\test@date\empty \else  
@@ -353,7 +352,7 @@
       {\test@namesfont\strut}% make sure you get the correct depth
       \cr
     }}%
-  \hfill
+  \hfill \kern 3mm
   \box 0
   \vspace*{6pt}\hrule height 2\test@rulethickness
   \par\vspace*{\test@beforetext}}}
@@ -363,7 +362,7 @@
 %% Correction of the test
 %%......................................................................
 \newcommand\tests@FirstPage{{%
-  \vspace*{-15mm}%
+  \vspace*{-22mm}%
   \thispagestyle{firstpage}%
   \setbox0=\hbox{{\test@correction \rotatebox{10}{Correction}}}%
   \noindent
@@ -386,7 +385,7 @@
 %% Test (not correction)
 %%......................................................................
 \newcommand\tests@FirstPage{{%
-  \vspace*{-15mm}%
+  \vspace*{-25mm}%
   \thispagestyle{firstpage}%
   \setbox0=\vbox{% Box for `nom',... to fill
     \test@namesfont
@@ -677,9 +676,9 @@
 \def\make@question@withmarkdist#1#2[#3]{%
   \iftest@correction\else
     \noindent
-    \rlap{\smash{\hspace*{#3}\hspace*{2.em}%
+    \rlap{\smash{\hspace*{#3}\hspace*{7mm}%
         %$\left/ \vrule height 3ex width0pt\right.$}
-        \raisebox{-1.5ex}{%
+        \raisebox{-2ex}{%
           \raisebox{-0.5ex}{%
             \rotatebox{60}{\vrule height 1pt depth 0pt width 6ex}}%
           \kern-1.ex\hbox{\large\textsf{#2}}}}}%
