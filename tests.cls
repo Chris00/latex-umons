@@ -737,12 +737,12 @@
   \advance\@itemdepth\@ne  
   \edef\@itemitem{labelitem\romannumeral\the\@itemdepth}%
   \expandafter\list \csname\@itemitem\endcsname {%
-    \setlength{\topsep}{0.1ex}%
+    \setlength{\topsep}{0.5ex}%
     \setlength{\itemindent}{0pt}%
     \setlength{\labelwidth}{\itemindent}%
     \setlength{\labelsep}{1ex}%
     \setlength{\itemsep}{0.1ex}%
-    \setlength{\leftmargin}{2.3ex}%
+    \setlength{\leftmargin}{1.8em}%
     \def\makelabel##1{\hss \llap{##1}}}%
   \fi
 }{%
