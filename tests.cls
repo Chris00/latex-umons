@@ -164,6 +164,10 @@
   \gdef\test@date@change{#2}}
 \newcommand\testdate@std[1]{\testdate@pdf[{#1}]{#1}}
 
+% Only for the PDF (use \@author as in "article")
+\def\@author{Christophe.Troestler@umons.ac.be}
+\newcommand{\testauthor}[1]{\gdef\@author{#1}}
+
 \newcommand{\nom@name}{Nom~:}
 \newcommand{\prenom@name}{Pr\'enom~:}
 \newcommand\nom@hook{}
@@ -950,7 +954,7 @@
     \definecolor{test@red}{rgb}{0.67,0.03,0.06}%
     \hypersetup{%
       %% Changes (to \test@thetestpdf,...) must have been applied.
-      pdfauthor={Christophe.Troestler@umons.ac.be},
+      pdfauthor={\@author},
       pdfkeywords={Mathematical tests},
       pdfsubject={\test@title},
       pdfpagemode=UseNone,
