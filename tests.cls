@@ -285,7 +285,7 @@
   \test@defexpand\prenom@hook{\prenom@hook@change}%
   \test@defexpand\section@hook{\section@hook@change}%
   \test@defexpand\test@title@firstpage{\test@title@firstpage@change}%
-  \test@defexpand\test@title{\test@title@change}%
+  \test@defexpand\@title{\test@title@change}%
   \test@defexpand\test@thetest{\test@thetest@change}%
   \test@defexpand\test@thetestpdf{\test@thetestpdf@change}%
   \setcounter{test@offset@page}{\test@offset@page@change}%
@@ -445,7 +445,7 @@
         \vbox to\ht0{%
           \halign to\textwidth{####\hfil \tabskip=0pt plus 1000pt&
             ####\tabskip=0pt\crcr
-            {\test@smalltitlefont    \test@title}\cr
+            {\test@smalltitlefont    \@title}\cr
             \noalign{\vfill}%
             \test@namesfont\strut   \test@thetest %% Test n°...
             \ifx\test@date\empty \else  \qquad \hfill
@@ -471,7 +471,7 @@
         \vbox to\ht0{%
           \halign to\textwidth{####\hfil \tabskip=0pt plus 1000pt&
             ####\tabskip=0pt\crcr
-            {\test@smalltitlefont    \test@title}\cr
+            {\test@smalltitlefont    \@title}\cr
             \noalign{\vfill}%
             \test@namesfont\strut   \test@thetest %% Test n°...
             \ifx\test@date\empty \else  \qquad \hfill
@@ -514,7 +514,7 @@
 %         \halign{####\hfil\crcr
 %           \noalign{\vspace*{\test@titleskip}\vspace*{\test@rulethickness}}%
 %           \test@titlefont  \test@smalltitlefont    
-%           \test@title\cr
+%           \@title\cr
 %           \noalign{\vfill}%
 %           \test@numberfont \test@namesfont\strut
 %           Test n$^\circ$\thinspace\test@number
@@ -534,7 +534,7 @@
       \vtop{\hsize=\@tempdima  \addtolength{\baselineskip}{20pt}%
         \halign{####\hfil\crcr
           \noalign{\vspace*{\test@titleskip}\vspace*{\test@rulethickness}}%
-          {\test@smalltitlefont    \test@title}\cr
+          {\test@smalltitlefont    \@title}\cr
           \noalign{\vfill}%
           \test@namesfont\strut   \test@thetest %% Test n°...
           \ifx\test@date\empty \else  \qquad \hfill
@@ -956,7 +956,7 @@
       %% Changes (to \test@thetestpdf,...) must have been applied.
       pdfauthor={\@author},
       pdfkeywords={Mathematical tests},
-      pdfsubject={\test@title},
+      pdfsubject={\@title},
       pdfpagemode=UseNone,
       pdfstartview=FitH,
       colorlinks=true,
@@ -966,7 +966,7 @@
     }%
     \ifx \test@datepdf\empty
     \hypersetup{%
-      pdftitle={\test@thetestpdf\space (\test@title)}}%
+      pdftitle={\test@thetestpdf\space (\@title)}}%
     \else
     \hypersetup{%
       pdftitle={\test@thetestpdf\space (\test@datepdf)}}%
