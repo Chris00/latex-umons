@@ -191,7 +191,7 @@
 \newcommand\ps@firstpage{%
   \renewcommand\@mkboth[2]{}%
   \renewcommand\@oddhead{%
-    \smash{\raisebox{12mm}{\hspace{-12mm}% visual
+    \smash{\raisebox{10mm}{\hspace{-6mm}% visual
         \includegraphics[width=0.25\linewidth]{UMONS}}}%
   }%
   \renewcommand\@oddfoot{\reset@font \hfil \thepage/\thetotalpage}%
