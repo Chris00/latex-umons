@@ -424,8 +424,6 @@
 \newcommand\order{\mathop{\operator@font o}\nolimits}% small o of ...
 \newcommand\Order{\mathop{\operator@font O}\nolimits}% big O of ...
 
-\let\phi=\varphi                             % I prefer \varphi
-\let\epsilon=\varepsilon                     % and \varepsilon
 \AtBeginDocument{%
   \ifx\upharpoonright\@undefined
     \newcommand\restrict{\mathclose|}% restriction, usage:
