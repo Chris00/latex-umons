@@ -924,8 +924,8 @@
       \setlength{\itemindent}{\labelwidth}
       \addtolength{\itemindent}{\labelsep}
       \addtolength{\itemindent}{-\leftmargin}
-      \setlength{\topsep}{10.0pt plus 4.0pt minus 6.0pt}
-      \setlength{\itemsep}{5.0pt plus 2.5pt minus 1.0pt}
+      \setlength{\topsep}{0.8ex plus 0.5ex minus 0.5ex}
+      \setlength{\itemsep}{0.6ex plus 0.2ex minus 0.2ex}
       \def\makelabel##1{\hss \llap{##1}}%
     }%
     \fi
@@ -934,6 +934,14 @@
   \egroup
 }
 
+
+\newenvironment{choices}[1][]{%
+  \bgroup
+  \def\tests@TF@label{#1\tests@TF@drawbox@large}%
+  \begin{tests@TF@gen}
+  }{%
+  \end{tests@TF@gen}
+  \egroup}
 
 
 
