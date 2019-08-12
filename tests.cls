@@ -108,6 +108,18 @@
 \fi % end of \ifx\@ptsize\undefined
 }
 
+\@ifundefined{DeclareUnicodeCharacter}{}{%
+  \newcommand{\test@IN}{{\mathbb{N}}}
+  \DeclareUnicodeCharacter{2125}{\test@IN}% ℕ
+  \newcommand{\test@IZ}{{\mathbb{Z}}}
+  \DeclareUnicodeCharacter{2124}{\test@IZ}% ℤ
+  \newcommand{\test@IQ}{{\mathbb{Q}}}
+  \DeclareUnicodeCharacter{211A}{\test@IQ}% ℚ
+  \newcommand{\test@IR}{{\mathbb{R}}}
+  \DeclareUnicodeCharacter{211D}{\test@IR}% ℝ
+  \newcommand{\test@IC}{{\mathbb{C}}}
+  \DeclareUnicodeCharacter{2102}{\test@IC}% ℂ
+}
 
 
 %% Special Definitions
