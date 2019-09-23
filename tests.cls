@@ -874,6 +874,12 @@
         \hbox{\vrule width 0pt height 1.8ex depth 0.5ex\hskip 2.2ex}}%
       \hrule}\vrule}}
 
+\newcommand{\tests@TF@drawbox@large@ticked}{%
+  \hbox{\vrule \vtop{\vbox{\hrule
+        \hbox{\vrule width 0pt height 1.8ex depth 0.5ex
+          \hbox to 2.2ex{\hss \teststick \hss}}}%
+      \hrule}\vrule}}
+
 \newcounter{TrueFalse}
 
 \def\tests@TF@number{\hbox to 1.8em{\textsf{(\theTrueFalse)}\hss}}
@@ -894,7 +900,8 @@
   \setkeys{tests@TF}{#1}%
   \tests@TF@item@orig}
 
-% Label "True □ False □", with boxes to tick
+% Label "True □ False □", with boxes to tick.
+% Optional argument "true" and "false" to tick tha appropriate box.
 \newenvironment{TrueFalse}{\bgroup
   \def\tests@TF@label{\tests@TF@number
     \testsTrueLabel\
@@ -907,9 +914,13 @@
   \end{tests@TF@gen}
   \egroup}
 
-% Boxes to tick (no "True"/"False") prefixed by optional argument
+% Boxes to tick (no "True"/"False").
+% Optional argument "true" to tick the box.
 \newenvironment{TrueFalse*}[1][]{\bgroup
-  \def\tests@TF@label{\tests@TF@number #1\tests@TF@drawbox@large}%
+  \def\tests@TF@label{\tests@TF@number
+    \iftests@TF@item@thickT \tests@TF@drawbox@large@ticked
+    \else \tests@TF@drawbox@large\fi}%
+  \let\item\tests@TF@item % locally
   \begin{tests@TF@gen}
   }{%
   \end{tests@TF@gen}
