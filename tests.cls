@@ -33,6 +33,7 @@
 \RequirePackage{geometry}
 \geometry{left=18mm, right=22mm, top=40mm, bottom=20mm}
 \setlength{\parindent}{0pt}
+\RequirePackage{atveryend}
 
 %\RequirePackage[T1]{fontenc}
 %\RequirePackage[francais]{babel}
@@ -261,8 +262,16 @@
   % To be called on the last page of the current test.
   \setcounter{test@tmp}{\value{page}}%
   \addtocounter{test@tmp}{\value{test@offset@page}}%
-  \edef\@currentlabel{\the\c@test@tmp}% # of pages
-  \expandafter\label{test:totalpages-\the\c@test@part}%
+  % Does not work after the document is closed.  Must save label by hand.
+  % \edef\@currentlabel{\the\c@test@tmp}% # of pages
+  % \expandafter\label{test:totalpages-\the\c@test@part}%
+  \ltx@ifpackageloaded{hyperref}{%
+    \immediate\write\@auxout{\string\newlabel{test:totalpages-\the\c@test@part}%
+      {{\the\c@test@tmp}{\thepage}{}{}{}}}%
+  }{%
+    \immediate\write\@auxout{\string\newlabel{test:totalpages-\the\c@test@part}%
+      {{\the\c@test@tmp}{\thepage}}}%
+  }%
   % Change to activate at the beginning of the new test:
   \edef\test@offset@page@change{-\the\c@page}%
 }
@@ -274,9 +283,11 @@
     %\thepage
   }}
 
-\AtEndDocument{%
-  \null % if by mistake a new page was started => label well defined...
-  \test@set@totalpages}
+\AfterLastShipout{%
+  \begingroup
+  \addtocounter{page}{-1}% last page was outputted
+  \test@set@totalpages
+  \endgroup}
 
 %% Same as \def#1{#2} except that #2 is expanded _1_ level.  This is
 %% specifically to "activate" the waiting changes, hold in some
