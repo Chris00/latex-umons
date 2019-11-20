@@ -191,9 +191,14 @@
 \newcommand\ps@firstpage{%
   \renewcommand\@mkboth[2]{}%
   \renewcommand\@oddhead{%
-    \smash{\raisebox{10mm}{\hspace{-6mm}% visual
-        \includegraphics[width=0.25\linewidth]{UMONS}}}%
-  }%
+    \smash{\vtop to \textheight{%
+        %\vspace*{-1in}
+        \vspace*{\voffset}\vspace*{-1in}\vspace*{-\topmargin}%
+        \noindent
+        \hspace*{-\hoffset}\hspace*{-1in}\hspace*{-\oddsidemargin}%
+        \hspace*{5mm}% visual
+        \includegraphics[width=0.25\linewidth]{UMONS}
+        \vss}}}%
   \renewcommand\@oddfoot{\reset@font \hfil \thepage/\thetotalpage}%
   \let\@evenhead\@empty
   \let\@evenfoot\@oddfoot}
