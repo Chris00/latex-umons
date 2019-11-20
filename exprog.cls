@@ -369,5 +369,131 @@
   }
 
 
+%% True/False questions
+%%----------------------------------------------------------------------
+
+\newcommand{\exprogTrueLabel}{Vrai~:}
+\newcommand{\exprogFalseLabel}{Faux~:}
+
+\newcommand{\exprog@TF@drawbox}{%
+  \hbox{\vrule \vtop{\vbox{\hrule
+        \hbox{\vrule width 0pt height 1.7ex depth 0.3ex\hskip 2ex}}%
+      \hrule}\vrule}}
+
+\AtBeginDocument{% Choose the symbol for the tick
+  \ifx\ding\@undefined
+    \ifx\checkmark\@undefined
+    \newcommand{\exprogtick}{$\times$}%
+    \else
+    \newcommand{\exprogtick}{$\checkmark$}%
+    \fi
+  \else
+    \newcommand{\exprogtick}{\ding{51}}%
+  \fi}
+
+\newcommand{\exprog@TF@tickedbox}{%
+  \hbox{\vrule \vtop{\vbox{\hrule
+        \hbox{\vrule width 0pt height 1.7ex depth 0.3ex
+          \hbox to 2ex{\hss \exprogtick \hss}}}%
+      \hrule}\vrule}}
+
+\newcommand{\exprog@TF@drawbox@large}{%
+  \hbox{\vrule \vtop{\vbox{\hrule
+        \hbox{\vrule width 0pt height 1.8ex depth 0.5ex\hskip 2.2ex}}%
+      \hrule}\vrule}}
+
+\newcommand{\exprog@TF@drawbox@large@ticked}{%
+  \hbox{\vrule \vtop{\vbox{\hrule
+        \hbox{\vrule width 0pt height 1.8ex depth 0.5ex
+          \hbox to 2.2ex{\hss \exprogtick \hss}}}%
+      \hrule}\vrule}}
+
+\newcounter{TrueFalse}
+
+\def\exprog@TF@number{\hbox to 1.8em{\textsf{(\theTrueFalse)}\hss}}
+
+% For corrections: allow to put a tick
+
+\let\exprog@TF@item@orig=\item
+\newif\ifexprog@TF@item@thickT
+\newif\ifexprog@TF@item@thickF
+
+\define@key{exprog@TF}{true}[true]{\csname exprog@TF@item@thickT#1\endcsname}
+\define@key{exprog@TF}{false}[true]{\csname exprog@TF@item@thickF#1\endcsname}
+
+\newcommand{\exprog@TF@item}[1][]{%
+  % Optional arguments "true" and "false" to tick the box.
+  \exprog@TF@item@thickTfalse
+  \exprog@TF@item@thickFfalse
+  \setkeys{exprog@TF}{#1}%
+  \exprog@TF@item@orig}
+
+% Label "True □ False □", with boxes to tick.
+% Optional argument "true" and "false" to tick tha appropriate box.
+\newenvironment{TrueFalse}{\bgroup
+  \def\exprog@TF@label{\exprog@TF@number
+    \exprogTrueLabel\
+    \ifexprog@TF@item@thickT \exprog@TF@tickedbox
+    \else \exprog@TF@drawbox\fi\quad
+    \exprogFalseLabel\
+    \ifexprog@TF@item@thickF \exprog@TF@tickedbox \else \exprog@TF@drawbox\fi}%
+  \let\item\exprog@TF@item % locally
+  \begin{exprog@TF@gen}
+  }{%
+  \end{exprog@TF@gen}
+  \egroup}
+
+% Boxes to tick (no "True"/"False").
+% Optional argument "true" to tick the box.
+\newenvironment{TrueFalse*}[1][]{\bgroup
+  \def\exprog@TF@label{\exprog@TF@number
+    \ifexprog@TF@item@thickT \exprog@TF@drawbox@large@ticked
+    \else \exprog@TF@drawbox@large\fi}%
+  \let\item\exprog@TF@item % locally
+  \begin{exprog@TF@gen}
+  }{%
+  \end{exprog@TF@gen}
+  \egroup}
+
+\newenvironment{exprog@TF@gen}{%
+  \bgroup
+  \ifnum \@enumdepth >\thr@@ \@toodeep  \else
+    \advance \@enumdepth \@ne
+    \setcounter{TrueFalse}{0}%
+    \ifnum \@enumdepth > \@ne
+      \def\theTrueFalse{\@roman \c@TrueFalse}%
+    \else \def\theTrueFalse{\@alph \c@TrueFalse}\fi
+    \expandafter\list{%
+      \addtocounter{TrueFalse}{1}%
+      \gdef\@currentlabel{\theTrueFalse}%
+      \exprog@TF@label
+    }{%
+      \settowidth{\labelwidth}{\exprog@TF@label}
+      \addtolength{\labelwidth}{6pt}
+      \settowidth{\leftmargin}{\exprog@TF@number}
+      \addtolength{\leftmargin}{6pt}% same as for \labelwidth
+      \setlength{\labelsep}{1em}
+      \setlength{\itemindent}{\labelwidth}
+      \addtolength{\itemindent}{\labelsep}
+      \addtolength{\itemindent}{-\leftmargin}
+      \setlength{\topsep}{0.8ex plus 0.5ex minus 0.5ex}
+      \setlength{\itemsep}{0.6ex plus 0.2ex minus 0.2ex}
+      \def\makelabel##1{\hss \llap{##1}}%
+    }%
+    \fi
+}{%
+  \global\advance\@listdepth\m@ne \endtrivlist
+  \egroup
+}
+
+
+\newenvironment{choices}[1][]{%
+  \bgroup
+  \def\exprog@TF@label{#1\exprog@TF@drawbox@large}%
+  \begin{exprog@TF@gen}
+  }{%
+  \end{exprog@TF@gen}
+  \egroup}
+
 
 \endinput
