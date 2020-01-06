@@ -33,6 +33,7 @@
 \RequirePackage{geometry}
 \geometry{left=18mm, right=22mm, top=40mm, bottom=20mm}
 \setlength{\parindent}{0pt}
+\RequirePackage{ltxcmds}
 \RequirePackage{atveryend}
 
 %\RequirePackage[T1]{fontenc}
