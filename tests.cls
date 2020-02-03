@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[1998/12/01]
 \ProvidesClass{tests}[2000/01/04 v0.1 ^^J
   \space
-  Presentation des tests de Mathematique elementaire.]
+  Format pour des tests et examens.]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -35,10 +35,21 @@
 \setlength{\parindent}{0pt}
 \RequirePackage{ltxcmds}
 \RequirePackage{atveryend}
+\RequirePackage{xspace,translator}
 
-%\RequirePackage[T1]{fontenc}
-%\RequirePackage[francais]{babel}
-%\RequirePackage{times}
+\providetranslation[to=english]{Test no}{Test \#}
+
+\providetranslation[to=french]{Name}{Nom}
+\providetranslation[to=french]{Firstname}{Pr\'enom}
+\providetranslation[to=french]{Test}{Test}
+\providetranslation[to=french]{Exam}{Examen}
+\providetranslation[to=french]{Rated exercise}{Coté}
+\providetranslation[to=french]{Test no}{Test n$^\circ$}
+% \providetranslation[to=french]{Section}{Section}
+\providetranslation[to=french]{True}{Vrai}
+\providetranslation[to=french]{False}{Faux}
+% \providetranslation[to=french]{Question}{Question}
+\providetranslation[to=french]{sequel}{suite}
 
 \iftest@want@rulers
 \RequirePackage{color}
@@ -182,8 +193,8 @@
 \def\@author{Christophe.Troestler@umons.ac.be}
 \newcommand{\testauthor}[1]{\gdef\@author{#1}}
 
-\newcommand{\nom@name}{Nom~:}
-\newcommand{\prenom@name}{Pr\'enom~:}
+\newcommand{\nom@name}{\translate{Name}\xspace :}
+\newcommand{\prenom@name}{\translate{Firstname}\xspace :}
 \newcommand\nom@hook{}
 \newcommand\prenom@hook{}
 \newcommand{\testnomname}[1]{\gdef\nom@hook@change{#1}}% deprecated
@@ -230,8 +241,8 @@
   \else \gdef\test@title@change{#1}\fi}
 
 %% `Test' title is not always right, we also want to typeset exams...
-\newcommand\test@thetest@change{Test n$^\circ$\thinspace\test@number}
-\newcommand\test@thetestpdf@change{Test \test@number}
+\newcommand\test@thetest@change{\translate{Test no}\thinspace\test@number}
+\newcommand\test@thetestpdf@change{\translate{Test} \test@number}
 
 \newcommand{\testtype}{%
   \@ifnextchar[{\testtype@pdf}{\testtype@equalpdf}}
@@ -242,8 +253,8 @@
   \gdef\test@thetest@change{#2}%
   \gdef\test@thetestpdf@change{#1}}
 
-\newcommand{\exam}{\testtype{Examen}}
-\newcommand{\cote}{\testtype[Coté]{Cot\'e}}%% !! 'é' latin1 not TeX encoded !!
+\newcommand{\exam}{\testtype{\translate{Exam}}}
+\newcommand{\cote}{\testtype{\translate{Rated exercise}}}
 
 
 % If several ``independent'' tests in a single document:
@@ -427,8 +438,7 @@
       height \test@titleskip&\omit&\cr
       &\prenom@name \prenom@hook &\cr
       height \test@titleskip&\omit&\cr
-      %&Date~: \test@date&\cr
-      &Section~: \section@hook &\cr
+      &\translate{Section}\xspace : \section@hook &\cr
       height .5\test@titleskip&\omit&\cr
       \noalign{\hrule  height \test@rulethickness depth 0pt}}}%
   %
@@ -528,7 +538,7 @@
         height \test@titleskip&\omit&\cr
         &\prenom@name \prenom@hook &\cr
         height \test@titleskip&\omit&\cr
-        &Section~: \section@hook &\cr
+        &\translate{Section}\xspace : \section@hook &\cr
         height .5\test@titleskip&\omit&\cr
         \noalign{\hrule height \test@rulethickness depth 0pt}}}%
     %%
@@ -676,9 +686,10 @@
   \stepcounter{test@question}%
   \edef\question@comment{#1}%
   \make@question{%
-    \ifx \question@comment \empty Question~\arabic{test@question}.
+    \ifx \question@comment \empty \translate{Question}~\arabic{test@question}.
     \else
-    \make@question{Question~\arabic{test@question} \ignorespaces #1.}%
+    \make@question{\translate{Question}~\arabic{test@question}
+      \ignorespaces #1.}%
     \fi
   }%
 }{%
@@ -687,7 +698,8 @@
 }
 
 \newenvironment{question*}{%
-  \make@question{Question~\arabic{test@question} (suite).}%
+  \make@question{\translate{Question}~\arabic{test@question}
+    (\translate{sequel}).}%
 }{%
   \par
   \iftest@correction \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
@@ -856,8 +868,8 @@
 %% True/False questions
 %%----------------------------------------------------------------------
 
-\newcommand{\testsTrueLabel}{Vrai~:}
-\newcommand{\testsFalseLabel}{Faux~:}
+\newcommand{\testsTrueLabel}{\translate{True}\xspace :}
+\newcommand{\testsFalseLabel}{\translate{False}\xspace :}
 
 \newcommand{\tests@TF@drawbox}{%
   \hbox{\vrule \vtop{\vbox{\hrule

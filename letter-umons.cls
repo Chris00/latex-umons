@@ -33,6 +33,7 @@
 \RequirePackage{ifthen}
 \RequirePackage{graphicx,xcolor}
 \RequirePackage{times,mathptmx}
+\RequirePackage{translator,xspace}
 
 \definecolor{umonsgreen}{rgb}{0.56862745,0.78039216,0.63137255}
 \definecolor{umonsdarkgreen}{rgb}{0.4,0.47,0.42}
@@ -92,18 +93,49 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                             Main part
+%                           Translations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\providetranslation[to=french]{Your ref.}{V/r\'ef.}
+\providetranslation[to=french]{Our ref.}{N/r\'ef.}
+\providetranslation[to=french]{Concerns}{Concerne}
+
+\providetranslation[to=german]{Your ref.}{Ihr Zeichen}
+\providetranslation[to=german]{Our ref.}{Zeichen}
+\providetranslation[to=german]{Concerns}{Betrifft}
+
+\providetranslation[to=italian]{Your ref.}{S/ref.}
+\providetranslation[to=italian]{Our ref.}{N/ref.}
+\providetranslation[to=italian]{Concerns}{Concerne}
+
+\providetranslation[to=spanish]{Your ref.}{Us/ref.}
+\providetranslation[to=spanish]{Our ref.}{Ns/ref.}
+\providetranslation[to=spanish]{Concerns}{Concerniente}
+
 
 \AtBeginDocument{\providecommand{\bbl@afterfi}[1]{#1}}
 
-\newcommand\letterumons@iflanguage[3]{% <language> <then> <else>
+\newcommand{\letterumons@iflanguage}[3]{% <language> <then> <else>
   \@ifundefined{l@#1}{%
     %% language not defined, do the <else> part.
     #3\relax
   }{%
     \iflanguage{#1}{#2}{#3}%
   }}
+
+\newcommand{\letterumons@set@date}[2]{%
+  \letterumons@iflanguage{francais}{\gdef\letterumons@date{#1, le~#2}}{%
+    \letterumons@iflanguage{german}{\gdef\letterumons@date{#1, den~#2}}{%
+      \letterumons@iflanguage{italian}{\gdef\letterumons@date{#1, il~#2}}{%
+        \letterumons@iflanguage{spanish}{\gdef\letterumons@date{#1, #2}}{%
+          \letterumons@iflanguage{english}{\gdef\letterumons@date{#2}}{%
+            \gdef\letterumons@date{#1, #2}% (no language specified)
+          }}}}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             Main part
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Paper size
 %%----------------------------------------------------------------------
@@ -168,14 +200,7 @@
 \newcommand{\fax}[1]{\gdef\letterumons@fax{#1}}
 
 
-\def\yourref{\@ifnextchar[{\yourref@}{%select w.r.t. \language
-    \letterumons@iflanguage{english}{\def\next{\yourref@[Your ref.:~]}}{}%
-    \letterumons@iflanguage{francais}{\def\next{\yourref@[V/r\'ef.~:~]}}{}%
-    \letterumons@iflanguage{german}{\def\next{\yourref@[Ihr Zeichen:~]}}{}%
-    \letterumons@iflanguage{italian}{\def\next{\yourref@[S/ref.:~]}}{}%
-    \letterumons@iflanguage{spanish}{\def\next{\yourref@[Us/ref.:~]}}{}%
-    \next
-  }}
+\def\yourref{\@ifnextchar[{\yourref@}{\translate{Your ref.}\xspace :~}}
 \def\yourref@[#1]#2{% \yourref@[<intro>]{<text>}
   \gdef\letterumons@yourref{%
     {\setbox0=\hbox{\textit{#1\/}}%
@@ -185,38 +210,13 @@
       #2\par
     }}}
 
-\def\ourref{\@ifnextchar[{\ourref@}{%select w.r.t. \language
-    \letterumons@iflanguage{english}{\def\next{\ourref@[Our ref.:~]}}{}%
-    \letterumons@iflanguage{francais}{\def\next{\ourref@[N/r\'ef.~:~]}}{}%
-    \letterumons@iflanguage{german}{\def\next{\ourref@[Zeichen:~]}}{}%
-    \letterumons@iflanguage{italian}{\def\next{\ourref@[N/ref.:~]}}{}%
-    \letterumons@iflanguage{spanish}{\def\next{\ourref@[Ns/ref.:~]}}{}%
-    \next
-  }}
+\def\ourref{\@ifnextchar[{\ourref@}{\translate{Our ref.}\xspace :~}}
 \def\ourref@[#1]#2{\gdef\letterumons@ourref{{\textit{#1\/}#2}}}
 
 
-\def\subject{\@ifnextchar[%]
-  {\subject@}{%select w.r.t. \language
-    \letterumons@iflanguage{english}{\def\next{\subject@[Concerns:~]}}{}%
-    \letterumons@iflanguage{francais}{\def\next{\subject@[Concerne~:~]}}{}%
-    \letterumons@iflanguage{german}{\def\next{\subject@[Betrifft:~]}}{}%
-    \letterumons@iflanguage{italian}{\def\next{\subject@[Concerne:~]}}{}%
-    \letterumons@iflanguage{spanish}{%
-      \def\next{\subject@[Concerniente:~]}}{}%
-    \next
-  }}
+\def\subject{\@ifnextchar[{\subject@}{\translate{Concerns}\xspace :}}
 \def\subject@[#1]#2{\gdef\letterumons@subject{{\textbf{#1}#2}}}
 
-
-\newcommand{\letterumons@set@date}[2]{%
-  \letterumons@iflanguage{francais}{\gdef\letterumons@date{#1, le~#2}}{%
-    \letterumons@iflanguage{german}{\gdef\letterumons@date{#1, den~#2}}{%
-      \letterumons@iflanguage{italian}{\gdef\letterumons@date{#1, il~#2}}{%
-        \letterumons@iflanguage{spanish}{\gdef\letterumons@date{#1, #2}}{%
-          \letterumons@iflanguage{english}{\gdef\letterumons@date{#2}}{%
-            \gdef\letterumons@date{#1, #2}% (no language specified)
-          }}}}}}
 
 % \date{<date>} or \date[<country>]{} or \date[]{<date-like>}
 \renewcommand{\date}[2][Mons]{%

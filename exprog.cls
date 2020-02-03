@@ -32,15 +32,22 @@
 \fi
 \setlength{\parindent}{0pt}
 
-%\RequirePackage[T1]{fontenc}
-%\RequirePackage[francais]{babel}
-%\RequirePackage{times}
-
 \RequirePackage{graphicx}
 \RequirePackage{xcolor}
 \definecolor{umons-red}{cmyk}{0., 1., 0.6, 0.2}
 \definecolor{umons-gray}{cmyk}{0, 0, 0, 0.5}
 \definecolor{umons-turquoise}{cmyk}{0.9, 0., 0.2, 0.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                            Translations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{xspace,translator}
+
+% \providetranslation[to=french]{Question}{Question}
+\providetranslation[to=french]{True}{Vrai}
+\providetranslation[to=french]{False}{Faux}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -284,7 +291,7 @@
 \newcommand{\questionstyle}[1]{%
   \textsf{#1}}
 
-\newcommand{\questionname}{Question}
+\newcommand{\questionname}{\translate{Question}}
 
 \newenvironment{question}[1][]{%
   \refstepcounter{exprog@question}%
@@ -377,8 +384,8 @@
 %% True/False questions
 %%----------------------------------------------------------------------
 
-\newcommand{\exprogTrueLabel}{Vrai~:}
-\newcommand{\exprogFalseLabel}{Faux~:}
+\newcommand{\exprogTrueLabel}{\translate{True}\xspace :}
+\newcommand{\exprogFalseLabel}{\translate{False}\xspace :}
 
 \newcommand{\exprog@TF@drawbox}{%
   \hbox{\vrule \vtop{\vbox{\hrule
