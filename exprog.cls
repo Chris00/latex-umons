@@ -195,17 +195,21 @@
     \newcommand{\thetotalpage}{\pageref*{exprog:totalpages}}
   }}
 
-\newcommand\ps@firstpage{%
-  \renewcommand\@mkboth[2]{}%
-  \renewcommand\@oddhead{%
+\newcommand{\exprog@firstpage@set@oddhead}{%
+  \renewcommand{\@oddhead}{%
     \smash{\vtop to \textheight{%
         %\vspace*{-1in}
         \vspace*{\voffset}\vspace*{-1in}\vspace*{-\topmargin}%
         \noindent
         \hspace*{-\hoffset}\hspace*{-1in}\hspace*{-\oddsidemargin}%
         \hspace*{5mm}% visual
-        \includegraphics[width=0.25\linewidth]{UMONS}
-        \vss}}}%
+        \includegraphics[width=0.22\paperwidth]{UMONS}
+        \vss}}}}
+
+\newcommand\ps@firstpage{%
+  \renewcommand\@mkboth[2]{}%
+  \IfFileExists{UMONS.pdf}{\exprog@firstpage@set@oddhead}{%
+    \IfFileExists{UMONS.png}{\exprog@firstpage@set@oddhead}{}}%
   \renewcommand\@oddfoot{\reset@font \hfil \thepage/\thetotalpage}%
   \let\@evenhead\@empty
   \let\@evenfoot\@oddfoot}
