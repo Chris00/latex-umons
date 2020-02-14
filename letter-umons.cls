@@ -200,7 +200,8 @@
 \newcommand{\fax}[1]{\gdef\letterumons@fax{#1}}
 
 
-\def\yourref{\@ifnextchar[{\yourref@}{\translate{Your ref.}\xspace :~}}
+\def\yourref{\@ifnextchar[{\yourref@}{%
+    \yourref@[\translate{Your ref.}\xspace :~]}}
 \def\yourref@[#1]#2{% \yourref@[<intro>]{<text>}
   \gdef\letterumons@yourref{%
     {\setbox0=\hbox{\textit{#1\/}}%
@@ -210,11 +211,13 @@
       #2\par
     }}}
 
-\def\ourref{\@ifnextchar[{\ourref@}{\translate{Our ref.}\xspace :~}}
+\def\ourref{\@ifnextchar[{\ourref@}{%
+    \ourref@[\translate{Our ref.}\xspace :~]}}
 \def\ourref@[#1]#2{\gdef\letterumons@ourref{{\textit{#1\/}#2}}}
 
 
-\def\subject{\@ifnextchar[{\subject@}{\translate{Concerns}\xspace :}}
+\def\subject{\@ifnextchar[{\subject@}{%
+    \subject@[\translate{Concerns}\xspace :~]}}
 \def\subject@[#1]#2{\gdef\letterumons@subject{{\textbf{#1}#2}}}
 
 
