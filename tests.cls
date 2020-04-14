@@ -780,6 +780,78 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
+%%                   N A M E   Q U E S T I O N S
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\namedquestion}[2]{% <name> <number>
+  \@ifundefined{tests@named@#1@#2}{%
+    \PackageError{tests}{%
+      Number #2 of named question `#1' doesn't exist.^^J\space\space%
+      Possible values are 1..\the\value{tests@named@#1}}{%
+    Change the number in \string\namedquestion{#1}{#2}^^J%
+    so that it is in the range 1..\the\value{tests@named@#1}.}}{%
+    \csname tests@named@#1@#2\endcsname}}
+
+% Save the content
+\newenvironment{namequestion}[1]{% <name>
+  \@ifundefined{c@tests@named@#1}{% New named question
+    \newcounter{tests@named@#1}}{}%
+  \stepcounter{tests@named@#1}%
+  \edef\@tempa{\expandafter\the\value{tests@named@#1}}%
+  \edef\tests@dest@name{% name to store the environment content
+    \expandafter\csname tests@named@#1@\@tempa\endcsname}%
+  \global\toks@{}%
+  \tests@get@env@body@start%
+}{%
+  \expandafter\expandafter\expandafter
+    \gdef\expandafter\tests@dest@name\expandafter{\the\toks@}%
+}
+
+% Copied from package "collect":
+
+\def\tests@get@env@body@start{%
+\let\@tempa\tests@get@env@body%
+\futurelet\@tempb\tests@get@env@body@start@%
+}
+\def\tests@get@env@body@start@{%
+\ifx\@tempb\@sptoken%
+\expandafter\tests@get@env@body@start@@%
+\else%
+\expandafter\tests@get@env@body%
+\fi%
+}
+\def\tests@get@env@body@start@@{%
+\afterassignment\tests@get@env@body%
+\let\@tempb= %
+}
+
+\bgroup
+\catcode`\Q=3
+
+\long\gdef\tests@get@env@body#1\end#2{%
+\def\@tempb{#2}%
+\ifx\@tempb\@currenvir%
+\tests@get@env@body@#1Q Q%
+\def\@tempa{\end{#2}}%
+\else
+\toks@\expandafter{\the\toks@#1\end{#2}}%
+\fi
+\@tempa
+}
+
+\long\gdef\tests@get@env@body@#1 Q{%
+  \tests@get@env@body@@#1Q%
+}
+
+\long\gdef\tests@get@env@body@@#1Q#2{%
+  \toks@\expandafter{\the\toks@#1}%
+}
+\egroup
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
 %%                         M I S C.   T O O L S
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
