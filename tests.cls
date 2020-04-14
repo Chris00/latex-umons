@@ -16,8 +16,9 @@
 \newif\iftest@correction \test@correctionfalse
 \DeclareOption{correction}{\test@correctiontrue}
 
-\newif\iftest@umons \test@umonsfalse
-\DeclareOption{umons}{\test@umonstrue}% No name, UMONS logo
+\newif\iftest@logo \test@logofalse
+\DeclareOption{umons}{\test@logotrue}% (deprecated)
+\DeclareOption{logo}{\test@logotrue}% No name, UMONS logo
 
 \newif\iftest@mps \test@mpsfalse
 \DeclareOption{mps}{\test@mpstrue}
@@ -28,7 +29,7 @@
 \LoadClass{article}
 
 %\RequirePackage{a4}
-\RequirePackage{graphics}
+\RequirePackage{graphicx}
 \RequirePackage{keyval}
 \RequirePackage{geometry}
 \geometry{left=18mm, right=22mm, top=40mm, bottom=20mm}
@@ -166,6 +167,10 @@
   \DeclareGraphicsExtensions{.mps,\Gin@extensions}%
 }
 \fi
+
+
+\def\test@logo@file{UMONS+txt}
+\newcommand{\settestlogo}[1]{\def\test@logo@file{#1}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -373,13 +378,13 @@
 \newlength{\test@rulethickness}\setlength{\test@rulethickness}{0.5pt}
 \newcommand\test@beforetext{3ex}
 
-\iftest@umons
+\iftest@logo
 %% UMONS logo
 %%......................................................................
 \newcommand\tests@FirstPage{{%
   \vspace*{-19mm}%
   \thispagestyle{firstpage}%
-  \setbox0=\hbox{\includegraphics[height=15mm]{UMONS+txt}}%
+  \setbox0=\hbox{\includegraphics[height=15mm]{\test@logo@file}}%
   \noindent
   \vbox to\ht0{%
     \halign{##\hfil\crcr
@@ -468,13 +473,13 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\iftest@umons
+\iftest@logo
 %% UMONS logo
 %%......................................................................
 \newcommand\ps@test{%
   \let\@mkboth\@gobbletwo 
   \renewcommand{\@oddhead}{{%
-      \setbox0=\hbox{\includegraphics[height=11mm]{UMONS+txt}}%
+      \setbox0=\hbox{\includegraphics[height=11mm]{\test@logo@file}}%
       \vbox to 0pt{\vss
         \vbox to\ht0{%
           \halign to\textwidth{####\hfil \tabskip=0pt plus 1000pt&
