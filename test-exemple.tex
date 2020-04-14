@@ -1,0 +1,101 @@
+\documentclass[12pt,a4paper, rulers]{tests}
+% Si vous ajoutez l'option "logo", la case pour les noms est remplacée
+% par un logo.  Utilisez \settestlogo{nom du fichier} pour le
+% déclarer.  Le défaut est "UMONS+txt".
+%
+% L'option "correction" indique que c'est une correction et imprime
+% les questions en italique.
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times,mathptmx}
+\usepackage[french]{babel}
+%\usepackage{amssymb}
+%\usepackage{pifont}
+
+\testtitle[Intitulé du cours (autres pages)]{Intitulé du cours (page~1)}
+\testnumber{2}% écrira "Test n°2"
+%\exam % pour les examens
+%\cote % pour tes exercices cotés
+%\testtype{Type de test}
+\testdate{16 août 2019}
+
+% \testauthor{Votre nom} % Pour les métadonnées PDF
+% \testlastname{Nom de l'étudiant} % Pour des tests spécifiques
+% \testfirstname{Prénom (étudiant)}% Pour des tests spécifiques
+% \testsection{Section (étudiant)} % Pour une section spécifique
+
+
+
+\begin{document}
+\begin{abstract}
+  L'environnement \verb+abstract+ vous permet de donner des
+  consignes générales (durée, matériel alloué ou non,...) pour la
+  passation du test.
+\end{abstract}
+
+
+\begin{question}[(Caractérisation de la question)]<4>
+  % [...] permet un « titre » comme pour les théorèmes (optionnel)
+  % <...> Les points sur lesquels la question est cotée (optionnel)
+  Cœur de la question.
+\end{question}
+
+\begin{question*}
+  Continuation de la question précédente, typiquement sur une autre
+  page.
+\end{question*}
+
+
+\begin{question}[(Vrai/Faux)]
+  \begin{TrueFalse}
+  \item Une affirmation sur laquelle on doit se prononcer.
+  \item[true] Ici la réponse «~vraie~» est cochée (utile pour les
+    corrections)
+  \item[false] Ici la réponse «~faux~» est cochée (utile pour les
+    corrections)
+  \end{TrueFalse}
+  Le symbole utilisé pour cocher est différent si le package
+  \verb+amssymb+ ou \verb+pifont+ est installé.  Vous pouvez aussi
+  (re)définir \verb+\checkmark+ (défini par \verb+amssymb+).
+\end{question}
+
+\newpage
+
+\part{Questions de réflexion}
+
+\begin{question}
+  Une autre question (sans points).  On doit choisir la bonne réponse :
+  \begin{TrueFalse*}
+  \item La terre est plate.
+  \item La terre est sphérique.
+  \end{TrueFalse*}
+\end{question}
+
+Ci-dessous, il y a une réponse.  Elle est visible uniquement si
+l'option «~\verb+correction+~» est passée à \verb+\documentclass+.
+\begin{answer}
+  Réponse à la question précédente.  Vous pouvez aussi utiliser
+  \verb+\inlineanswer{...}+ pour une réponse dans la question elle
+  même (par exemple si la question demande de compléter certains
+  éléments de son texte).
+\end{answer}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Vous pouvez changer les options que vous voulez
+\testtitle{Cours \#2}
+\exam
+\testsection{Enseignants}
+\maketitle % Nouveau test
+
+\begin{question}
+  Première question du second test.
+\end{question}
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% ispell-local-dictionary: "fr"
+%%% End:
