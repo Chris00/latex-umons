@@ -35,6 +35,7 @@
 \geometry{left=18mm, right=22mm, top=40mm, bottom=20mm}
 \setlength{\parindent}{0pt}
 \RequirePackage{ltxcmds}
+\RequirePackage{verbatim}% for the "comment" environment
 \RequirePackage{atveryend}
 \RequirePackage{xspace,translator}
 
@@ -56,7 +57,7 @@
 \RequirePackage{color}
 \fi
 \iftest@correction
-\RequirePackage{graphics,color}
+\RequirePackage{color}
 \setlength{\parskip}{3pt plus 5pt minus 1pt}
 \fi
 
@@ -765,6 +766,15 @@
     \ignorespaces
     #1}}
 
+
+\else
+
+\newenvironment{answer}{%
+  \comment
+}{%
+  \endcomment
+}
+\newcommand{\inlineanswer}[1]{}
 \fi
 
 
