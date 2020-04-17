@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper, no-auto-maketitle]{tests}
+% L'option "no-auto-maketitle" assure qu'un test n'est pas
+% automatiquement démarré par \begin{document} mais par un \maketitle
+% explicite.  Ici, ce \maketitle est généré par \generatetestsfromCSV.
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times,mathptmx}
+\usepackage[french]{babel}
+
+% Ce fichier CSV sera en général généré par un programme externe.
+\begin{filecontents*}{tests-exemple2.csv}
+  Nom, Prenom, Section, abstract, Q1
+  Küal, Élise, math, 1, 2
+  Orval, Übèck, informatique, 2, 1
+\end{filecontents*}
+
+\exam
+
+\begin{document}
+\begin{namequestion}{abstract}
+  % L'environnement « namedquestion » peut être utilisé pour capturer
+  % un bloc de texte arbitraire.
+  \begin{abstract}
+    Ceci est le test des mathématiciens.
+  \end{abstract}
+\end{namequestion}
+\begin{namequestion}{abstract}
+  \begin{abstract}
+    Ceci est le test des informaticiens.
+  \end{abstract}
+\end{namequestion}
+
+\begin{namequestion}{Q1}
+  \begin{question}
+    Ceci est la première question (première version).
+  \end{question}
+\end{namequestion}
+\begin{namequestion}{Q1}
+  \begin{question}
+    Ceci est la première question (seconde version).
+  \end{question}
+\end{namequestion}
+
+
+\generatetestsfromCSV{tests-exemple2.csv}{abstract, Q1}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% ispell-local-dictionary: "fr"
+%%% End:

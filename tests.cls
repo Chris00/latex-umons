@@ -23,6 +23,9 @@
 \newif\iftest@mps \test@mpsfalse
 \DeclareOption{mps}{\test@mpstrue}
 
+\newif\iftests@auto@maketitle  \tests@auto@maketitletrue
+\DeclareOption{no-auto-maketitle}{\tests@auto@maketitlefalse}
+
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 
 \ProcessOptions
@@ -333,9 +336,15 @@
   \setcounter{test@offset@page}{\test@offset@page@change}%
 }
 
+\newif\iftests@exists@previous@test
+\tests@exists@previous@testfalse
+
 \AtBeginDocument{%
+  \iftests@auto@maketitle
+  \tests@exists@previous@testtrue
   \test@activate@changes
-  \tests@FirstPage}
+  \tests@FirstPage
+  \fi}
 
 % After \begin{document}, one may want to start another test in the 
 % same file
@@ -347,10 +356,14 @@
   \test@activate@changes
   \tests@FirstPage
 }
+
 \newcommand\maketitle@new{%
+  \iftests@exists@previous@test
   \null
   \test@set@totalpages
   \newpage
+  \fi
+  \tests@exists@previous@testtrue % start new test
   \test@activate@changes
   \setcounter{test@question}{0}%
   \setcounter{equation}{0}%
