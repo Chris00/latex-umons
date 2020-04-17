@@ -940,18 +940,22 @@
   \toks@\expandafter{#1}%
   \edef\tests@@CSV@scanline{\noexpand\tests@CSV@scanline{\the\toks@}}%
   \tests@@CSV@scanline%
+  \xdef\tests@CSV@columncount{\thetests@CSVcol}% = number of cols
 }
 
 % #1 is the header name.  This macro apply \macro to
 % \tests@CSVcol⟨number⟩ (which contains the cell content).  It is
-% supposed to be used after a line has been scanned.  A missing name
-% is the same as an empty cell.
+% supposed to be used after a line has been scanned with
+% \tests@CSV@escanline.  A missing name is the same as an empty cell.
 \def\tests@CSV@apply#1#2{% ⟨\macro⟩ ⟨header name⟩
   \@ifundefined{tests@CSVcolofname@#2}{}{%
-    \edef\tests@CSV@column{\csname tests@CSVcolofname@#2\endcsname}%
-    \expandafter\let\expandafter\tests@CSV@content
-        \csname\tests@CSV@column\endcsname
-    \expandafter#1\expandafter{\tests@CSV@content}%
+    \edef\tests@CSV@numcol{\csname tests@CSVnumcolofname@#2\endcsname}%
+    \ifnum\tests@CSV@numcol >\tests@CSV@columncount \else
+      \edef\tests@CSV@column{\csname tests@CSVcolofname@#2\endcsname}%
+      \expandafter\let\expandafter\tests@CSV@content
+          \csname\tests@CSV@column\endcsname
+      \expandafter#1\expandafter{\tests@CSV@content}%
+    \fi
   }}
 
 \newread\tests@CSV@file
@@ -977,7 +981,6 @@
       File `\tests@CSV@input@filename' starts with an empty line!}{}%
   \fi
   \tests@CSV@escanline{\tests@CSVline}%
-  \xdef\tests@CSV@columncount{\thetests@CSVcol}%
   \global\c@tests@CSVcol 0\relax
   \loop
     \global\advance\c@tests@CSVcol 1\relax
@@ -987,7 +990,11 @@
     \edef\tests@CSV@destname{%
       \csname tests@CSVcolofname@\tests@CSV@header\endcsname}%
     \expandafter\expandafter\expandafter
-    \def\expandafter\tests@CSV@destname\expandafter{\tests@CSV@column}%
+    \gdef\expandafter\tests@CSV@destname\expandafter{\tests@CSV@column}%
+    % Expand \tests@CSVcolofname@⟨header⟩ into ⟨number⟩
+    \edef\tests@CSV@destname{%
+      \csname tests@CSVnumcolofname@\tests@CSV@header\endcsname}%
+    \expandafter\xdef\tests@CSV@destname{\the\c@tests@CSVcol}%
   \ifnum\c@tests@CSVcol<\tests@CSV@columncount\repeat
 }
 
