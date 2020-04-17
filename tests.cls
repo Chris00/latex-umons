@@ -38,6 +38,7 @@
 \RequirePackage{verbatim}% for the "comment" environment
 \RequirePackage{atveryend}
 \RequirePackage{xspace,translator}
+\RequirePackage{ifthen}
 
 \providetranslation[to=english]{Test no}{Test \#}
 
@@ -849,6 +850,162 @@
 }
 \egroup
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%                G E N E R A T E   F R O M   C S V
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This section is heavily inspired from the package "csvsimple".
+
+\bgroup
+\catcode`\Q=3 % Q is "math shift"
+% Remove leading and trailing spaces from the content of macro #1
+\gdef\tests@CSV@TrimSpaces#1{%
+  \begingroup
+  \aftergroup\toks\aftergroup0\aftergroup{%
+    \expandafter\tests@CSV@trimb\expandafter\noexpand#1Q Q}%
+  \global\edef#1{\the\toks0}%
+}
+\gdef\tests@CSV@trimb#1 Q{\tests@CSV@trimc#1Q}
+\gdef\tests@CSV@trimc#1Q#2{% Eat leading spaces
+  \afterassignment\endgroup \vfuzz\the\vfuzz#1}
+\egroup
+
+% Remove braces
+\def\tests@CSV@TrimBraces#1{\expandafter\tests@CSV@TrimBraces@#1\@nil{#1}}
+\def\tests@CSV@TrimBraces@#1\@nil#2{\def#2{#1}}
+
+\newcounter{tests@CSVcol}
+
+% Break the line according to \tests@CSV@breakline (defined later
+% depending on the separator) and put each column in
+% \tests@CSVcol⟨number⟩.
+\def\tests@CSV@breakline@kernel#1{%
+  \ifx\tests@CSV@termination#1\let\nextcol=\relax\else
+    \let\nextcol=\tests@CSV@breakline
+    \global\advance\c@tests@CSVcol 1\relax
+    \def\tests@CSV@col@body{#1}%
+    \tests@CSV@TrimSpaces\tests@CSV@col@body
+    \tests@CSV@TrimBraces\tests@CSV@col@body
+    \toks@\expandafter{\tests@CSV@col@body}%
+    \expandafter
+    \xdef\csname tests@CSVcol\romannumeral\c@tests@CSVcol\endcsname{\the\toks@}%
+  \fi
+  \nextcol
+}
+
+% comma
+\def\tests@CSV@breakline@comma#1,{\tests@CSV@breakline@kernel{#1}}
+
+\def\tests@CSV@scanline@comma#1{%
+  \global\c@tests@CSVcol 0\relax
+  \tests@CSV@breakline#1,\tests@CSV@termination,}
+
+% semicolon
+\def\tests@CSV@breakline@semicolon#1;{\tests@CSV@breakline@kernel{#1}}
+
+\def\tests@CSV@scanline@semicolon#1{%
+  \global\c@tests@CSVcol 0\relax
+  \tests@CSV@breakline#1;\tests@CSV@termination;}
+
+% Key to choose the separator
+\define@key{tests@CSV}{separator}{%
+  \ifthenelse{\equal{#1}{comma}}{%
+    \global\let\tests@CSV@scanline=\tests@CSV@scanline@comma
+    \global\let\tests@CSV@breakline=\tests@CSV@breakline@comma
+  }{%
+    \ifthenelse{\equal{#1}{semicolon}}{%
+      \global\let\tests@CSV@scanline=\tests@CSV@scanline@semicolon
+      \global\let\tests@CSV@breakline=\tests@CSV@breakline@semicolon
+    }{%
+      \PackageError{tests}{Option `separator' only accepts `comma' and %
+        `semicolon' as values.}{}}}}
+
+% Expands a CSV line and scans content
+\def\tests@CSV@escanline#1{%
+  \toks@\expandafter{#1}%
+  \edef\tests@@CSV@scanline{\noexpand\tests@CSV@scanline{\the\toks@}}%
+  \tests@@CSV@scanline%
+}
+
+% #1 is the header name.  This macro apply \macro to
+% \tests@CSVcol⟨number⟩ (which contains the cell content).  It is
+% supposed to be used after a line has been scanned.  A missing name
+% is the same as an empty cell.
+\def\tests@CSV@apply#1#2{% ⟨\macro⟩ ⟨header name⟩
+  \@ifundefined{tests@CSVcolofname@#2}{}{%
+    \edef\tests@CSV@column{\csname tests@CSVcolofname@#2\endcsname}%
+    \expandafter\let\expandafter\tests@CSV@content
+        \csname\tests@CSV@column\endcsname
+    \expandafter#1\expandafter{\tests@CSV@content}%
+  }}
+
+\newread\tests@CSV@file
+
+\let\tests@CSV@par=\par
+\def\tests@CSV@readline{\global\read\tests@CSV@file to\tests@CSVline}
+
+\def\tests@CSV@processheadline{%
+  \tests@CSV@readline
+  \if\tests@CSV@par\tests@CSVline\relax
+    \PackageError{tests}{%
+      File `\tests@CSV@input@filename' starts with an empty line!}{}%
+  \fi
+  \tests@CSV@escanline{\tests@CSVline}%
+  \xdef\tests@CSV@columncount{\thetests@CSVcol}%
+  \global\c@tests@CSVcol 0\relax
+  \loop
+    \global\advance\c@tests@CSVcol 1\relax
+    % Expand \tests@CSVcolofname@⟨header⟩ into tests@CSVcol⟨number⟩
+    \edef\tests@CSV@column{tests@CSVcol\romannumeral\c@tests@CSVcol}%
+    \edef\tests@CSV@header{\csname\tests@CSV@column\endcsname}%
+    \edef\tests@CSV@destname{%
+      \csname tests@CSVcolofname@\tests@CSV@header\endcsname}%
+    \expandafter\expandafter\expandafter
+    \def\expandafter\tests@CSV@destname\expandafter{\tests@CSV@column}%
+  \ifnum\c@tests@CSVcol<\tests@CSV@columncount\repeat
+}
+
+\def\tests@CSV@loop@questions#1,{%
+  \ifx\relax#1\@empty \else
+  \KV@@sp@def\@tempa{#1}%
+  \def\tests@CSV@question{\namedquestion{\@tempa}}%
+  \tests@CSV@apply\tests@CSV@question{\@tempa}%
+  \expandafter\tests@CSV@loop@questions \fi}
+
+\newcommand{\generatetestsfromCSV}[3][]{% [options] <CSV filename> <questions>
+  \global\let\tests@CSV@scanline=\tests@CSV@scanline@comma
+  \global\let\tests@CSV@breakline=\tests@CSV@breakline@comma
+  \setkeys{tests@CSV}{#1}%
+  % Process the first "header" line
+  \gdef\tests@CSV@input@filename{#2}%
+  \openin\tests@CSV@file=\tests@CSV@input@filename\relax
+  \ifeof\tests@CSV@file
+    \PackageError{tests}{File `\tests@CSV@input@filename' not existent, %
+      not readable, or empty!}{}%
+  \else
+    \tests@CSV@processheadline
+    % Loop over other lines
+    \gdef\tests@CSV@loop{%
+      \ifeof\tests@CSV@file
+        \global\let\test@CSV@next=\relax
+      \else
+        \global\let\test@CSV@next=\tests@CSV@loop
+        \tests@CSV@readline
+        \if\tests@CSV@par\tests@CSVline \else
+          \tests@CSV@escanline{\tests@CSVline}%
+          % Generate a new test from the data
+          \tests@CSV@apply\testlastname{Nom}%
+          \tests@CSV@apply\testfirstname{Prenom}%
+          \maketitle
+          \tests@CSV@loop@questions #3,\relax,%
+        \fi
+      \fi
+      \test@CSV@next}%
+    \tests@CSV@loop
+  \fi
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%

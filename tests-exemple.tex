@@ -112,6 +112,30 @@ l'option «~\verb+correction+~» est passée à \verb+\documentclass+.
 
 \namedquestion{edo}{2}
 
+\begin{namequestion}{droite}
+  \begin{question}
+    Donnez la pente de la droite $x + y = 1$.    
+  \end{question}
+\end{namequestion}
+\begin{namequestion}{droite}
+  \begin{question}
+    Donnez un vecteur directeur de la droite $x + y = 1$.    
+  \end{question}
+\end{namequestion}
+
+% Le fichier CSV qui va générer les tests.  En général, celui-ci est
+% produit par un programme externe.  La première ligne est composée
+% des noms des colonnes avec impérativement au moins "Nom", "Prenom",
+% éventuellement "Section", et les noms des questions (ici "edo") du
+% test.
+\begin{filecontents*}{tests-exemple.csv}
+Nom, Prenom, matricule, edo, droite
+Leblanc, Sophie, 23452, 1, 2
+       , Alexandre, 12345, 2, 1
+\end{filecontents*}
+
+\generatetestsfromCSV{tests-exemple.csv}{edo, droite}
+
 
 \end{document}
 %%% Local Variables:
