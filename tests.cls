@@ -1009,6 +1009,7 @@
           % Generate a new test from the data
           \tests@CSV@apply\testlastname{Nom}%
           \tests@CSV@apply\testfirstname{Prenom}%
+          \tests@CSV@apply\testsection{Section}%
           \maketitle
           \tests@CSV@loop@questions #3,\relax,%
         \fi
