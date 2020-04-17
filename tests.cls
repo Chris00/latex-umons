@@ -801,7 +801,7 @@
 \newcommand{\namedquestion}[2]{% <name> <number>
   \@ifundefined{tests@named@#1@#2}{%
     \PackageError{tests}{%
-      Number #2 of named question `#1' doesn't exist.^^J\space\space%
+      Number `#2' of named question `#1' doesn't exist.^^J\space\space%
       Possible values are 1..\the\value{tests@named@#1}}{%
     Change the number in \string\namedquestion{#1}{#2}^^J%
     so that it is in the range 1..\the\value{tests@named@#1}.}}{%
@@ -993,8 +993,12 @@
 
 \def\tests@CSV@loop@questions#1,{%
   \ifx\relax#1\@empty \else
-  \KV@@sp@def\@tempa{#1}%
-  \def\tests@CSV@question{\namedquestion{\@tempa}}%
+  \KV@@sp@def\@tempa{#1}% Name of the question given in \generatetestsfromCSV
+  \def\tests@CSV@question##1{% ##1 = content of CSV cell
+    % Only display the question if the cell is not empty.
+    \def\@tempb{##1}%
+    \ifx\@tempb\empty \relax \else \namedquestion{\@tempa}{##1}\fi
+  }%
   \tests@CSV@apply\tests@CSV@question{\@tempa}%
   \expandafter\tests@CSV@loop@questions \fi}
 
