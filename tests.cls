@@ -944,7 +944,18 @@
 \newread\tests@CSV@file
 
 \let\tests@CSV@par=\par
-\def\tests@CSV@readline{\global\read\tests@CSV@file to\tests@CSVline}
+\def\tests@CSV@readline{{% In a group
+    \catcode`\$=12%
+    \catcode`\#=12%
+    \catcode`\~=12%
+    \catcode`\%=12%
+    \catcode`\&=12%
+    \catcode`\\=12%
+    \catcode`\_=12%
+    \catcode`\^=12%
+    %\catcode`\{=12%
+    %\catcode`\}=12%
+    \global\read\tests@CSV@file to\tests@CSVline}}
 
 \def\tests@CSV@processheadline{%
   \tests@CSV@readline
