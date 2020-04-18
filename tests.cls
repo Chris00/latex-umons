@@ -10,18 +10,18 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newif\iftest@want@rulers \test@want@rulersfalse
-\DeclareOption{rulers}{\test@want@rulerstrue}
+\newif\iftests@want@rulers \tests@want@rulersfalse
+\DeclareOption{rulers}{\tests@want@rulerstrue}
 
-\newif\iftest@correction \test@correctionfalse
-\DeclareOption{correction}{\test@correctiontrue}
+\newif\iftests@correction \tests@correctionfalse
+\DeclareOption{correction}{\tests@correctiontrue}
 
-\newif\iftest@logo \test@logofalse
-\DeclareOption{umons}{\test@logotrue}% (deprecated)
-\DeclareOption{logo}{\test@logotrue}% No name, UMONS logo
+\newif\iftests@logo \tests@logofalse
+\DeclareOption{umons}{\tests@logotrue}% (deprecated)
+\DeclareOption{logo}{\tests@logotrue}% No name, UMONS logo
 
-\newif\iftest@mps \test@mpsfalse
-\DeclareOption{mps}{\test@mpstrue}
+\newif\iftests@mps \tests@mpsfalse
+\DeclareOption{mps}{\tests@mpstrue}
 
 \newif\iftests@auto@maketitle  \tests@auto@maketitletrue
 \DeclareOption{no-auto-maketitle}{\tests@auto@maketitlefalse}
@@ -57,10 +57,10 @@
 % \providetranslation[to=french]{Question}{Question}
 \providetranslation[to=french]{sequel}{suite}
 
-\iftest@want@rulers
+\iftests@want@rulers
 \RequirePackage{color}
 \fi
-\iftest@correction
+\iftests@correction
 \RequirePackage{color}
 \setlength{\parskip}{3pt plus 5pt minus 1pt}
 \fi
@@ -128,35 +128,35 @@
 }
 
 \@ifundefined{DeclareUnicodeCharacter}{}{%
-  \newcommand{\test@IN}{{\mathbb{N}}}
-  \DeclareUnicodeCharacter{2125}{\test@IN}% ℕ
-  \newcommand{\test@IZ}{{\mathbb{Z}}}
-  \DeclareUnicodeCharacter{2124}{\test@IZ}% ℤ
-  \newcommand{\test@IQ}{{\mathbb{Q}}}
-  \DeclareUnicodeCharacter{211A}{\test@IQ}% ℚ
-  \newcommand{\test@IR}{{\mathbb{R}}}
-  \DeclareUnicodeCharacter{211D}{\test@IR}% ℝ
-  \newcommand{\test@IC}{{\mathbb{C}}}
-  \DeclareUnicodeCharacter{2102}{\test@IC}% ℂ
+  \newcommand{\tests@IN}{{\mathbb{N}}}
+  \DeclareUnicodeCharacter{2125}{\tests@IN}% ℕ
+  \newcommand{\tests@IZ}{{\mathbb{Z}}}
+  \DeclareUnicodeCharacter{2124}{\tests@IZ}% ℤ
+  \newcommand{\tests@IQ}{{\mathbb{Q}}}
+  \DeclareUnicodeCharacter{211A}{\tests@IQ}% ℚ
+  \newcommand{\tests@IR}{{\mathbb{R}}}
+  \DeclareUnicodeCharacter{211D}{\tests@IR}% ℝ
+  \newcommand{\tests@IC}{{\mathbb{C}}}
+  \DeclareUnicodeCharacter{2102}{\tests@IC}% ℂ
 }
 
 
 %% Special Definitions
 %%----------------------------------------------------------------------
-\newcommand{\test@sf}{\fontfamily{phv}\fontseries{m}\fontshape{n}}
-\newcommand\test@titlefont{\test@sf      \fontsize{23}{25}\selectfont
+\newcommand{\tests@sf}{\fontfamily{phv}\fontseries{m}\fontshape{n}}
+\newcommand\tests@titlefont{\tests@sf      \fontsize{23}{25}\selectfont
   \def\normalsize{\@setfontsize\normalsize\@xiipt{14}}%
 }
-\newcommand\test@numberfont{\test@sf     \fontsize{17.28}{19}\selectfont}
-\newcommand\test@smalltitlefont{\test@sf \fontsize{14}{16}\selectfont
+\newcommand\tests@numberfont{\tests@sf     \fontsize{17.28}{19}\selectfont}
+\newcommand\tests@smalltitlefont{\tests@sf \fontsize{14}{16}\selectfont
   \def\normalsize{\@setfontsize\normalsize\@xivpt{16}}%
 }
-\newcommand\test@namesfont{\test@sf      \fontsize{12}{14}\selectfont}
-\newcommand\test@smallnamesfont{\test@sf \fontsize{9}{14}\selectfont}
+\newcommand\tests@namesfont{\tests@sf      \fontsize{12}{14}\selectfont}
+\newcommand\tests@smallnamesfont{\tests@sf \fontsize{9}{14}\selectfont}
 
-\newcommand\test@correction{\test@sf \color[gray]{0.6}%
+\newcommand\tests@correction{\tests@sf \color[gray]{0.6}%
   \bfseries\fontsize{30}{32}\selectfont}
-\newcommand\test@smallcorrection{\test@sf \color[gray]{0.6}%
+\newcommand\tests@smallcorrection{\tests@sf \color[gray]{0.6}%
   \bfseries\fontsize{20}{20}\selectfont}
 
 
@@ -167,15 +167,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Add .mps as favorite to the graphics extensions:
-\iftest@mps
+\iftests@mps
 \AtBeginDocument{%
   \DeclareGraphicsExtensions{.mps,\Gin@extensions}%
 }
 \fi
 
 
-\def\test@logo@file{UMONS+txt}
-\newcommand{\settestlogo}[1]{\def\test@logo@file{#1}}
+\def\tests@logo@file{UMONS+txt}
+\newcommand{\settestlogo}[1]{\def\tests@logo@file{#1}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -188,15 +188,15 @@
 %% (We hold the changes in some variables, allowing redefining them
 %% and then activating the changes with \maketitle -- that allows
 %% several tests to be grouped in a single file.)
-\newcommand\test@number@change{0}
-\newcommand{\testnumber}[1]{\gdef\test@number@change{#1}}
-\newcommand\test@date@change{\today}
-\newcommand\test@datepdf@change{\test@date}
+\newcommand\tests@number@change{0}
+\newcommand{\testnumber}[1]{\gdef\tests@number@change{#1}}
+\newcommand\tests@date@change{\today}
+\newcommand\tests@datepdf@change{\tests@date}
 \newcommand{\testdate}{\@ifnextchar[%]
   {\testdate@pdf}{\testdate@std}}
 \def\testdate@pdf[#1]#2{%
-  \gdef\test@datepdf@change{#1}%
-  \gdef\test@date@change{#2}}
+  \gdef\tests@datepdf@change{#1}%
+  \gdef\tests@date@change{#2}}
 \newcommand\testdate@std[1]{\testdate@pdf[{#1}]{#1}}
 
 % Only for the PDF (use \@author as in "article")
@@ -212,7 +212,7 @@
 \newcommand{\testlastname}[1]{%
   \def\nom@hook@tmp{#1}%
   \ifx \nom@hook@tmp\empty
-    \iftest@want@rulers \gdef\nom@hook@change{\nom@hook@rulers}%
+    \iftests@want@rulers \gdef\nom@hook@change{\nom@hook@rulers}%
     \else               \gdef\nom@hook@change{}\fi
   \else
     \gdef\nom@hook@change{\ #1}% include initial space
@@ -220,7 +220,7 @@
 \newcommand{\testfirstname}[1]{%
   \def\prenom@hook@tmp{#1}%
   \ifx \prenom@hook@tmp\empty
-    \iftest@want@rulers \gdef\prenom@hook@change{\prenom@hook@rulers}%
+    \iftests@want@rulers \gdef\prenom@hook@change{\prenom@hook@rulers}%
     \else               \gdef\prenom@hook@change{}\fi
   \else
     \gdef\prenom@hook@change{\ #1}%
@@ -233,7 +233,7 @@
 \newcommand{\testsection}[1]{%
   \def\section@hook@tmp{#1}%
   \ifx \section@hook@tmp\empty % default (see later)
-    \iftest@want@rulers \gdef\section@hook@change{\section@hook@rulers}%
+    \iftests@want@rulers \gdef\section@hook@change{\section@hook@rulers}%
     \else               \gdef\section@hook@change{}%
     \fi
   \else % replace
@@ -242,98 +242,98 @@
 \testsection{}
 
 %% If one needs to change ``Mathematique Elementaire'' to something else:
-\newcommand\test@title@change{Math\'ematique \'El\'ementaire}
-\newcommand{\test@title@firstpage@change}{\test@title@change}
+\newcommand\tests@title@change{Math\'ematique \'El\'ementaire}
+\newcommand{\tests@title@firstpage@change}{\tests@title@change}
 \newcommand{\testtitle}[2][]{%
-  \gdef\test@title@firstpage@change{#2}%
+  \gdef\tests@title@firstpage@change{#2}%
   \xdef\@temp{#1}%
-  \ifx \@temp\empty \gdef\test@title@change{#2}%
-  \else \gdef\test@title@change{#1}\fi}
+  \ifx \@temp\empty \gdef\tests@title@change{#2}%
+  \else \gdef\tests@title@change{#1}\fi}
 
 %% `Test' title is not always right, we also want to typeset exams...
-\newcommand\test@thetest@change{\translate{Test no}\thinspace\test@number}
-\newcommand\test@thetestpdf@change{\translate{Test} \test@number}
+\newcommand\tests@thetests@change{\translate{Test no}\thinspace\tests@number}
+\newcommand\tests@thetestpdf@change{\translate{Test} \tests@number}
 
 \newcommand{\testtype}{%
   \@ifnextchar[{\testtype@pdf}{\testtype@equalpdf}}
 \newcommand\testtype@equalpdf[1]{%
-  \gdef\test@thetest@change{#1}%
-  \gdef\test@thetestpdf@change{#1}}
+  \gdef\tests@thetests@change{#1}%
+  \gdef\tests@thetestpdf@change{#1}}
 \def\testtype@pdf[#1]#2{%
-  \gdef\test@thetest@change{#2}%
-  \gdef\test@thetestpdf@change{#1}}
+  \gdef\tests@thetests@change{#2}%
+  \gdef\tests@thetestpdf@change{#1}}
 
 \newcommand{\exam}{\testtype{\translate{Exam}}}
 \newcommand{\cote}{\testtype{\translate{Rated exercise}}}
 
 
 % If several ``independent'' tests in a single document:
-\newcounter{test@part}
-\setcounter{test@part}{0}
-\newcounter{test@offset@page}% to substract to the current page
-\setcounter{test@offset@page}{0}
-\newcounter{test@tmp}
+\newcounter{tests@part}
+\setcounter{tests@part}{0}
+\newcounter{tests@offset@page}% to substract to the current page
+\setcounter{tests@offset@page}{0}
+\newcounter{tests@tmp}
 
 % Hold the page offset until the new test is started:
-\newcommand{\test@offset@page@change}{0}
+\newcommand{\tests@offset@page@change}{0}
 
 \newcommand{\thetotalpage}{%
-  \expandafter\ref{test:totalpages-\the\c@test@part}}
+  \expandafter\ref{test:totalpages-\the\c@tests@part}}
 
-\newcommand{\test@set@totalpages}{%
+\newcommand{\tests@set@totalpages}{%
   % To be called on the last page of the current test.
-  \setcounter{test@tmp}{\value{page}}%
-  \addtocounter{test@tmp}{\value{test@offset@page}}%
+  \setcounter{tests@tmp}{\value{page}}%
+  \addtocounter{tests@tmp}{\value{tests@offset@page}}%
   % Does not work after the document is closed.  Must save label by hand.
-  % \edef\@currentlabel{\the\c@test@tmp}% # of pages
-  % \expandafter\label{test:totalpages-\the\c@test@part}%
+  % \edef\@currentlabel{\the\c@tests@tmp}% # of pages
+  % \expandafter\label{test:totalpages-\the\c@tests@part}%
   \ltx@ifpackageloaded{hyperref}{%
-    \immediate\write\@auxout{\string\newlabel{test:totalpages-\the\c@test@part}%
-      {{\the\c@test@tmp}{\thepage}{}{}{}}}%
+    \immediate\write\@auxout{\string\newlabel{test:totalpages-\the\c@tests@part}%
+      {{\the\c@tests@tmp}{\thepage}{}{}{}}}%
   }{%
-    \immediate\write\@auxout{\string\newlabel{test:totalpages-\the\c@test@part}%
-      {{\the\c@test@tmp}{\thepage}}}%
+    \immediate\write\@auxout{\string\newlabel{test:totalpages-\the\c@tests@part}%
+      {{\the\c@tests@tmp}{\thepage}}}%
   }%
   % Change to activate at the beginning of the new test:
-  \edef\test@offset@page@change{-\the\c@page}%
+  \edef\tests@offset@page@change{-\the\c@page}%
 }
 
-\newcommand{\test@thepage}{{%
-    \setcounter{test@tmp}{\value{page}}%
-    \addtocounter{test@tmp}{\value{test@offset@page}}%
-    \arabic{test@tmp}%
+\newcommand{\tests@thepage}{{%
+    \setcounter{tests@tmp}{\value{page}}%
+    \addtocounter{tests@tmp}{\value{tests@offset@page}}%
+    \arabic{tests@tmp}%
     %\thepage
   }}
 
 \AfterLastShipout{%
   \begingroup
   \addtocounter{page}{-1}% last page was outputted
-  \test@set@totalpages
+  \tests@set@totalpages
   \endgroup}
 
 %% Same as \def#1{#2} except that #2 is expanded _1_ level.  This is
 %% specifically to "activate" the waiting changes, hold in some
 %% macros.  (\edef expands too much.)
-\newcommand\test@defexpand[2]{%
+\newcommand\tests@defexpand[2]{%
   \expandafter\gdef\expandafter#1\expandafter{#2}%
 }
 
-\newcommand{\test@activate@changes}{%
-  \addtocounter{test@part}{1}% new test
-  \typeout{-- Test \arabic{test@part} --}%
+\newcommand{\tests@activate@changes}{%
+  \addtocounter{tests@part}{1}% new test
+  \typeout{-- Test \arabic{tests@part} --}%
   %% Activate the changes (expand now):
   %\message{--- Activating the changes. ---}
-  \test@defexpand\test@number{\test@number@change}%
-  \test@defexpand\test@date{\test@date@change}%
-  \test@defexpand\test@datepdf{\test@datepdf@change}%
-  \test@defexpand\nom@hook{\nom@hook@change}%
-  \test@defexpand\prenom@hook{\prenom@hook@change}%
-  \test@defexpand\section@hook{\section@hook@change}%
-  \test@defexpand\test@title@firstpage{\test@title@firstpage@change}%
-  \test@defexpand\@title{\test@title@change}%
-  \test@defexpand\test@thetest{\test@thetest@change}%
-  \test@defexpand\test@thetestpdf{\test@thetestpdf@change}%
-  \setcounter{test@offset@page}{\test@offset@page@change}%
+  \tests@defexpand\tests@number{\tests@number@change}%
+  \tests@defexpand\tests@date{\tests@date@change}%
+  \tests@defexpand\tests@datepdf{\tests@datepdf@change}%
+  \tests@defexpand\nom@hook{\nom@hook@change}%
+  \tests@defexpand\prenom@hook{\prenom@hook@change}%
+  \tests@defexpand\section@hook{\section@hook@change}%
+  \tests@defexpand\tests@title@firstpage{\tests@title@firstpage@change}%
+  \tests@defexpand\@title{\tests@title@change}%
+  \tests@defexpand\tests@thetest{\tests@thetests@change}%
+  \tests@defexpand\tests@thetestpdf{\tests@thetestpdf@change}%
+  \setcounter{tests@offset@page}{\tests@offset@page@change}%
 }
 
 \newif\iftests@exists@previous@test
@@ -342,7 +342,7 @@
 \AtBeginDocument{%
   \iftests@auto@maketitle
   \tests@exists@previous@testtrue
-  \test@activate@changes
+  \tests@activate@changes
   \tests@FirstPage
   \fi}
 
@@ -353,26 +353,26 @@
 \renewcommand\maketitle{\@ifstar{\maketitle@cont}{\maketitle@new}}
 \newcommand\maketitle@cont{
   \newpage
-  \test@activate@changes
+  \tests@activate@changes
   \tests@FirstPage
 }
 
 \newcommand\maketitle@new{%
   \iftests@exists@previous@test
   \null
-  \test@set@totalpages
+  \tests@set@totalpages
   \newpage
   \fi
   \tests@exists@previous@testtrue % start new test
-  \test@activate@changes
-  \setcounter{test@question}{0}%
+  \tests@activate@changes
+  \setcounter{tests@question}{0}%
   \setcounter{equation}{0}%
   \setcounter{footnote}{0}%
   \setcounter{figure}{0}%
   % Do not let \hyper@refstepcounter treat equations specially because
   % that generates name clashes.
   \edef\name@of@eq{no-equation}%
-  \def\theHequation{\arabic{equation}-\arabic{test@part}}%
+  \def\theHequation{\arabic{equation}-\arabic{tests@part}}%
   % Name clashes also happen for pages.  Since I do not know how to
   % avoid it, I set an offset used to display it.
   %\setcounter{page}{1}%
@@ -384,61 +384,61 @@
 \newcommand\ps@firstpage{%
   \renewcommand\@mkboth[2]{}%
   \renewcommand\@oddhead{}%
-  \renewcommand\@oddfoot{\reset@font \hfil \test@thepage/\thetotalpage}%
+  \renewcommand\@oddfoot{\reset@font \hfil \tests@thepage/\thetotalpage}%
   \let\@evenhead\@empty
   \let\@evenfoot\@oddfoot}
 
   
-\newlength{\test@titleskip}    \setlength{\test@titleskip}{6pt}
-\newlength{\test@rulethickness}\setlength{\test@rulethickness}{0.5pt}
-\newcommand\test@beforetext{3ex}
+\newlength{\tests@titleskip}    \setlength{\tests@titleskip}{6pt}
+\newlength{\tests@rulethickness}\setlength{\tests@rulethickness}{0.5pt}
+\newcommand\tests@beforetext{3ex}
 
-\iftest@logo
+\iftests@logo
 %% UMONS logo
 %%......................................................................
 \newcommand\tests@FirstPage{{%
   \vspace*{-19mm}%
   \thispagestyle{firstpage}%
-  \setbox0=\hbox{\includegraphics[height=15mm]{\test@logo@file}}%
+  \setbox0=\hbox{\includegraphics[height=15mm]{\tests@logo@file}}%
   \noindent
   \vbox to\ht0{%
     \halign{##\hfil\crcr
-      {\test@titlefont    \test@title@firstpage}\cr
+      {\tests@titlefont    \tests@title@firstpage}\cr
       \noalign{\vfill}
-      \test@numberfont   \test@thetest %% Test n°...
-      \ifx\test@date\empty \else  
-      \qquad \hfill \test@namesfont (\test@date)\fi
-      {\test@namesfont\strut}% make sure you get the correct depth
+      \tests@numberfont   \tests@thetest %% Test n°...
+      \ifx\tests@date\empty \else  
+      \qquad \hfill \tests@namesfont (\tests@date)\fi
+      {\tests@namesfont\strut}% make sure you get the correct depth
       \cr
     }}%
   \hfill \kern 3mm
   \box 0
-  \vspace*{6pt}\hrule height 2\test@rulethickness
-  \par\vspace*{\test@beforetext}}}
+  \vspace*{6pt}\hrule height 2\tests@rulethickness
+  \par\vspace*{\tests@beforetext}}}
 
 \else
-\iftest@correction
+\iftests@correction
 %% Correction of the test
 %%......................................................................
 \newcommand\tests@FirstPage{{%
   \vspace*{-22mm}%
   \thispagestyle{firstpage}%
-  \setbox0=\hbox{{\test@correction \rotatebox{10}{Correction}}}%
+  \setbox0=\hbox{{\tests@correction \rotatebox{10}{Correction}}}%
   \noindent
   \vbox to\ht0{%
     \halign{##\hfil\crcr
-      {\test@titlefont    \test@title@firstpage}\cr
+      {\tests@titlefont    \tests@title@firstpage}\cr
       \noalign{\vfill}
-      \test@numberfont   \test@thetest %% Test n°...
-      \ifx\test@date\empty \else  
-      \qquad \hfill \test@namesfont (\test@date)\fi
-      {\test@namesfont\strut}% make sure you get the correct depth
+      \tests@numberfont   \tests@thetest %% Test n°...
+      \ifx\tests@date\empty \else  
+      \qquad \hfill \tests@namesfont (\tests@date)\fi
+      {\tests@namesfont\strut}% make sure you get the correct depth
       \cr
     }}%
   \hfill
   \box 0
-  \vspace*{6pt}\hrule height 2\test@rulethickness
-  \par\vspace*{\test@beforetext}}}
+  \vspace*{6pt}\hrule height 2\tests@rulethickness
+  \par\vspace*{\tests@beforetext}}}
 
 \else
 %% Test (not correction)
@@ -447,37 +447,37 @@
   \vspace*{-25mm}%
   \thispagestyle{firstpage}%
   \setbox0=\vbox{% Box for `nom',... to fill
-    \test@namesfont
+    \tests@namesfont
     \offinterlineskip
-    \halign to 55mm{\vrule width \test@rulethickness ##&
+    \halign to 55mm{\vrule width \tests@rulethickness ##&
         \strut \ ##\hfil\tabskip 0pt plus 1000pt& 
-        \vrule width \test@rulethickness ##\tabskip 0pt\crcr
-      \noalign{\hrule height \test@rulethickness depth 0pt}
-      height \test@titleskip&\omit&\cr %% extra vspace
+        \vrule width \tests@rulethickness ##\tabskip 0pt\crcr
+      \noalign{\hrule height \tests@rulethickness depth 0pt}
+      height \tests@titleskip&\omit&\cr %% extra vspace
       &\nom@name \nom@hook &\cr
-      height \test@titleskip&\omit&\cr
+      height \tests@titleskip&\omit&\cr
       &\prenom@name \prenom@hook &\cr
-      height \test@titleskip&\omit&\cr
+      height \tests@titleskip&\omit&\cr
       &\translate{Section}\xspace : \section@hook &\cr
-      height .5\test@titleskip&\omit&\cr
-      \noalign{\hrule  height \test@rulethickness depth 0pt}}}%
+      height .5\tests@titleskip&\omit&\cr
+      \noalign{\hrule  height \tests@rulethickness depth 0pt}}}%
   %
   \noindent
   \vbox to \ht0{%
     \halign{##\hfil\crcr
-      \noalign{\vskip\test@titleskip \vspace*{\test@rulethickness}}
-      {\test@titlefont    \test@title@firstpage}\cr
+      \noalign{\vskip\tests@titleskip \vspace*{\tests@rulethickness}}
+      {\tests@titlefont    \tests@title@firstpage}\cr
       \noalign{\vfill}
-      \test@numberfont   \test@thetest %% Test n°...
-      {\test@namesfont\strut % make sure you get the correct depth
-        \ifx\test@date\empty \else \qquad \hfill (\test@date)\fi
+      \tests@numberfont   \tests@thetest %% Test n°...
+      {\tests@namesfont\strut % make sure you get the correct depth
+        \ifx\tests@date\empty \else \qquad \hfill (\tests@date)\fi
       }%
       \cr
-      \noalign{\vskip.5\test@titleskip \vspace*{\test@rulethickness}}}}
+      \noalign{\vskip.5\tests@titleskip \vspace*{\tests@rulethickness}}}}
   \hfill 
   \box0
-  \vspace*{6pt}\hrule height 2\test@rulethickness
-  \par\vspace*{\test@beforetext}}}
+  \vspace*{6pt}\hrule height 2\tests@rulethickness
+  \par\vspace*{\tests@beforetext}}}
 
 \fi
 \fi
@@ -488,54 +488,54 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\iftest@logo
+\iftests@logo
 %% UMONS logo
 %%......................................................................
 \newcommand\ps@test{%
   \let\@mkboth\@gobbletwo 
   \renewcommand{\@oddhead}{{%
-      \setbox0=\hbox{\includegraphics[height=11mm]{\test@logo@file}}%
+      \setbox0=\hbox{\includegraphics[height=11mm]{\tests@logo@file}}%
       \vbox to 0pt{\vss
         \vbox to\ht0{%
           \halign to\textwidth{####\hfil \tabskip=0pt plus 1000pt&
             ####\tabskip=0pt\crcr
-            {\test@smalltitlefont    \@title}\cr
+            {\tests@smalltitlefont    \@title}\cr
             \noalign{\vfill}%
-            \test@namesfont\strut   \test@thetest %% Test n°...
-            \ifx\test@date\empty \else  \qquad \hfill
-            \test@smallnamesfont (\test@date)\fi
+            \tests@namesfont\strut   \tests@thetest %% Test n°...
+            \ifx\tests@date\empty \else  \qquad \hfill
+            \tests@smallnamesfont (\tests@date)\fi
             &\smash{\box 0}\cr
           }}%
-        \vspace*{.5\test@titleskip}
-        \hrule height 2\test@rulethickness width\hsize
+        \vspace*{.5\tests@titleskip}
+        \hrule height 2\tests@rulethickness width\hsize
       }}}%
-  \renewcommand\@oddfoot{\reset@font \hfil \test@thepage/\thetotalpage}%
+  \renewcommand\@oddfoot{\reset@font \hfil \tests@thepage/\thetotalpage}%
   \let\@evenhead\@empty 
   \let\@evenfoot\@oddfoot}
 
 \else
-\iftest@correction
+\iftests@correction
 %% Correction of the test
 %%......................................................................
 \newcommand\ps@test{%
   \let\@mkboth\@gobbletwo 
   \renewcommand\@oddhead{{%
-      \setbox0=\hbox{{\test@smallcorrection \rotatebox{10}{Correction}}}%
+      \setbox0=\hbox{{\tests@smallcorrection \rotatebox{10}{Correction}}}%
       \vbox to 0pt{\vss
         \vbox to\ht0{%
           \halign to\textwidth{####\hfil \tabskip=0pt plus 1000pt&
             ####\tabskip=0pt\crcr
-            {\test@smalltitlefont    \@title}\cr
+            {\tests@smalltitlefont    \@title}\cr
             \noalign{\vfill}%
-            \test@namesfont\strut   \test@thetest %% Test n°...
-            \ifx\test@date\empty \else  \qquad \hfill
-            \test@smallnamesfont (\test@date)\fi
+            \tests@namesfont\strut   \tests@thetest %% Test n°...
+            \ifx\tests@date\empty \else  \qquad \hfill
+            \tests@smallnamesfont (\tests@date)\fi
             &\smash{\box 0}\cr
           }}%
-        \vspace*{.5\test@titleskip}
-        \hrule height 2\test@rulethickness width\hsize
+        \vspace*{.5\tests@titleskip}
+        \hrule height 2\tests@rulethickness width\hsize
       }}}%
-  \renewcommand\@oddfoot{\reset@font \hfil \test@thepage/\thetotalpage}%
+  \renewcommand\@oddfoot{\reset@font \hfil \tests@thepage/\thetotalpage}%
   \let\@evenhead\@empty 
   \let\@evenfoot\@oddfoot}
 
@@ -546,64 +546,44 @@
   \let\@mkboth\@gobbletwo 
   \renewcommand\@oddhead{{%
     \setbox0=\vbox{%
-      \multiply\test@rulethickness by2
-      \test@namesfont
+      \multiply\tests@rulethickness by2
+      \tests@namesfont
       \offinterlineskip
-      \halign to 55mm{\vrule width \test@rulethickness ####&
+      \halign to 55mm{\vrule width \tests@rulethickness ####&
           \strut \ ####\hfil\tabskip 0pt plus 1000pt& 
-          \vrule width \test@rulethickness ####\tabskip 0pt\crcr
-        \noalign{\hrule height \test@rulethickness depth 0pt}%
-        height \test@titleskip&\omit&\cr %% extra vspace
+          \vrule width \tests@rulethickness ####\tabskip 0pt\crcr
+        \noalign{\hrule height \tests@rulethickness depth 0pt}%
+        height \tests@titleskip&\omit&\cr %% extra vspace
         &\nom@name \nom@hook &\cr
-        height \test@titleskip&\omit&\cr
+        height \tests@titleskip&\omit&\cr
         &\prenom@name \prenom@hook &\cr
-        height \test@titleskip&\omit&\cr
+        height \tests@titleskip&\omit&\cr
         &\translate{Section}\xspace : \section@hook &\cr
-        height .5\test@titleskip&\omit&\cr
-        \noalign{\hrule height \test@rulethickness depth 0pt}}}%
-    %%
-%     \vbox to 0pt{\vss
-%       \noindent
-%       \vbox to \ht0{%
-%         \halign{####\hfil\crcr
-%           \noalign{\vspace*{\test@titleskip}\vspace*{\test@rulethickness}}%
-%           \test@titlefont  \test@smalltitlefont    
-%           \@title\cr
-%           \noalign{\vfill}%
-%           \test@numberfont \test@namesfont\strut
-%           Test n$^\circ$\thinspace\test@number
-%           \ifx\test@date\empty \else  \hfill \test@namesfont (\test@date)\fi
-%           {\test@namesfont\strut}% make sure you get the correct depth
-%           \cr
-%           \noalign{\vspace*{.5\test@titleskip}\vspace*{\test@rulethickness}}%
-%           }%
-%         }%
-%       \hfill 
-    %% Second solution
-    %% ~~~~~~~~~~~~~~~
+        height .5\tests@titleskip&\omit&\cr
+        \noalign{\hrule height \tests@rulethickness depth 0pt}}}%
     \vbox to 0pt{\vss
       \noindent
       \setlength{\@tempdima}{\textwidth}%
       \addtolength{\@tempdima}{-\wd0}%
       \vtop{\hsize=\@tempdima  \addtolength{\baselineskip}{20pt}%
         \halign{####\hfil\crcr
-          \noalign{\vspace*{\test@titleskip}\vspace*{\test@rulethickness}}%
-          {\test@smalltitlefont    \@title}\cr
+          \noalign{\vspace*{\tests@titleskip}\vspace*{\tests@rulethickness}}%
+          {\tests@smalltitlefont    \@title}\cr
           \noalign{\vfill}%
-          \test@namesfont\strut   \test@thetest %% Test n°...
-          \ifx\test@date\empty \else  \qquad \hfill
-          \test@smallnamesfont (\test@date)\fi
+          \tests@namesfont\strut   \tests@thetest %% Test n°...
+          \ifx\tests@date\empty \else  \qquad \hfill
+          \tests@smallnamesfont (\tests@date)\fi
           \cr
-          \noalign{\vspace*{.5\test@titleskip}}
+          \noalign{\vspace*{.5\tests@titleskip}}
           }%
-        \par\hrule height 2\test@rulethickness width\hsize
+        \par\hrule height 2\tests@rulethickness width\hsize
         }%
       \hfill 
       \smash{\vtop{\unvbox0}}\par
       \hrule height 0pt depth 0pt %% This is the \vbox baseline...
       }%
     }}%
-  \renewcommand\@oddfoot{\reset@font \hfil \test@thepage/\thetotalpage}%
+  \renewcommand\@oddfoot{\reset@font \hfil \tests@thepage/\thetotalpage}%
   \let\@evenhead\@empty 
   \let\@evenfoot\@oddfoot}
 
@@ -628,7 +608,7 @@
     \rlap{\vrule width 0.7pt depth 0.7pt height2pt}%
   }}
 
-\iftest@want@rulers
+\iftests@want@rulers
 
 \newcommand\nom@hook@rulers{\bgroup
   \color[gray]{0.5}%
@@ -661,13 +641,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \renewenvironment{abstract}{%
-  \vspace*{-\test@beforetext}\vspace*{6pt}%
+  \vspace*{-\tests@beforetext}\vspace*{6pt}%
   \begin{quote}
     \small
   }{%
   \end{quote}
   \vspace*{2pt}  \hrule height 1pt
-  \vspace*{\test@beforetext}%
+  \vspace*{\tests@beforetext}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -692,8 +672,8 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcounter{test@question}
-\setcounter{test@question}{0}
+\newcounter{tests@question}
+\setcounter{tests@question}{0}
 
 % Save the default \linewidth (useful if the question is inside a
 % minipage with its local \linewidth).
@@ -703,26 +683,26 @@
 %% Optional [comment]
 %% Optional <mark>
 \newenvironment{question}[1][]{%
-  \stepcounter{test@question}%
+  \stepcounter{tests@question}%
   \edef\question@comment{#1}%
   \make@question{%
-    \ifx \question@comment \empty \translate{Question}~\arabic{test@question}.
+    \ifx \question@comment \empty \translate{Question}~\arabic{tests@question}.
     \else
-    \make@question{\translate{Question}~\arabic{test@question}
+    \make@question{\translate{Question}~\arabic{tests@question}
       \ignorespaces #1.}%
     \fi
   }%
 }{%
   \par
-  \iftest@correction \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
+  \iftests@correction \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
 }
 
 \newenvironment{question*}{%
-  \make@question{\translate{Question}~\arabic{test@question}
+  \make@question{\translate{Question}~\arabic{tests@question}
     (\translate{sequel}).}%
 }{%
   \par
-  \iftest@correction \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
+  \iftests@correction \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
 }
 
 \newcommand{\make@question}[1]{%
@@ -734,7 +714,7 @@
 
 %% Display mark for the question
 \def\make@question@withmarkdist#1#2[#3]{%
-  \iftest@correction\else
+  \iftests@correction\else
     \noindent
     \rlap{\smash{\hspace*{#3}\hspace*{7mm}%
         %$\left/ \vrule height 3ex width0pt\right.$}
@@ -747,10 +727,10 @@
 }
 
 \newcommand\make@question@[1]{%
-  \gdef\@currentlabel{\arabic{test@question}}%
-  \iftest@correction \vspace{3ex plus 3ex minus 1ex}\pagebreak[2]\fi
+  \gdef\@currentlabel{\arabic{tests@question}}%
+  \iftests@correction \vspace{3ex plus 3ex minus 1ex}\pagebreak[2]\fi
   \noindent\textsf{#1}\quad
-  \iftest@correction \itshape \else \upshape\fi
+  \iftests@correction \itshape \else \upshape\fi
   \ignorespaces
 }
 
@@ -761,7 +741,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\iftest@correction
+\iftests@correction
 
 \newenvironment{answer}{%
   \par
@@ -1024,9 +1004,9 @@
     % Loop over other lines
     \gdef\tests@CSV@loop{%
       \ifeof\tests@CSV@file
-        \global\let\test@CSV@next=\relax
+        \global\let\tests@CSV@next=\relax
       \else
-        \global\let\test@CSV@next=\tests@CSV@loop
+        \global\let\tests@CSV@next=\tests@CSV@loop
         \tests@CSV@readline
         \if\tests@CSV@par\tests@CSVline \else
           \tests@CSV@escanline{\tests@CSVline}%
@@ -1038,7 +1018,7 @@
           \tests@CSV@loop@questions #3,\relax,%
         \fi
       \fi
-      \test@CSV@next}%
+      \tests@CSV@next}%
     \tests@CSV@loop
   \fi
 }
@@ -1281,30 +1261,30 @@
 \AtBeginDocument{%
   \@ifpackageloaded{hyperref}{%
     \RequirePackage{color}%
-    \definecolor{test@green}{rgb}{0.56862745,0.78039216,0.63137255}% #91c7a1
-    \definecolor{test@darkgreen}{rgb}{0.4,0.47,0.42}% #667a6a
-    \definecolor{test@blue}{rgb}{0.23,0.85,0.98}% #3ad9fc
-    \definecolor{test@darkblue}{rgb}{0.23,0.33,0.95}%
-    \definecolor{test@metalblue}{rgb}{0.21,0.67,0.61}%
-    \definecolor{test@red}{rgb}{0.67,0.03,0.06}%
+    \definecolor{tests@green}{rgb}{0.56862745,0.78039216,0.63137255}% #91c7a1
+    \definecolor{tests@darkgreen}{rgb}{0.4,0.47,0.42}% #667a6a
+    \definecolor{tests@blue}{rgb}{0.23,0.85,0.98}% #3ad9fc
+    \definecolor{tests@darkblue}{rgb}{0.23,0.33,0.95}%
+    \definecolor{tests@metalblue}{rgb}{0.21,0.67,0.61}%
+    \definecolor{tests@red}{rgb}{0.67,0.03,0.06}%
     \hypersetup{%
-      %% Changes (to \test@thetestpdf,...) must have been applied.
+      %% Changes (to \tests@thetestpdf,...) must have been applied.
       pdfauthor={\@author},
       pdfkeywords={Mathematical tests},
       pdfsubject={\@title},
       pdfpagemode=UseNone,
       pdfstartview=FitH,
       colorlinks=true,
-      urlcolor=test@darkgreen,
-      citecolor=test@red,
-      linkcolor=test@darkblue
+      urlcolor=tests@darkgreen,
+      citecolor=tests@red,
+      linkcolor=tests@darkblue
     }%
-    \ifx \test@datepdf\empty
+    \ifx \tests@datepdf\empty
     \hypersetup{%
-      pdftitle={\test@thetestpdf\space (\@title)}}%
+      pdftitle={\tests@thetestpdf\space (\@title)}}%
     \else
     \hypersetup{%
-      pdftitle={\test@thetestpdf\space (\test@datepdf)}}%
+      pdftitle={\tests@thetestpdf\space (\tests@datepdf)}}%
     \fi
   }{}%
 }
