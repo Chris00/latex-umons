@@ -25,6 +25,12 @@
 % \testfirstname{Prénom (étudiant)}% Pour des tests spécifiques
 % \testsection{Section (étudiant)} % Pour une section spécifique
 
+\begin{filecontents*}{tests-exemple.csv}
+Nom, Prenom, matricule, edo, droite
+Leblanc, Sophie, 23452, 1, 2
+       , Alexandre, 12345, 2, 1
+Spécial$, $Virg#i~n{,}i^e%, 12121, 1, 1
+\end{filecontents*}
 
 
 \begin{document}
@@ -136,13 +142,6 @@ par un programme externe.  La première ligne est composée des noms des
 colonnes avec impérativement au moins «~Nom~», «~Prenom~» (sans
 accent), éventuellement «~Section~», et les noms des questions (ici
 «~edo~» et «~droite~») du test.
-
-\begin{filecontents*}{tests-exemple.csv}
-Nom, Prenom, matricule, edo, droite
-Leblanc, Sophie, 23452, 1, 2
-       , Alexandre, 12345, 2, 1
-Spécial$, $Virg#i~n{,}i^e%, 12121, 1, 1
-\end{filecontents*}
 
 \generatetestsfromCSV{tests-exemple.csv}{edo, droite}
 
