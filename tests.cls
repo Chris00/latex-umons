@@ -241,6 +241,14 @@
   \fi}
 \testsection{}
 
+\newif\iftests@section % No “section” for students
+\tests@sectiontrue % default
+\def\tests@section@hook@toggle{}% To activate for the next test
+\newcommand{\testsectiontrue}{%
+  \def\tests@section@hook@toggle{\global\tests@sectiontrue}}
+\newcommand{\testsectionfalse}{%
+  \def\tests@section@hook@toggle{\global\tests@sectionfalse}}
+
 %% If one needs to change ``Mathematique Elementaire'' to something else:
 \newcommand\tests@title@change{Math\'ematique \'El\'ementaire}
 \newcommand{\tests@title@firstpage@change}{\tests@title@change}
@@ -328,6 +336,7 @@
   \tests@defexpand\tests@datepdf{\tests@datepdf@change}%
   \tests@defexpand\nom@hook{\nom@hook@change}%
   \tests@defexpand\prenom@hook{\prenom@hook@change}%
+  \tests@section@hook@toggle
   \tests@defexpand\section@hook{\section@hook@change}%
   \tests@defexpand\tests@title@firstpage{\tests@title@firstpage@change}%
   \tests@defexpand\@title{\tests@title@change}%
@@ -453,13 +462,23 @@
         \strut \ ##\hfil\tabskip 0pt plus 1000pt& 
         \vrule width \tests@rulethickness ##\tabskip 0pt\crcr
       \noalign{\hrule height \tests@rulethickness depth 0pt}
-      height \tests@titleskip&\omit&\cr %% extra vspace
+      \iftests@section
+        height \tests@titleskip&\omit&\cr %% extra vspace
+      \else
+        height 1.5\tests@titleskip&\omit&\cr
+      \fi
       &\nom@name \nom@hook &\cr
-      height \tests@titleskip&\omit&\cr
+      \iftests@section
+        height \tests@titleskip&\omit&\cr
+      \else
+        height 1.5\tests@titleskip&\omit&\cr
+      \fi
       &\prenom@name \prenom@hook &\cr
       height \tests@titleskip&\omit&\cr
-      &\translate{Section}\xspace : \section@hook &\cr
-      height .5\tests@titleskip&\omit&\cr
+      \iftests@section
+        &\translate{Section}\xspace : \section@hook &\cr
+        height .5\tests@titleskip&\omit&\cr
+      \fi
       \noalign{\hrule  height \tests@rulethickness depth 0pt}}}%
   %
   \noindent
@@ -473,7 +492,9 @@
         \ifx\tests@date\empty \else \qquad \hfill (\tests@date)\fi
       }%
       \cr
-      \noalign{\vskip.5\tests@titleskip \vspace*{\tests@rulethickness}}}}
+      \noalign{%
+        \iftests@section \vskip.5\tests@titleskip \fi
+        \vspace*{\tests@rulethickness}}}}
   \hfill 
   \box0
   \vspace*{6pt}\hrule height 2\tests@rulethickness
@@ -553,13 +574,25 @@
           \strut \ ####\hfil\tabskip 0pt plus 1000pt& 
           \vrule width \tests@rulethickness ####\tabskip 0pt\crcr
         \noalign{\hrule height \tests@rulethickness depth 0pt}%
-        height \tests@titleskip&\omit&\cr %% extra vspace
+        \iftests@section
+          height \tests@titleskip&\omit&\cr %% extra vspace
+        \else
+          height 1.3\tests@titleskip&\omit&\cr
+        \fi
         &\nom@name \nom@hook &\cr
-        height \tests@titleskip&\omit&\cr
+        \iftests@section
+          height \tests@titleskip&\omit&\cr
+        \else
+          height 1.5\tests@titleskip&\omit&\cr
+        \fi
         &\prenom@name \prenom@hook &\cr
-        height \tests@titleskip&\omit&\cr
-        &\translate{Section}\xspace : \section@hook &\cr
-        height .5\tests@titleskip&\omit&\cr
+        \iftests@section
+          height \tests@titleskip&\omit&\cr
+          &\translate{Section}\xspace : \section@hook &\cr
+          height 0.5\tests@titleskip&\omit&\cr
+        \else
+          height 0.7\tests@titleskip&\omit&\cr
+        \fi
         \noalign{\hrule height \tests@rulethickness depth 0pt}}}%
     \vbox to 0pt{\vss
       \noindent

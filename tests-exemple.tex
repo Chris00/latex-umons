@@ -20,6 +20,11 @@
 %\testtype{Type de test}
 \testdate{16 août 2019}
 
+% S'il n'y a pas de section pour vos étudiants, vous pouvez utiliser
+% « \testsectionfalse » (avant \begin{document} ou avant \maketitle)
+% pour désactiver cette demande dans la boite « Nom, Prénom, Section »
+% (« \testsectiontrue » permet de rétablir les sections.)
+
 % \testauthor{Votre nom} % Pour les métadonnées PDF
 % \testlastname{Nom de l'étudiant} % Pour des tests spécifiques
 % \testfirstname{Prénom (étudiant)}% Pour des tests spécifiques
@@ -109,7 +114,8 @@ l'option «~\verb+correction+~» est passée à \verb+\documentclass+.
 % Vous pouvez changer les options que vous voulez
 \testtitle{Cours \#2}
 \exam
-\testsection{Enseignants}
+%\testsectionfalse
+\testsection{Enseignants}% Aucun effet si \testsectionfalse est décommenté
 \maketitle % Nouveau test
 
 \begin{question}
@@ -129,7 +135,7 @@ l'option «~\verb+correction+~» est passée à \verb+\documentclass+.
   \end{question}
 \end{namequestion}
 
-\vspace{10ex}
+\newpage
 Le fichier CSV suivant
 \begin{verbatim}
 Nom, Prenom, matricule, edo, droite
