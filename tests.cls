@@ -1303,6 +1303,7 @@
     \definecolor{tests@darkblue}{rgb}{0.23,0.33,0.95}%
     \definecolor{tests@metalblue}{rgb}{0.21,0.67,0.61}%
     \definecolor{tests@red}{rgb}{0.67,0.03,0.06}%
+    \tests@activate@changes % Apply settings from the preamble
     \hypersetup{%
       %% Changes (to \tests@thetestpdf,...) must have been applied.
       pdfauthor={\@author},
