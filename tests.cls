@@ -812,12 +812,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\namedquestion}[2]{% <name> <number>
-  \@ifundefined{tests@named@#1@#2}{%
-    \PackageError{tests}{%
-      Number `#2' of named question `#1' doesn't exist.^^J\space\space%
-      Possible values are 1..\the\value{tests@named@#1}}{%
-    Change the number in \string\namedquestion{#1}{#2}^^J%
-    so that it is in the range 1..\the\value{tests@named@#1}.}}{%
+  \@ifundefined{tests@named@#1@#2} {%
+    \@ifundefined{c@tests@named@#1}{%
+      \PackageError{tests}{Named question `#1' doesn't exist}{}%
+    }{%
+      \PackageError{tests}{%
+        Number `#2' of named question `#1' doesn't exist.^^J\space\space%
+        Possible values are 1..\the\value{tests@named@#1}}{%
+        Change the number in \string\namedquestion{#1}{#2}^^J%
+        so that it is in the range 1..\the\value{tests@named@#1}.}}}{%
     \csname tests@named@#1@#2\endcsname}}
 
 % Save the content
