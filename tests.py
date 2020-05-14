@@ -98,6 +98,7 @@ class Students:
         cmd = ["pdflatex", "-halt-on-error", self.tex.texfile]
         log = tex.name + ".log"
         pdf = tex.pdf_name()
+        ok = True
         try:
             for s in self.list:
                 print("- for", s.name, ": ", end="", flush=True)
@@ -116,17 +117,19 @@ class Students:
                 if ret.returncode == 0:
                     print("OK.")
                     os.replace(pdf, os.path.join(s_dir, pdf))
-                    # Remove possibly leftover log file:
+                    # Remove possibly leftover log file (from a previous run):
                     try:
                         os.remove(os.path.join(s_dir, log))
                     except FileNotFoundError:
                         pass
                 else:
+                    ok = False
                     os.replace(log, os.path.join(s_dir, log))
                     print("unsuccessful. See log file.")
         finally:
             # Restore the original CSV file
             os.replace(backup.name, tex.csvfile)
+        return ok
 
 
 ### Sending emails
@@ -261,7 +264,9 @@ try:
     tex = TeX(texfile)
     students = Students(tex)
     #print(students.list)
-    students.compile_tex()
+    if not students.compile_tex():
+        print("⚠ Please correct the compilation errors.")
+        exit(1)
     if options.send:
         Email(tex).send(students)
 except Error as msg:
