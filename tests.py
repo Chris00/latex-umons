@@ -93,9 +93,11 @@ class Students:
             s.write_csv(os.path.join(s_dir, os.path.basename(s.tex.csvfile)))
             os.chdir(s_dir)
             cmd = ["pdflatex", "-halt-on-error", s.tex.texfile]
-            if subprocess.run(cmd, stdout=subprocess.DEVNULL).returncode == 0:
+            if subprocess.run(cmd, stdout=subprocess.DEVNULL,
+                              stdin=subprocess.DEVNULL).returncode == 0:
                 # run twice to resolve references
-                subprocess.run(cmd, stdout=subprocess.DEVNULL)
+                subprocess.run(cmd, stdout=subprocess.DEVNULL,
+                               stdin=subprocess.DEVNULL)
                 print("OK.")
                 os.remove(s.tex.name + ".aux")
                 os.remove(s.tex.name + ".log")
