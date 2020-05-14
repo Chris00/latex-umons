@@ -146,6 +146,7 @@ class Email:
     prof_email: str = None
     smtp_login: str = None
     smtp_server: str = None
+    smtp_port: int = 587
     smtp_password: str = None
     course: str = None
     message: str = None
@@ -179,6 +180,7 @@ class Email:
             self.prof_email = prof.get("email", self.prof_email)
             self.smtp_login = prof.get("login", self.smtp_login)
             self.smtp_server = prof.get("smtp", self.smtp_server)
+            self.smtp_port = prof.getint("port", self.smtp_port)
             self.smtp_password = prof.get("password", self.smtp_password)
         if "Course" in self.conf:
             course = self.conf["Course"]
@@ -214,9 +216,13 @@ class Email:
                                maintype = maintype,
                                subtype = subtype,
                                filename = os.path.basename(pdf_file))
-        server = smtplib.SMTP(self.smtp_server, 587)
-        server.ehlo()
-        server.starttls()
+        if self.smtp_port == 465:
+            server = smtplib.SMTP_SSL(self.smtp_server)
+            server.ehlo()
+        else:
+            server = smtplib.SMTP(self.smtp_server, self.smtp_port)
+            server.ehlo()
+            server.starttls()
         server.login(self.smtp_login, self.smtp_password)
         server.sendmail(self.prof_email, [s.email], msg.as_string())
         server.quit()
@@ -226,7 +232,7 @@ class Email:
         print("Send", tex.pdf_name(), "to")
         pdf = tex.pdf_name()
         for s in students.list:
-            print("-", s.email_address())
+            print("-", s.email_address(), flush=True)
             self.send1(s, os.path.join(tex.student_dir(s), pdf))
 
 
