@@ -17,6 +17,23 @@ class Error(Exception):
 csv_re = re.compile("\\\\generatetestsfromCSV{([^{}]+)}")
 jobname_re = re.compile("\\\\jobname *")
 
+class Student(NamedTuple):
+    name: str
+    email: str
+    row: dict
+
+    def email_address(self):
+        (user, domain) = self.email.split("@")
+        return Address(self.name, user, domain)
+
+    def write_csv(self, csvfile):
+        """Write the CSV file only for the specified student."""
+        with open(csvfile, "w", newline="") as csvhandle:
+            fieldnames = list(self.row)
+            writer = csv.DictWriter(csvhandle, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerow(self.row)
+
 class TeX:
     name: str # basename without extension (LaTeX \jobname)
     texfile: str # absolute path
@@ -40,34 +57,19 @@ class TeX:
     def pdf_name(self):
         return self.name + ".pdf"
 
-class Student(NamedTuple):
-    name: str
-    email: str
-    row: dict
-    tex: TeX
+    def student_dir(self, s: Student):
+        return os.path.join(self.name + ".d", s.name)
 
-    def dir(self):
-        return os.path.join(self.tex.name + ".d", self.name)
-
-    def email_address(self):
-        (user, domain) = self.email.split("@")
-        return Address(s.name, user, domain)
-
-    def write_csv(self, csvfile):
-        """Write the CSV file only for the specified student."""
-        with open(csvfile, "w", newline="") as csvhandle:
-            fieldnames = list(self.row)
-            writer = csv.DictWriter(csvhandle, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerow(self.row)
 
 class Students:
     list: List[Student]
+    tex: TeX
 
-    def __init__(self, ctx: TeX):
+    def __init__(self, tex: TeX):
         """Find the CSV file in the TeX file and parse it."""
+        self.tex = tex
         self.list = []
-        with open(ctx.csvfile, newline="") as csvhandle:
+        with open(tex.csvfile, newline="") as csvhandle:
             csvreader = csv.DictReader(csvhandle, skipinitialspace=True)
             for row in csvreader:
                 name = row["Nom"] + " " + row["Prenom"]
@@ -77,14 +79,13 @@ class Students:
                     email = row["matricule"] + "@umons.ac.be"
                 else:
                     email = None
-                self.list.append(Student(name, email, row, ctx))
+                self.list.append(Student(name, email, row))
 
     def compile_tex(self):
         """Compile separate PDF files for each student."""
         if len(self.list) == 0:
             print("No student to compile for.")
             return True
-        tex = self.list[0].tex
         print("Compiling", texfile)
         # There may be other local files that the test depend upon
         # (some people put « tests.cls » in the current directory and
@@ -94,13 +95,13 @@ class Students:
             prefix=os.path.basename(tex.csvfile) + ".", dir=".")
         backup.close()
         os.replace(tex.csvfile, backup.name)
-        cmd = ["pdflatex", "-halt-on-error", tex.texfile]
+        cmd = ["pdflatex", "-halt-on-error", self.tex.texfile]
         log = tex.name + ".log"
         pdf = tex.pdf_name()
         try:
             for s in self.list:
                 print("- for", s.name, ": ", end="", flush=True)
-                s_dir = s.dir()
+                s_dir = tex.student_dir(s)
                 try:
                     os.makedirs(s_dir)
                 except FileExistsError:
@@ -146,7 +147,7 @@ class Email:
     course: str = None
     message: str = None
 
-    def __init__(self, ctx: TeX):
+    def __init__(self, tex: TeX):
         """Locate the config file and parse it."""
         # Accumulate the configutation of various files to enable
         # interpolation from the global config to local ones.
@@ -155,7 +156,7 @@ class Email:
         if os.path.isfile(global_conf):
             self.merge(global_conf)
         conffile0 = "tests.ini"
-        conffile1 = ctx.name + ".ini"
+        conffile1 = tex.name + ".ini"
         exists_ini = False
         if os.path.isfile(conffile0):
             self.merge(conffile0) # may contain options for all exams
@@ -181,7 +182,7 @@ class Email:
             self.course = course.get("name", self.course)
             self.message = course.get("message", self.message)
 
-    def send(self, s: Student):
+    def send1(self, s: Student, pdf_file):
         """Send the message to the student `s` attaching his PDF exam file.
 
         This function does not compile the PDF file — it assumes it exists.
@@ -201,8 +202,6 @@ class Email:
             raise Error("The message contains the invalid key {}".format(v)
                         + ", only 'student' is recognized")
         msg.set_content(msg_txt)
-        filename = s.tex.pdf_name()
-        pdf_file = os.path.join(s.dir(), filename)
         ctype, encoding = mimetypes.guess_type(pdf_file)
         if ctype is None or encoding is not None:
             ctype = 'application/octet-stream'
@@ -211,13 +210,21 @@ class Email:
             msg.add_attachment(fp.read(),
                                maintype = maintype,
                                subtype = subtype,
-                               filename=filename)
+                               filename = os.path.basename(pdf_file))
         server = smtplib.SMTP(self.smtp_server, 587)
         server.ehlo()
         server.starttls()
         server.login(self.smtp_login, self.smtp_password)
         server.sendmail(self.prof_email, [s.email], msg.as_string())
         server.quit()
+
+    def send(self, students: Students):
+        tex = students.tex
+        print("Send", tex.pdf_name(), "to")
+        pdf = tex.pdf_name()
+        for s in students.list:
+            print("-", s.email_address())
+            self.send1(s, os.path.join(tex.student_dir(s), pdf))
 
 
 ### Parse command line arguments
@@ -251,15 +258,11 @@ if len(args) > 1:
 texfile=args[0]
 
 try:
-    ctx = TeX(texfile)
-    students = Students(ctx)
+    tex = TeX(texfile)
+    students = Students(tex)
     #print(students.list)
     students.compile_tex()
     if options.send:
-        email = Email(ctx)
-        print("Send", ctx.name, "to")
-        for s in students.list:
-            print("-", s.email_address())
-            email.send(s)
+        Email(tex).send(students)
 except Error as msg:
     print("⚠ Error:", msg)
