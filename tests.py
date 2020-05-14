@@ -4,7 +4,7 @@ from typing import NamedTuple, List
 from configparser import ConfigParser, ExtendedInterpolation
 import csv, re
 import smtplib
-import os, shutil, subprocess, glob
+import os, subprocess, tempfile
 from email.message import EmailMessage
 from email.headerregistry import Address
 import mimetypes # Guess MIME type based on file name extension
@@ -81,29 +81,52 @@ class Students:
 
     def compile_tex(self):
         """Compile separate PDF files for each student."""
-        base_dir = os.getcwd()
+        if len(self.list) == 0:
+            print("No student to compile for.")
+            return True
+        tex = self.list[0].tex
         print("Compiling", texfile)
-        for s in self.list:
-            print("- for", s.name, ": ", end="", flush=True)
-            s_dir = s.dir()
-            try:
-                os.makedirs(s_dir)
-            except FileExistsError:
-                pass
-            s.write_csv(os.path.join(s_dir, os.path.basename(s.tex.csvfile)))
-            os.chdir(s_dir)
-            cmd = ["pdflatex", "-halt-on-error", s.tex.texfile]
-            if subprocess.run(cmd, stdout=subprocess.DEVNULL,
-                              stdin=subprocess.DEVNULL).returncode == 0:
-                # run twice to resolve references
-                subprocess.run(cmd, stdout=subprocess.DEVNULL,
-                               stdin=subprocess.DEVNULL)
-                print("OK.")
-                os.remove(s.tex.name + ".aux")
-                os.remove(s.tex.name + ".log")
-            else:
-                print("unsuccessful. See log file.")
-            os.chdir(base_dir)
+        # There may be other local files that the test depend upon
+        # (some people put « tests.cls » in the current directory and
+        # there may be some included files, e.g., for images), so
+        # compile in place (changing the local CSV file).
+        backup = tempfile.NamedTemporaryFile(
+            prefix=os.path.basename(tex.csvfile) + ".", dir=".")
+        backup.close()
+        os.replace(tex.csvfile, backup.name)
+        cmd = ["pdflatex", "-halt-on-error", tex.texfile]
+        log = tex.name + ".log"
+        pdf = tex.pdf_name()
+        try:
+            for s in self.list:
+                print("- for", s.name, ": ", end="", flush=True)
+                s_dir = s.dir()
+                try:
+                    os.makedirs(s_dir)
+                except FileExistsError:
+                    pass
+                s.write_csv(tex.csvfile) # Overwrite CSV file
+                ret = subprocess.run(cmd, stdout=subprocess.DEVNULL,
+                                     stdin=subprocess.DEVNULL)
+                if ret.returncode == 0:
+                    # run twice to resolve references
+                    ret = subprocess.run(cmd, stdout=subprocess.DEVNULL,
+                                         stdin=subprocess.DEVNULL)
+                if ret.returncode == 0:
+                    print("OK.")
+                    os.replace(pdf, os.path.join(s_dir, pdf))
+                    # Remove possibly leftover log file:
+                    try:
+                        os.remove(os.path.join(s_dir, log))
+                    except FileNotFoundError:
+                        pass
+                else:
+                    os.replace(log, os.path.join(s_dir, log))
+                    print("unsuccessful. See log file.")
+        finally:
+            # Restore the original CSV file
+            os.replace(backup.name, tex.csvfile)
+
 
 ### Sending emails
 
