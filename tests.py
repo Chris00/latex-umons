@@ -148,7 +148,7 @@ class Email:
     smtp_server: str = None
     smtp_port: int = 587
     smtp_password: str = None
-    course: str = None
+    subject: str = None
     message: str = None
 
     def __init__(self, tex: TeX):
@@ -184,7 +184,10 @@ class Email:
             self.smtp_password = prof.get("password", self.smtp_password)
         if "Course" in self.conf:
             course = self.conf["Course"]
-            self.course = course.get("name", self.course)
+            if "subject" in course:
+                self.subject = course["subject"]
+            elif "name" in course:
+                self.subject = course["name"] + " : examen"
             self.message = course.get("message", self.message)
 
     def send1(self, s: Student, pdf_file):
@@ -193,7 +196,7 @@ class Email:
         This function does not compile the PDF file — it assumes it exists.
         """
         msg = EmailMessage()
-        msg["Subject"] = self.course + " : examen"
+        msg["Subject"] = self.subject
         (prof_user, prof_domain) = self.prof_email.split("@")
         msg["From"] = Address(self.prof_name, prof_user, prof_domain)
         msg["To"] = s.email_address()
