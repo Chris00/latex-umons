@@ -190,7 +190,7 @@ class Email:
                 self.subject = course["name"] + " : examen"
             self.message = course.get("message", self.message)
 
-    def send1(self, s: Student, pdf_file):
+    def send1(self, server, s: Student, pdf_file):
         """Send the message to the student `s` attaching his PDF exam file.
 
         This function does not compile the PDF file — it assumes it exists.
@@ -219,6 +219,11 @@ class Email:
                                maintype = maintype,
                                subtype = subtype,
                                filename = os.path.basename(pdf_file))
+        server.sendmail(self.prof_email, [s.email], msg.as_string())
+
+    def send(self, students: Students):
+        tex = students.tex
+        print("Send", tex.pdf_name(), "to")
         if self.smtp_port == 465:
             server = smtplib.SMTP_SSL(self.smtp_server)
             server.ehlo()
@@ -227,16 +232,13 @@ class Email:
             server.ehlo()
             server.starttls()
         server.login(self.smtp_login, self.smtp_password)
-        server.sendmail(self.prof_email, [s.email], msg.as_string())
-        server.quit()
-
-    def send(self, students: Students):
-        tex = students.tex
-        print("Send", tex.pdf_name(), "to")
         pdf = tex.pdf_name()
-        for s in students.list:
-            print("-", s.email_address(), flush=True)
-            self.send1(s, os.path.join(tex.student_dir(s), pdf))
+        try:
+            for s in students.list:
+                print("-", s.email_address(), flush=True)
+                self.send1(server, s, os.path.join(tex.student_dir(s), pdf))
+        finally:
+            server.quit()
 
 
 ### Parse command line arguments
