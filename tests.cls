@@ -974,6 +974,27 @@
     \fi
   }}
 
+% Expand to the content of the column named #1.  This command will
+% be accessible as \CSV in questions used in \generatetestsfromCSV.
+\def\tests@CSV@valueofcol#1{% ⟨header name⟩
+  % Supposed to be used after a line has been scanned with
+  % \tests@CSV@escanline.
+  \@ifundefined{tests@CSVcolofname@#1}{%
+    \PackageError{tests}{No column named `#1' exists in the %
+      file `\tests@CSV@input@filename'.}{}%
+  }{%
+    \edef\tests@CSV@numcol{\csname tests@CSVnumcolofname@#1\endcsname}%
+    \ifnum\tests@CSV@numcol >\tests@CSV@columncount
+      % The author expects to see a value; issue an warning.
+      \ClassWarning{tests}{Column named `#1' is not filled in the %
+        file `\tests@CSV@input@filename'}%
+    \else
+      \edef\tests@CSV@column{\csname tests@CSVcolofname@#1\endcsname}%
+      \expandafter\let\expandafter\tests@CSV@content
+          \csname\tests@CSV@column\endcsname
+      \tests@CSV@content
+    \fi}}
+
 \newread\tests@CSV@file
 
 \let\tests@CSV@par=\par
@@ -983,7 +1004,7 @@
     \catcode`\~=12%
     \catcode`\%=12%
     \catcode`\&=12%
-    \catcode`\\=12%
+    %\catcode`\\=12% allow interpretation of TeX sequences for \CSV
     \catcode`\_=12%
     \catcode`\^=12%
     %\catcode`\{=12%
@@ -1036,6 +1057,8 @@
     \PackageError{tests}{File `\tests@CSV@input@filename' not existent, %
       not readable, or empty!}{}%
   \else
+    \let\tests@CSV@save=\CSV
+    \let\CSV=\tests@CSV@valueofcol
     \tests@CSV@processheadline
     % Loop over other lines
     \gdef\tests@CSV@loop{%
@@ -1056,6 +1079,7 @@
       \fi
       \tests@CSV@next}%
     \tests@CSV@loop
+    \let\CSV=\tests@CSV@save % restore possibly old def
   \fi
 }
 

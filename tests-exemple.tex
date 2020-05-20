@@ -32,12 +32,13 @@
 % \testsection{Section (étudiant)} % Pour une section spécifique
 
 \begin{filecontents*}{tests-exemple.csv}
-Nom, Prenom, matricule, edo, droite
+Nom, Prenom, matricule, edo, droite, c
 Leblanc, Sophie, 23452, 1, 2
-       , Alexandre, 12345, 2, 1
-Spécial$, $Virg#i~n{,}i^e%, 12121, 1, 1
+       , Alexandre, 12345, 2, 1, 42
+Spécial$, $Virg#i~n{,}i^e%, 12121, 1, 1, \pi
 \end{filecontents*}
 
+\setlength{\parskip}{1ex}
 
 \begin{document}
 \begin{abstract}
@@ -127,7 +128,7 @@ l'option «~\verb+correction+~» est passée à \verb+\documentclass+.
 
 \begin{namequestion}{droite}
   \begin{question}
-    Donnez la pente de la droite $x + y = 1$.    
+    Donnez la pente de la droite $x + y = \CSV{c}$.
   \end{question}
 \end{namequestion}
 \begin{namequestion}{droite}
@@ -144,6 +145,12 @@ par un programme externe.  La première ligne est composée des noms des
 colonnes avec impérativement au moins «~Nom~», «~Prenom~» (sans
 accent), éventuellement «~Section~», et les noms des questions (ici
 «~edo~» et «~droite~») du test.
+
+La colonne «~c~» ne donne par le n° d'une variante de question mais
+peut être utilisée via \verb+\CSV{c}+ dans une question pour la
+paramétrer avec la valeur de cette colonne.  (Ceci est donc uniquement
+accessible dans les \verb+namequestion+ qui sont utilisées via
+\verb+\generatetestsfromCSV+.)
 
 \generatetestsfromCSV{tests-exemple.csv}{edo, droite}
 
