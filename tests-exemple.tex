@@ -10,6 +10,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{times,mathptmx}
 \usepackage[french]{babel}
+\usepackage{verbatim}
 %\usepackage{amssymb}
 %\usepackage{pifont}
 
@@ -137,12 +138,7 @@ l'option «~\verb+correction+~» est passée à \verb+\documentclass+.
 
 \newpage
 Le fichier CSV suivant
-\begin{verbatim}
-Nom, Prenom, matricule, edo, droite
-Leblanc, Sophie, 23452, 1, 2
-       , Alexandre, 12345, 2, 1
-Spécial$, $Virg#i~n{,}i^e%, 12121, 1, 1
-\end{verbatim}
+\verbatiminput{tests-exemple.csv}
 va générer les tests ci-dessous.  En général, celui-ci est produit
 par un programme externe.  La première ligne est composée des noms des
 colonnes avec impérativement au moins «~Nom~», «~Prenom~» (sans
