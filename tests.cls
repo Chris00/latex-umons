@@ -814,9 +814,9 @@
 \newcommand{\namedquestion}[2]{% <name> <number>
   \@ifundefined{tests@named@#1@#2} {%
     \@ifundefined{c@tests@named@#1}{%
-      \PackageError{tests}{Named question `#1' doesn't exist}{}%
+      \ClassError{tests}{Named question `#1' doesn't exist}{}%
     }{%
-      \PackageError{tests}{%
+      \ClassError{tests}{%
         Number `#2' of named question `#1' doesn't exist.^^J\space\space%
         Possible values are 1..\the\value{tests@named@#1}}{%
         Change the number in \string\namedquestion{#1}{#2}^^J%
@@ -948,7 +948,7 @@
       \global\let\tests@CSV@scanline=\tests@CSV@scanline@semicolon
       \global\let\tests@CSV@breakline=\tests@CSV@breakline@semicolon
     }{%
-      \PackageError{tests}{Option `separator' only accepts `comma' and %
+      \ClassError{tests}{Option `separator' only accepts `comma' and %
         `semicolon' as values.}{}}}}
 
 % Expands a CSV line and scans content
@@ -980,7 +980,7 @@
   % Supposed to be used after a line has been scanned with
   % \tests@CSV@escanline.
   \@ifundefined{tests@CSVcolofname@#1}{%
-    \PackageError{tests}{No column named `#1' exists in the %
+    \ClassError{tests}{No column named `#1' exists in the %
       file `\tests@CSV@input@filename'.}{}%
   }{%
     \edef\tests@CSV@numcol{\csname tests@CSVnumcolofname@#1\endcsname}%
@@ -1014,7 +1014,7 @@
 \def\tests@CSV@processheadline{%
   \tests@CSV@readline
   \if\tests@CSV@par\tests@CSVline\relax
-    \PackageError{tests}{%
+    \ClassError{tests}{%
       File `\tests@CSV@input@filename' starts with an empty line!}{}%
   \fi
   \tests@CSV@escanline{\tests@CSVline}%
@@ -1054,7 +1054,7 @@
   \gdef\tests@CSV@input@filename{#2}%
   \openin\tests@CSV@file=\tests@CSV@input@filename\relax
   \ifeof\tests@CSV@file
-    \PackageError{tests}{File `\tests@CSV@input@filename' not existent, %
+    \ClassError{tests}{File `\tests@CSV@input@filename' not existent, %
       not readable, or empty!}{}%
   \else
     \let\tests@CSV@save=\CSV
