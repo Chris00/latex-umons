@@ -38,7 +38,6 @@
 \geometry{left=18mm, right=22mm, top=40mm, bottom=20mm}
 \setlength{\parindent}{0pt}
 \RequirePackage{ltxcmds}
-\RequirePackage{verbatim}% for the "comment" environment
 \RequirePackage{atveryend}
 \RequirePackage{xspace,translator}
 \RequirePackage{ifthen}
@@ -795,11 +794,15 @@
 
 
 \else
+% Not a correction, hide answers.
+\newbox\tests@answer
 
 \newenvironment{answer}{%
-  \comment
+  % The verbatim \comment ... \endcomment does not play well with the
+  % “namequestion” environment.
+  \setbox\tests@answer=\vbox\bgroup
 }{%
-  \endcomment
+  \egroup
 }
 \newcommand{\inlineanswer}[1]{}
 \fi
