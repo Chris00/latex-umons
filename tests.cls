@@ -13,8 +13,8 @@
 \newif\iftests@want@rulers \tests@want@rulersfalse
 \DeclareOption{rulers}{\tests@want@rulerstrue}
 
-\newif\iftests@correction \tests@correctionfalse
-\DeclareOption{correction}{\tests@correctiontrue}
+\newif\iftestscorrection \testscorrectionfalse
+\DeclareOption{correction}{\testscorrectiontrue}
 
 \newif\iftests@logo \tests@logofalse
 \DeclareOption{umons}{\tests@logotrue}% (deprecated)
@@ -59,7 +59,7 @@
 \iftests@want@rulers
 \RequirePackage{color}
 \fi
-\iftests@correction
+\iftestscorrection
 \RequirePackage{color}
 \setlength{\parskip}{3pt plus 5pt minus 1pt}
 \fi
@@ -153,7 +153,7 @@
 \newcommand\tests@namesfont{\tests@sf      \fontsize{12}{14}\selectfont}
 \newcommand\tests@smallnamesfont{\tests@sf \fontsize{9}{14}\selectfont}
 
-\newcommand\tests@correction{\tests@sf \color[gray]{0.6}%
+\newcommand\testscorrection{\tests@sf \color[gray]{0.6}%
   \bfseries\fontsize{30}{32}\selectfont}
 \newcommand\tests@smallcorrection{\tests@sf \color[gray]{0.6}%
   \bfseries\fontsize{20}{20}\selectfont}
@@ -425,13 +425,13 @@
   \par\vspace*{\tests@beforetext}}}
 
 \else
-\iftests@correction
+\iftestscorrection
 %% Correction of the test
 %%......................................................................
 \newcommand\tests@FirstPage{{%
   \vspace*{-22mm}%
   \thispagestyle{firstpage}%
-  \setbox0=\hbox{{\tests@correction \rotatebox{10}{Correction}}}%
+  \setbox0=\hbox{{\testscorrection \rotatebox{10}{Correction}}}%
   \noindent
   \vbox to\ht0{%
     \halign{##\hfil\crcr
@@ -534,7 +534,7 @@
   \let\@evenfoot\@oddfoot}
 
 \else
-\iftests@correction
+\iftestscorrection
 %% Correction of the test
 %%......................................................................
 \newcommand\ps@test{%
@@ -726,7 +726,7 @@
   }%
 }{%
   \par
-  \iftests@correction \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
+  \iftestscorrection \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
 }
 
 \newenvironment{question*}{%
@@ -734,7 +734,7 @@
     (\translate{sequel}).}%
 }{%
   \par
-  \iftests@correction \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
+  \iftestscorrection \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
 }
 
 \newcommand{\make@question}[1]{%
@@ -746,7 +746,7 @@
 
 %% Display mark for the question
 \def\make@question@withmarkdist#1#2[#3]{%
-  \iftests@correction\else
+  \iftestscorrection\else
     \noindent
     \rlap{\smash{\hspace*{#3}\hspace*{7mm}%
         %$\left/ \vrule height 3ex width0pt\right.$}
@@ -760,9 +760,9 @@
 
 \newcommand\make@question@[1]{%
   \gdef\@currentlabel{\arabic{tests@question}}%
-  \iftests@correction \vspace{3ex plus 3ex minus 1ex}\pagebreak[2]\fi
+  \iftestscorrection \vspace{3ex plus 3ex minus 1ex}\pagebreak[2]\fi
   \noindent\textsf{#1}\quad
-  \iftests@correction \itshape \else \upshape\fi
+  \iftestscorrection \itshape \else \upshape\fi
   \ignorespaces
 }
 
@@ -773,7 +773,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\iftests@correction
+\iftestscorrection
 
 \newenvironment{answer}{%
   \par
