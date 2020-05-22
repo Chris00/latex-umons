@@ -1060,6 +1060,9 @@
     \ClassError{tests}{File `\tests@CSV@input@filename' not existent, %
       not readable, or empty!}{}%
   \else
+    % Expand the questions so they can contain macros (useful for
+    % factor out lists of questions).
+    \edef\tests@CSV@questions{#3}%
     \let\tests@CSV@save=\CSV
     \let\CSV=\tests@CSV@valueofcol
     \tests@CSV@processheadline
@@ -1077,7 +1080,7 @@
           \tests@CSV@apply\testfirstname{Prenom}%
           \tests@CSV@apply\testsection{Section}%
           \maketitle
-          \tests@CSV@loop@questions #3,\relax,%
+          \expandafter\tests@CSV@loop@questions \tests@CSV@questions,\relax,%
         \fi
       \fi
       \tests@CSV@next}%
