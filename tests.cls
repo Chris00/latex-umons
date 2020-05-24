@@ -466,13 +466,13 @@
       \else
         height 1.5\tests@titleskip&\omit&\cr
       \fi
-      &\nom@name \nom@hook &\cr
+      &\nom@name \rlap{\nom@hook}&\cr
       \iftests@section
         height \tests@titleskip&\omit&\cr
       \else
         height 1.5\tests@titleskip&\omit&\cr
       \fi
-      &\prenom@name \prenom@hook &\cr
+      &\prenom@name \rlap{\prenom@hook}&\cr
       height \tests@titleskip&\omit&\cr
       \iftests@section
         &\translate{Section}\xspace : \section@hook &\cr
@@ -578,13 +578,13 @@
         \else
           height 1.3\tests@titleskip&\omit&\cr
         \fi
-        &\nom@name \nom@hook &\cr
+        &\nom@name \rlap{\nom@hook}&\cr
         \iftests@section
           height \tests@titleskip&\omit&\cr
         \else
           height 1.5\tests@titleskip&\omit&\cr
         \fi
-        &\prenom@name \prenom@hook &\cr
+        &\prenom@name \rlap{\prenom@hook}&\cr
         \iftests@section
           height \tests@titleskip&\omit&\cr
           &\translate{Section}\xspace : \section@hook &\cr
