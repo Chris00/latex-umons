@@ -288,7 +288,8 @@
   \expandafter\ref{test:totalpages-\the\c@tests@part}}
 
 \newcommand{\tests@set@totalpages}{%
-  % To be called on the last page of the current test.
+  % To be called AFTER the last page of the current test is outputted.
+  \addtocounter{page}{-1}%
   \setcounter{tests@tmp}{\value{page}}%
   \addtocounter{tests@tmp}{\value{tests@offset@page}}%
   % Does not work after the document is closed.  Must save label by hand.
@@ -303,6 +304,7 @@
   }%
   % Change to activate at the beginning of the new test:
   \edef\tests@offset@page@change{-\the\c@page}%
+  \addtocounter{page}{1}% restore the page count
 }
 
 \newcommand{\tests@thepage}{{%
@@ -314,7 +316,6 @@
 
 \AfterLastShipout{%
   \begingroup
-  \addtocounter{page}{-1}% last page was outputted
   \tests@set@totalpages
   \endgroup}
 
@@ -368,8 +369,8 @@
 \newcommand\maketitle@new{%
   \iftests@exists@previous@test
   \null
+  \newpage % make sure the last page of the previous test is outputted
   \tests@set@totalpages
-  \newpage
   \fi
   \tests@exists@previous@testtrue % start new test
   \tests@activate@changes
