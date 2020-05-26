@@ -396,6 +396,27 @@
 \newlength{\tests@rulethickness}\setlength{\tests@rulethickness}{0.5pt}
 \newcommand\tests@beforetext{3ex}
 
+\newcommand{\tests@FirstPage@studentbox}{%
+  % Box for `nom',... to fill
+  \tests@namesfont
+  \offinterlineskip
+  \halign to 55mm{\vrule width \tests@rulethickness ##&
+      \strut \ ##\hfil\tabskip 0pt plus 1000pt&
+      \vrule width \tests@rulethickness ##\tabskip 0pt\crcr
+    \noalign{\hrule height \tests@rulethickness depth 0pt}
+    \iftests@section  height \tests@titleskip&\omit&\cr %% extra vspace
+    \else             height 1.5\tests@titleskip&\omit&\cr \fi
+    &\nom@name \rlap{\tests@display@lastname}&\cr
+    \iftests@section  height \tests@titleskip&\omit&\cr
+    \else             height 1.5\tests@titleskip&\omit&\cr  \fi
+    &\prenom@name \rlap{\tests@display@firstname}&\cr
+    height \tests@titleskip&\omit&\cr
+    \iftests@section
+      &\translate{Section}\xspace : \rlap{\tests@display@section}&\cr
+      height .5\tests@titleskip&\omit&\cr
+    \fi
+    \noalign{\hrule  height \tests@rulethickness depth 0pt}}}
+
 \iftests@logo
 %% UMONS logo
 %%......................................................................
@@ -449,32 +470,7 @@
 \newcommand\tests@FirstPage{{%
   \vspace*{-25mm}%
   \thispagestyle{firstpage}%
-  \setbox0=\vbox{% Box for `nom',... to fill
-    \tests@namesfont
-    \offinterlineskip
-    \halign to 55mm{\vrule width \tests@rulethickness ##&
-        \strut \ ##\hfil\tabskip 0pt plus 1000pt& 
-        \vrule width \tests@rulethickness ##\tabskip 0pt\crcr
-      \noalign{\hrule height \tests@rulethickness depth 0pt}
-      \iftests@section
-        height \tests@titleskip&\omit&\cr %% extra vspace
-      \else
-        height 1.5\tests@titleskip&\omit&\cr
-      \fi
-      &\nom@name \rlap{\tests@display@lastname}&\cr
-      \iftests@section
-        height \tests@titleskip&\omit&\cr
-      \else
-        height 1.5\tests@titleskip&\omit&\cr
-      \fi
-      &\prenom@name \rlap{\tests@display@firstname}&\cr
-      height \tests@titleskip&\omit&\cr
-      \iftests@section
-        &\translate{Section}\xspace : \rlap{\tests@display@section}&\cr
-        height .5\tests@titleskip&\omit&\cr
-      \fi
-      \noalign{\hrule  height \tests@rulethickness depth 0pt}}}%
-  %
+  \setbox0=\vbox{\tests@FirstPage@studentbox}%
   \noindent
   \vbox to \ht0{%
     \halign{##\hfil\crcr
@@ -502,6 +498,35 @@
 %%                        O T H E R    P A G E S
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\tests@studentbox}{%
+  \multiply\tests@rulethickness by2
+  \tests@namesfont
+  \offinterlineskip
+  \halign to 55mm{\vrule width \tests@rulethickness ##&
+      \strut \ ##\hfil\tabskip 0pt plus 1000pt&
+      \vrule width \tests@rulethickness ##\tabskip 0pt\crcr
+    \noalign{\hrule height \tests@rulethickness depth 0pt}%
+    \iftests@section
+      height \tests@titleskip&\omit&\cr %% extra vspace
+    \else
+      height 1.3\tests@titleskip&\omit&\cr
+    \fi
+    &\nom@name \rlap{\tests@display@lastname}&\cr
+    \iftests@section
+      height \tests@titleskip&\omit&\cr
+    \else
+      height 1.5\tests@titleskip&\omit&\cr
+    \fi
+    &\prenom@name \rlap{\tests@display@firstname}&\cr
+    \iftests@section
+      height \tests@titleskip&\omit&\cr
+      &\translate{Section}\xspace : \rlap{\tests@display@section}&\cr
+      height 0.5\tests@titleskip&\omit&\cr
+    \else
+      height 0.7\tests@titleskip&\omit&\cr
+    \fi
+    \noalign{\hrule height \tests@rulethickness depth 0pt}}}
 
 \iftests@logo
 %% UMONS logo
@@ -560,34 +585,7 @@
 \newcommand\ps@test{%
   \let\@mkboth\@gobbletwo 
   \renewcommand\@oddhead{{%
-    \setbox0=\vbox{%
-      \multiply\tests@rulethickness by2
-      \tests@namesfont
-      \offinterlineskip
-      \halign to 55mm{\vrule width \tests@rulethickness ####&
-          \strut \ ####\hfil\tabskip 0pt plus 1000pt& 
-          \vrule width \tests@rulethickness ####\tabskip 0pt\crcr
-        \noalign{\hrule height \tests@rulethickness depth 0pt}%
-        \iftests@section
-          height \tests@titleskip&\omit&\cr %% extra vspace
-        \else
-          height 1.3\tests@titleskip&\omit&\cr
-        \fi
-        &\nom@name \rlap{\tests@display@lastname}&\cr
-        \iftests@section
-          height \tests@titleskip&\omit&\cr
-        \else
-          height 1.5\tests@titleskip&\omit&\cr
-        \fi
-        &\prenom@name \rlap{\tests@display@firstname}&\cr
-        \iftests@section
-          height \tests@titleskip&\omit&\cr
-          &\translate{Section}\xspace : \rlap{\tests@display@section}&\cr
-          height 0.5\tests@titleskip&\omit&\cr
-        \else
-          height 0.7\tests@titleskip&\omit&\cr
-        \fi
-        \noalign{\hrule height \tests@rulethickness depth 0pt}}}%
+    \setbox0=\vbox{\tests@studentbox}%
     \vbox to 0pt{\vss
       \noindent
       \setlength{\@tempdima}{\textwidth}%
