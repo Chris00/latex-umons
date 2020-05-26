@@ -560,7 +560,8 @@
 \newcommand\ps@test{%
   \let\@mkboth\@gobbletwo 
   \renewcommand\@oddhead{{%
-      \setbox0=\hbox{{\tests@smallcorrection \rotatebox{10}{Correction}}}%
+      \setbox0=\hbox{{\tests@smallcorrection
+          \rotatebox{10}{\translate{Correction}}}}%
       \vbox to 0pt{\vss
         \vbox to\ht0{%
           \halign to\textwidth{####\hfil \tabskip=0pt plus 1000pt&
