@@ -210,34 +210,28 @@
 \newcommand{\testprenomname}[1]{\gdef\prenom@hook@change{#1}}% deprecated
 \newcommand{\testlastname}[1]{%
   \def\nom@hook@tmp{#1}%
-  \ifx \nom@hook@tmp\empty
-    \iftests@want@rulers \gdef\nom@hook@change{\nom@hook@rulers}%
-    \else               \gdef\nom@hook@change{}\fi
-  \else
-    \gdef\nom@hook@change{\ #1}% include initial space
-  \fi}
+  \ifx \nom@hook@tmp\empty  \gdef\nom@hook@change{}% used to set \nom@hook
+  \else                     \gdef\nom@hook@change{\ #1}\fi}
+\newcommand{\tests@display@lastname}{%
+  \ifx \nom@hook\empty  \iftests@want@rulers \nom@hook@rulers \fi
+  \else \nom@hook \fi}
+
 \newcommand{\testfirstname}[1]{%
   \def\prenom@hook@tmp{#1}%
-  \ifx \prenom@hook@tmp\empty
-    \iftests@want@rulers \gdef\prenom@hook@change{\prenom@hook@rulers}%
-    \else               \gdef\prenom@hook@change{}\fi
-  \else
-    \gdef\prenom@hook@change{\ #1}%
-  \fi}
+  \ifx \prenom@hook@tmp\empty  \gdef\prenom@hook@change{}%
+  \else                        \gdef\prenom@hook@change{\ #1}\fi}
+\newcommand{\tests@display@firstname}{%
+  \ifx \prenom@hook\empty \iftests@want@rulers \prenom@hook@rulers \fi
+  \else \prenom@hook \fi}
 
 \testlastname{}% Only takes effect at \maketitle
 \testfirstname{}
 
 \newcommand\section@hook@change{}
-\newcommand{\testsection}[1]{%
-  \def\section@hook@tmp{#1}%
-  \ifx \section@hook@tmp\empty % default (see later)
-    \iftests@want@rulers \gdef\section@hook@change{\section@hook@rulers}%
-    \else               \gdef\section@hook@change{}%
-    \fi
-  \else % replace
-    \gdef\section@hook@change{#1}%
-  \fi}
+\newcommand{\testsection}[1]{\gdef\section@hook@change{#1}}
+\newcommand{\tests@display@section}{%
+  \ifx \section@hook\empty \iftests@want@rulers \section@hook@rulers \fi
+  \else \section@hook \fi}
 \testsection{}
 
 \newif\iftests@section % No “section” for students
@@ -467,16 +461,16 @@
       \else
         height 1.5\tests@titleskip&\omit&\cr
       \fi
-      &\nom@name \rlap{\nom@hook}&\cr
+      &\nom@name \rlap{\tests@display@lastname}&\cr
       \iftests@section
         height \tests@titleskip&\omit&\cr
       \else
         height 1.5\tests@titleskip&\omit&\cr
       \fi
-      &\prenom@name \rlap{\prenom@hook}&\cr
+      &\prenom@name \rlap{\tests@display@firstname}&\cr
       height \tests@titleskip&\omit&\cr
       \iftests@section
-        &\translate{Section}\xspace : \section@hook &\cr
+        &\translate{Section}\xspace : \rlap{\tests@display@section}&\cr
         height .5\tests@titleskip&\omit&\cr
       \fi
       \noalign{\hrule  height \tests@rulethickness depth 0pt}}}%
@@ -579,16 +573,16 @@
         \else
           height 1.3\tests@titleskip&\omit&\cr
         \fi
-        &\nom@name \rlap{\nom@hook}&\cr
+        &\nom@name \rlap{\tests@display@lastname}&\cr
         \iftests@section
           height \tests@titleskip&\omit&\cr
         \else
           height 1.5\tests@titleskip&\omit&\cr
         \fi
-        &\prenom@name \rlap{\prenom@hook}&\cr
+        &\prenom@name \rlap{\tests@display@firstname}&\cr
         \iftests@section
           height \tests@titleskip&\omit&\cr
-          &\translate{Section}\xspace : \section@hook &\cr
+          &\translate{Section}\xspace : \rlap{\tests@display@section}&\cr
           height 0.5\tests@titleskip&\omit&\cr
         \else
           height 0.7\tests@titleskip&\omit&\cr
