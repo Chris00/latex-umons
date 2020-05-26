@@ -723,6 +723,7 @@
 }{%
   \par
   \iftestscorrection \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
+  \pagebreak[2]% Very good place to break pages
 }
 
 \newenvironment{question*}{%
@@ -731,6 +732,7 @@
 }{%
   \par
   \iftestscorrection \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
+  \pagebreak[2]%
 }
 
 \newcommand{\make@question}[1]{%
