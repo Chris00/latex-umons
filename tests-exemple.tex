@@ -1,10 +1,15 @@
-\documentclass[12pt,a4paper, rulers]{tests}
+\documentclass[12pt,a4paper, rulers%,correction
+]{tests}
 % Si vous ajoutez l'option "logo", la case pour les noms est remplacée
 % par un logo.  Utilisez \settestlogo{nom du fichier} pour le
 % déclarer.  Le défaut est "UMONS+txt".
 %
 % L'option "correction" indique que c'est une correction et imprime
-% les questions en italique.
+% les questions en italique.  Le contenu des environnements « answer »
+% sont affichés.  Dans ce cas, si le nom, le prénom ou la section sont
+% spécifiés, la boite avec ces informations continue de s'afficher.
+% Si vous ne le voulez pas, déclarez ces informations dans
+% \iftestscorrection\else ... \fi.
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -30,6 +35,7 @@
 % \testlastname{Nom de l'étudiant} % Pour des tests spécifiques
 % \testfirstname{Prénom (étudiant)}% Pour des tests spécifiques
 % \testsection{Section (étudiant)} % Pour une section spécifique
+% \testsectionfalse
 
 \begin{filecontents*}{tests-exemple.csv}
 Nom, Prenom, matricule, edo, droite, c

@@ -320,6 +320,9 @@
   \expandafter\gdef\expandafter#1\expandafter{#2}%
 }
 
+% Whether to display a box to fill with name, first-name, section
+\newif\iftests@studentbox
+
 \newcommand{\tests@activate@changes}{%
   \addtocounter{tests@part}{1}% new test
   \typeout{-- Test \arabic{tests@part} --}%
@@ -337,6 +340,17 @@
   \tests@defexpand\tests@thetest{\tests@thetests@change}%
   \tests@defexpand\tests@thetestpdf{\tests@thetestpdf@change}%
   \setcounter{tests@offset@page}{\tests@offset@page@change}%
+  % Set \iftests@studentbox according to the given data
+  \tests@studentboxtrue
+  \iftestscorrection
+    \ifx \nom@hook\empty
+      \ifx \prenom@hook\empty
+        \iftests@section
+          \ifx \section@hook\empty  \tests@studentboxfalse \fi
+        \fi
+      \fi
+    \fi
+  \fi
 }
 
 \newif\iftests@exists@previous@test
@@ -441,40 +455,21 @@
   \par\vspace*{\tests@beforetext}}}
 
 \else
-\iftestscorrection
-%% Correction of the test
+%% Test or its correction
 %%......................................................................
-\newcommand\tests@FirstPage{{%
-  \vspace*{-22mm}%
-  \thispagestyle{firstpage}%
-  \setbox0=\hbox{{\testscorrection \rotatebox{10}{Correction}}}%
-  \noindent
-  \vbox to\ht0{%
-    \halign{##\hfil\crcr
-      {\tests@titlefont    \tests@title@firstpage}\cr
-      \noalign{\vfill}
-      \tests@numberfont   \tests@thetest %% Test n°...
-      \ifx\tests@date\empty \else  
-      \qquad \hfill \tests@namesfont (\tests@date)\fi
-      {\tests@namesfont\strut}% make sure you get the correct depth
-      \cr
-    }}%
-  \hfill
-  \box 0
-  \vspace*{6pt}\hrule height 2\tests@rulethickness
-  \par\vspace*{\tests@beforetext}}}
 
-\else
-%% Test (not correction)
-%%......................................................................
 \newcommand\tests@FirstPage{{%
-  \vspace*{-25mm}%
+  \iftests@studentbox\vspace*{-25mm}\else\vspace*{-22mm}\fi
   \thispagestyle{firstpage}%
-  \setbox0=\vbox{\tests@FirstPage@studentbox}%
+  \iftests@studentbox \setbox0=\vbox{\tests@FirstPage@studentbox}
+  \else \setbox0=\hbox{{\testscorrection
+      \rotatebox{10}{\translate{Correction}}}}\fi
+  %
   \noindent
   \vbox to \ht0{%
     \halign{##\hfil\crcr
-      \noalign{\vskip\tests@titleskip \vspace*{\tests@rulethickness}}
+      \iftests@studentbox
+        \noalign{\vskip\tests@titleskip \vspace*{\tests@rulethickness}}\fi
       {\tests@titlefont    \tests@title@firstpage}\cr
       \noalign{\vfill}
       \tests@numberfont   \tests@thetest %% Test n°...
@@ -482,15 +477,20 @@
         \ifx\tests@date\empty \else \qquad \hfill (\tests@date)\fi
       }%
       \cr
+      \iftests@studentbox
       \noalign{%
         \iftests@section \vskip.5\tests@titleskip \fi
-        \vspace*{\tests@rulethickness}}}}
-  \hfill 
+        \vspace*{\tests@rulethickness}}%
+      \fi}}%
+  \hfill
+  \iftests@studentbox \iftestscorrection % Correction written underneath box
+  \rlap{\smash{\testscorrection\color[gray]{0.85}%
+      \rotatebox{\iftests@section 17\else 13\fi}{\translate{Correction}}}}%
+  \fi \fi
   \box0
   \vspace*{6pt}\hrule height 2\tests@rulethickness
   \par\vspace*{\tests@beforetext}}}
 
-\fi
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
