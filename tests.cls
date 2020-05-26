@@ -691,12 +691,13 @@
 
 % L'examen d'Analyse comporte deux parties (2 cours).
 \renewcommand{\part}[1]{%
+  \par
   \colorbox[gray]{.8}{\begin{minipage}{0.985\linewidth}\centering%
       \vrule height 2.2ex width 0pt depth 0.2ex
       #1\relax
       \vrule height 2.2ex width 0pt depth 0.2ex
     \end{minipage}}%
-  \medskip
+  \par\medskip
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
