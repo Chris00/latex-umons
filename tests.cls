@@ -382,7 +382,7 @@
   \fi
   \tests@exists@previous@testtrue % start new test
   \tests@activate@changes
-  \setcounter{tests@question}{0}%
+  \setcounter{question}{0}%
   \setcounter{equation}{0}%
   \setcounter{footnote}{0}%
   \setcounter{figure}{0}%
@@ -699,24 +699,28 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcounter{tests@question}
-\setcounter{tests@question}{0}
+\newcounter{question}
+\setcounter{question}{0}
 
 % Save the default \linewidth (useful if the question is inside a
 % minipage with its local \linewidth).
 \newlength{\question@linewidth}
 \AtBeginDocument{\setlength{\question@linewidth}{\linewidth}}
 
+\newcommand{\question@with@number}{%
+  \edef\question@number{\thequestion}%
+  \ifx \question@number \empty \translate{Question}%
+  \else \translate{Question}~\thequestion \fi
+}
+
 %% Optional [comment]
 %% Optional <mark>
 \newenvironment{question}[1][]{%
-  \stepcounter{tests@question}%
+  \stepcounter{question}%
   \edef\question@comment{#1}%
   \make@question{%
-    \ifx \question@comment \empty \translate{Question}~\arabic{tests@question}.
-    \else
-    \make@question{\translate{Question}~\arabic{tests@question}
-      \ignorespaces #1.}%
+    \ifx \question@comment \empty \question@with@number.
+    \else \question@with@number \ignorespaces #1.%
     \fi
   }%
 }{%
@@ -726,8 +730,7 @@
 }
 
 \newenvironment{question*}{%
-  \make@question{\translate{Question}~\arabic{tests@question}
-    (\translate{sequel}).}%
+  \make@question{\question@with@number (\translate{sequel}).}%
 }{%
   \par
   \iftestscorrection \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
@@ -756,7 +759,7 @@
 }
 
 \newcommand\make@question@[1]{%
-  \gdef\@currentlabel{\arabic{tests@question}}%
+  \gdef\@currentlabel{\thequestion}%
   \iftestscorrection \vspace{3ex plus 3ex minus 1ex}\pagebreak[2]\fi
   \noindent\textsf{#1}\quad
   \iftestscorrection \itshape \else \upshape\fi
