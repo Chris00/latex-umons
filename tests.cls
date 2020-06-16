@@ -278,8 +278,14 @@
 % Hold the page offset until the new test is started:
 \newcommand{\tests@offset@page@change}{0}
 
-\newcommand{\thetotalpage}{%
-  \expandafter\ref{test:totalpages-\the\c@tests@part}}
+\AtBeginDocument{%
+  \ltx@ifpackageloaded{hyperref}{%
+    \newcommand{\thetotalpage}{%
+      \ref*{test:totalpages-\the\c@tests@part}}%
+  }{%
+    \newcommand{\thetotalpage}{%
+      \expandafter\ref{test:totalpages-\the\c@tests@part}}%
+  }}
 
 \newcommand{\tests@set@totalpages}{%
   % To be called AFTER the last page of the current test is outputted.
