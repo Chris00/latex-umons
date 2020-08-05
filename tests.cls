@@ -371,7 +371,12 @@
 \newif\iftests@exists@previous@test
 \tests@exists@previous@testfalse
 
-\AtBeginDocument{%
+%% \AtBeginDocument does not work because "babel" switches language
+%% there and the default language may not be active when executing the
+%% macros starting the initial test.
+\let\tests@begindocument@orig=\document
+\renewcommand{\document}{%
+  \tests@begindocument@orig
   \iftests@auto@maketitle
   \tests@exists@previous@testtrue
   \tests@activate@changes
