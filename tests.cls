@@ -204,34 +204,35 @@
 
 \newcommand{\nom@name}{\translate{Name}\xspace :}
 \newcommand{\prenom@name}{\translate{Firstname}\xspace :}
-\newcommand\nom@hook{}
-\newcommand\prenom@hook{}
-\newcommand{\testnomname}[1]{\gdef\nom@hook@change{#1}}% deprecated
-\newcommand{\testprenomname}[1]{\gdef\prenom@hook@change{#1}}% deprecated
+\newcommand{\studentlastname}{}
+\newcommand{\studentfirstname}{}
+
 \newcommand{\testlastname}[1]{%
-  \def\nom@hook@tmp{#1}%
-  \ifx \nom@hook@tmp\empty  \gdef\nom@hook@change{}% used to set \nom@hook
-  \else                     \gdef\nom@hook@change{\ #1}\fi}
+  \edef\tests@lastname@tmp{#1}%
+  \ifx \tests@lastname@tmp\empty
+    \gdef\tests@lastname@change{}% used to set \studentlastname
+  \else
+    \gdef\tests@lastname@change{#1}\fi}
 \newcommand{\tests@display@lastname}{%
-  \ifx \nom@hook\empty  \iftests@want@rulers \nom@hook@rulers \fi
-  \else \nom@hook \fi}
+  \ifx \studentlastname\empty  \iftests@want@rulers \tests@lastname@rulers \fi
+  \else \studentlastname \fi}
 
 \newcommand{\testfirstname}[1]{%
-  \def\prenom@hook@tmp{#1}%
-  \ifx \prenom@hook@tmp\empty  \gdef\prenom@hook@change{}%
-  \else                        \gdef\prenom@hook@change{\ #1}\fi}
+  \edef\tests@firstname@tmp{#1}%
+  \ifx \tests@firstname@tmp\empty  \gdef\tests@firstname@change{}%
+  \else                            \gdef\tests@firstname@change{#1}\fi}
 \newcommand{\tests@display@firstname}{%
-  \ifx \prenom@hook\empty \iftests@want@rulers \prenom@hook@rulers \fi
-  \else \prenom@hook \fi}
+  \ifx \studentfirstname\empty \iftests@want@rulers \tests@firstname@rulers \fi
+  \else \studentfirstname \fi}
 
 \testlastname{}% Only takes effect at \maketitle
 \testfirstname{}
 
-\newcommand\section@hook@change{}
-\newcommand{\testsection}[1]{\gdef\section@hook@change{#1}}
+\newcommand{\tests@section@change}{}
+\newcommand{\testsection}[1]{\gdef\tests@section@change{#1}}
 \newcommand{\tests@display@section}{%
-  \ifx \section@hook\empty \iftests@want@rulers \section@hook@rulers \fi
-  \else \section@hook \fi}
+  \ifx \studentsection\empty \iftests@want@rulers \tests@section@rulers \fi
+  \else \studentsection \fi}
 \testsection{}
 
 \newif\iftests@section % No “section” for students
@@ -337,10 +338,10 @@
   \tests@defexpand\tests@number{\tests@number@change}%
   \tests@defexpand\tests@date{\tests@date@change}%
   \tests@defexpand\tests@datepdf{\tests@datepdf@change}%
-  \tests@defexpand\nom@hook{\nom@hook@change}%
-  \tests@defexpand\prenom@hook{\prenom@hook@change}%
+  \tests@defexpand\studentlastname{\tests@lastname@change}%
+  \tests@defexpand\studentfirstname{\tests@firstname@change}%
   \tests@section@hook@toggle
-  \tests@defexpand\section@hook{\section@hook@change}%
+  \tests@defexpand\studentsection{\tests@section@change}%
   \tests@defexpand\tests@title@firstpage{\tests@title@firstpage@change}%
   \tests@defexpand\@title{\tests@title@change}%
   \tests@defexpand\tests@thetest{\tests@thetests@change}%
@@ -349,10 +350,10 @@
   % Set \iftests@studentbox according to the given data
   \tests@studentboxtrue
   \iftestscorrection
-    \ifx \nom@hook\empty
-      \ifx \prenom@hook\empty
+    \ifx \studentlastname\empty
+      \ifx \studentfirstname\empty
         \iftests@section
-          \ifx \section@hook\empty  \tests@studentboxfalse \fi
+          \ifx \studentsection\empty  \tests@studentboxfalse \fi
         \fi
       \fi
     \fi
@@ -426,10 +427,10 @@
     \noalign{\hrule height \tests@rulethickness depth 0pt}
     \iftests@section  height \tests@titleskip&\omit&\cr %% extra vspace
     \else             height 1.5\tests@titleskip&\omit&\cr \fi
-    &\nom@name \rlap{\tests@display@lastname}&\cr
+    &\nom@name \rlap{\xspace \tests@display@lastname}&\cr
     \iftests@section  height \tests@titleskip&\omit&\cr
     \else             height 1.5\tests@titleskip&\omit&\cr  \fi
-    &\prenom@name \rlap{\tests@display@firstname}&\cr
+    &\prenom@name \rlap{\xspace \tests@display@firstname}&\cr
     height \tests@titleskip&\omit&\cr
     \iftests@section
       &\translate{Section}\xspace : \rlap{\tests@display@section}&\cr
@@ -518,13 +519,13 @@
     \else
       height 1.3\tests@titleskip&\omit&\cr
     \fi
-    &\nom@name \rlap{\tests@display@lastname}&\cr
+    &\nom@name \rlap{\xspace \tests@display@lastname}&\cr
     \iftests@section
       height \tests@titleskip&\omit&\cr
     \else
       height 1.5\tests@titleskip&\omit&\cr
     \fi
-    &\prenom@name \rlap{\tests@display@firstname}&\cr
+    &\prenom@name \rlap{\xspace \tests@display@firstname}&\cr
     \iftests@section
       height \tests@titleskip&\omit&\cr
       &\translate{Section}\xspace : \rlap{\tests@display@section}&\cr
@@ -642,7 +643,7 @@
 
 \iftests@want@rulers
 
-\newcommand\nom@hook@rulers{\bgroup
+\newcommand\tests@lastname@rulers{\bgroup
   \color[gray]{0.5}%
   \hspace{3pt}%
   \tests@onechar\tests@onechar\tests@onechar\tests@onechar\tests@onechar
@@ -650,14 +651,14 @@
   \tests@onechar\tests@onechar
   \egroup}
 
-\newcommand\prenom@hook@rulers{\bgroup
+\newcommand\tests@firstname@rulers{\bgroup
   \color[gray]{0.5}%
   \hspace{3pt}%
   \tests@onechar\tests@onechar\tests@onechar\tests@onechar\tests@onechar
   \tests@onechar\tests@onechar\tests@onechar\tests@onechar\tests@onechar
   \egroup}
 
-\newcommand{\section@hook@rulers}{{%
+\newcommand{\tests@section@rulers}{{%
   \color[gray]{0.5}%
   \hspace{3pt}%
   \tests@onechar[5mm]\tests@onechar[5mm]%
