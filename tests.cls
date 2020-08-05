@@ -202,8 +202,16 @@
 \def\@author{Christophe.Troestler@umons.ac.be}
 \newcommand{\testauthor}[1]{\gdef\@author{#1}}
 
-\newcommand{\nom@name}{\translate{Name}\xspace :}
-\newcommand{\prenom@name}{\translate{Firstname}\xspace :}
+\newcommand{\nom@name}{%
+  \translatelet{\tests@tmp}{Name}%
+  \ifx \tests@tmp\empty \else \tests@tmp\xspace :\fi}
+\newcommand{\prenom@name}{%
+  \translatelet{\tests@tmp}{Firstname}%
+  \ifx \tests@tmp\empty \else \tests@tmp\xspace :\fi}
+\newcommand{\section@name}{%
+  \translatelet{\tests@tmp}{Section}%
+  \ifx \tests@tmp\empty \else \tests@tmp\xspace :\fi}
+
 \newcommand{\studentlastname}{}
 \newcommand{\studentfirstname}{}
 
@@ -433,7 +441,7 @@
     &\prenom@name \rlap{\xspace \tests@display@firstname}&\cr
     height \tests@titleskip&\omit&\cr
     \iftests@section
-      &\translate{Section}\xspace : \rlap{\tests@display@section}&\cr
+      &\section@name \rlap{\xspace \tests@display@section}&\cr
       height .5\tests@titleskip&\omit&\cr
     \fi
     \noalign{\hrule  height \tests@rulethickness depth 0pt}}}
@@ -528,7 +536,7 @@
     &\prenom@name \rlap{\xspace \tests@display@firstname}&\cr
     \iftests@section
       height \tests@titleskip&\omit&\cr
-      &\translate{Section}\xspace : \rlap{\tests@display@section}&\cr
+      &\section@name \rlap{\xspace \tests@display@section}&\cr
       height 0.5\tests@titleskip&\omit&\cr
     \else
       height 0.7\tests@titleskip&\omit&\cr
