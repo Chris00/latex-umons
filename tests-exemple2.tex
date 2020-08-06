@@ -1,4 +1,5 @@
-\documentclass[12pt,a4paper, no-auto-maketitle]{tests}
+\documentclass[12pt,a4paper, no-auto-maketitle%,correction
+]{tests}
 % L'option "no-auto-maketitle" assure qu'un test n'est pas
 % automatiquement démarré par \begin{document} mais par un \maketitle
 % explicite.  Ici, ce \maketitle est généré par \generatetestsfromCSV.
@@ -45,7 +46,9 @@
 \end{namequestion}
 
 
-\generatetestsfromCSV{tests-exemple2.csv}{abstract, Q1}
+\generatetestsfromCSV{tests-exemple2.csv}{
+  \iftestscorrection\else abstract,\fi % Consignes sauf pour la correction
+  Q1}
 
 \end{document}
 %%% Local Variables:
