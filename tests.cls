@@ -750,7 +750,7 @@
 }
 
 \newenvironment{question*}{%
-  \make@question{\question@with@number (\translate{sequel}).}%
+  \make@question{\question@with@number\ (\translate{sequel}).}%
 }{%
   \par
   \iftestscorrection \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
