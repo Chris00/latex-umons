@@ -43,6 +43,7 @@
 \RequirePackage{ifthen}
 
 \providetranslation[to=english]{Test no}{Test \#}
+\providetranslation[to=english]{continued}{cont'd}
 
 \providetranslation[to=french]{Name}{Nom}
 \providetranslation[to=french]{Firstname}{Pr\'enom}
@@ -54,7 +55,7 @@
 \providetranslation[to=french]{True}{Vrai}
 \providetranslation[to=french]{False}{Faux}
 % \providetranslation[to=french]{Question}{Question}
-\providetranslation[to=french]{sequel}{suite}
+\providetranslation[to=french]{continued}{suite}
 
 \iftests@want@rulers
 \RequirePackage{color}
@@ -750,7 +751,7 @@
 }
 
 \newenvironment{question*}{%
-  \make@question{\question@with@number\ (\translate{sequel}).}%
+  \make@question{\question@with@number\ (\translate{continued}).}%
 }{%
   \par
   \iftestscorrection \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
