@@ -741,7 +741,7 @@
   \edef\question@comment{#1}%
   \make@question{%
     \ifx \question@comment \empty \question@with@number.
-    \else \question@with@number \ignorespaces #1.%
+    \else \question@with@number \ \ignorespaces #1.%
     \fi
   }%
 }{%
