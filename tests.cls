@@ -746,7 +746,8 @@
   }%
 }{%
   \par
-  \iftestscorrection \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
+  \iftestscorrection \vskip 2ex plus 1\jot
+  \else \vspace{4ex}\fi
   \pagebreak[2]% Very good place to break pages
 }
 
@@ -754,7 +755,8 @@
   \make@question{\question@with@number\ (\translate{continued}).}%
 }{%
   \par
-  \iftestscorrection \vspace{2ex plus 6ex}\else \vspace{4ex}\fi
+  \iftestscorrection \vskip 2ex plus 1\jot
+  \else \vspace{4ex}\fi
   \pagebreak[2]%
 }
 
