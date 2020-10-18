@@ -1233,7 +1233,7 @@
     \newcommand{\teststick}{$\checkmark$}%
     \fi
   \else
-    \newcommand{\teststick}{\ding{51}}%
+    \newcommand{\teststick}{\ding{52}}%
   \fi}
 
 \newcommand{\tests@TF@tickedbox}{%
