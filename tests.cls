@@ -1173,6 +1173,11 @@
 
 \renewcommand\theenumii{\roman{enumii}}
 \renewcommand\labelenumii{(\theenumii)}
+\renewcommand{\p@enumii}{\theenumi .}% label prefix
+
+\renewcommand{\theenumiii}{\Alph{enumiii}}
+\renewcommand{\labelenumiii}{(\theenumiii)}
+\renewcommand{\p@enumiii}{\p@enumii .}
 
 \renewenvironment{enumerate}{%
   \ifnum \@enumdepth >\thr@@ \@toodeep 
