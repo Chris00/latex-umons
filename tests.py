@@ -72,7 +72,7 @@ class Students:
         with open(tex.csvfile, newline="") as csvhandle:
             csvreader = csv.DictReader(csvhandle, skipinitialspace=True)
             for row in csvreader:
-                name = row["Nom"] + " " + row["Prenom"]
+                name = row["Nom"].strip() + " " + row["Prenom"].strip()
                 if "email" in row:
                     email = row["email"]
                 elif "matricule" in row:
