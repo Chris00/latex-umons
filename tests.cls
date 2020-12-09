@@ -42,20 +42,20 @@
 \RequirePackage{xspace,translator}
 \RequirePackage{ifthen}
 
-\providetranslation[to=English]{Test no}{Test \#}
-\providetranslation[to=English]{continued}{cont'd}
+\providetranslation[to=english]{Test no}{Test \#}
+\providetranslation[to=english]{continued}{cont'd}
 
-\providetranslation[to=French]{Name}{Nom}
-\providetranslation[to=French]{Firstname}{Pr\'enom}
-\providetranslation[to=French]{Test}{Test}
-\providetranslation[to=French]{Exam}{Examen}
-\providetranslation[to=French]{Rated exercise}{Coté}
-\providetranslation[to=French]{Test no}{Test n$^\circ$}
-% \providetranslation[to=French]{Section}{Section}
-\providetranslation[to=French]{True}{Vrai}
-\providetranslation[to=French]{False}{Faux}
-% \providetranslation[to=French]{Question}{Question}
-\providetranslation[to=French]{continued}{suite}
+\providetranslation[to=french]{Name}{Nom}
+\providetranslation[to=french]{Firstname}{Pr\'enom}
+\providetranslation[to=french]{Test}{Test}
+\providetranslation[to=french]{Exam}{Examen}
+\providetranslation[to=french]{Rated exercise}{Coté}
+\providetranslation[to=french]{Test no}{Test n$^\circ$}
+% \providetranslation[to=french]{Section}{Section}
+\providetranslation[to=french]{True}{Vrai}
+\providetranslation[to=french]{False}{Faux}
+% \providetranslation[to=french]{Question}{Question}
+\providetranslation[to=french]{continued}{suite}
 
 \iftests@want@rulers
 \RequirePackage{color}
