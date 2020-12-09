@@ -39,7 +39,7 @@
 \setlength{\parindent}{0pt}
 \RequirePackage{ltxcmds}
 \RequirePackage{atveryend}
-\RequirePackage{xspace,translator}
+\RequirePackage{translator}
 \RequirePackage{ifthen}
 
 \providetranslation[to=english]{Test no}{Test \#}
@@ -203,15 +203,21 @@
 \def\@author{Christophe.Troestler@umons.ac.be}
 \newcommand{\testauthor}[1]{\gdef\@author{#1}}
 
+\begingroup
+\catcode`\:=\active
+\gdef\tests@activecolon{:}% For e.g. French (or other languages)
+\gdef:{\string:}% Default value of the macro
+\endgroup
+
 \newcommand{\nom@name}{%
   \translatelet{\tests@tmp}{Name}%
-  \ifx \tests@tmp\empty \else \tests@tmp\xspace :\fi}
+  \ifx \tests@tmp\empty \else \tests@tmp\tests@activecolon \fi}
 \newcommand{\prenom@name}{%
   \translatelet{\tests@tmp}{Firstname}%
-  \ifx \tests@tmp\empty \else \tests@tmp\xspace :\fi}
+  \ifx \tests@tmp\empty \else \tests@tmp\tests@activecolon \fi}
 \newcommand{\section@name}{%
   \translatelet{\tests@tmp}{Section}%
-  \ifx \tests@tmp\empty \else \tests@tmp\xspace :\fi}
+  \ifx \tests@tmp\empty \else \tests@tmp\tests@activecolon \fi}
 
 \newcommand{\studentlastname}{}
 \newcommand{\studentfirstname}{}
@@ -441,13 +447,13 @@
     \noalign{\hrule height \tests@rulethickness depth 0pt}
     \iftests@section  height \tests@titleskip&\omit&\cr %% extra vspace
     \else             height 1.5\tests@titleskip&\omit&\cr \fi
-    &\nom@name \rlap{\xspace \tests@display@lastname}&\cr
+    &\nom@name \rlap{\ \tests@display@lastname}&\cr
     \iftests@section  height \tests@titleskip&\omit&\cr
     \else             height 1.5\tests@titleskip&\omit&\cr  \fi
-    &\prenom@name \rlap{\xspace \tests@display@firstname}&\cr
+    &\prenom@name \rlap{\ \tests@display@firstname}&\cr
     height \tests@titleskip&\omit&\cr
     \iftests@section
-      &\section@name \rlap{\xspace \tests@display@section}&\cr
+      &\section@name \rlap{\ \tests@display@section}&\cr
       height .5\tests@titleskip&\omit&\cr
     \fi
     \noalign{\hrule  height \tests@rulethickness depth 0pt}}}
@@ -533,16 +539,16 @@
     \else
       height 1.3\tests@titleskip&\omit&\cr
     \fi
-    &\nom@name \rlap{\xspace \tests@display@lastname}&\cr
+    &\nom@name \rlap{\ \tests@display@lastname}&\cr
     \iftests@section
       height \tests@titleskip&\omit&\cr
     \else
       height 1.5\tests@titleskip&\omit&\cr
     \fi
-    &\prenom@name \rlap{\xspace \tests@display@firstname}&\cr
+    &\prenom@name \rlap{\ \tests@display@firstname}&\cr
     \iftests@section
       height \tests@titleskip&\omit&\cr
-      &\section@name \rlap{\xspace \tests@display@section}&\cr
+      &\section@name \rlap{\ \tests@display@section}&\cr
       height 0.5\tests@titleskip&\omit&\cr
     \else
       height 0.7\tests@titleskip&\omit&\cr
@@ -1222,8 +1228,8 @@
 %% True/False questions
 %%----------------------------------------------------------------------
 
-\newcommand{\testsTrueLabel}{\translate{True}\xspace :}
-\newcommand{\testsFalseLabel}{\translate{False}\xspace :}
+\newcommand{\testsTrueLabel}{\translate{True}\tests@activecolon}
+\newcommand{\testsFalseLabel}{\translate{False}\tests@activecolon}
 
 \newcommand{\tests@TF@drawbox}{%
   \hbox{\vrule \vtop{\vbox{\hrule
