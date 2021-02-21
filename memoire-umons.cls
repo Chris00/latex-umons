@@ -204,6 +204,9 @@
 \newcommand{\departement}[1]{\def\@department{#1}}
 \def\@date{}
 
+\def\umons@logofac{UMONS_FS}
+\newcommand{\logofac}[1]{\def\umons@logofac{#1}}
+
 \newcommand{\umons@notempty}[3]{{%
     \def\\{}% (locally)
     \ifx #1\empty \PackageError{memoire-umons}{%
@@ -233,8 +236,10 @@
           \color{umonsgray}
           %\ifpdf@umons
           \begin{tabular}[t]{@{}l@{}}
-            %\resizebox{!}{20mm}{\includegraphics{lorentz}}\\[-5mm]
-            \resizebox{!}{15mm}{\includegraphics{UMONS_FS}}\\%
+            % \resizebox{!}{20mm}{\includegraphics{lorentz}}\\[-5mm]
+            \ifx \umons@logofac\empty \else
+              \resizebox{!}{15mm}{\includegraphics{\umons@logofac}}\\%
+            \fi
             \@department
           \end{tabular}%
           %\fi
