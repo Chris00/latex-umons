@@ -215,7 +215,7 @@
     \fi }}
 
 \newcommand{\bottomsep}{%
-  \hspace{0.5em}\raisebox{0.1ex}{\footnotesize $\bullet$}%
+  \hspace{0.5em}\raisebox{0.1ex}{\rotatebox{45}{\rule{0.7ex}{0.7ex}}}%
   \hspace{0.5em}\ignorespaces}
 
 \renewcommand{\maketitle}{%
