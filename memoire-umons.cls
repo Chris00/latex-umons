@@ -28,6 +28,8 @@
 % \addtolength{\textheight}{2cm}
 % \setlength{\parindent}{0pt}
 
+\RequirePackage{translator}
+
 \RequirePackage{graphics}
 % For the logos (use `xcolor' to avoid warnings if `xcolor' is used in
 % the document, e.g. with Tikz).  `xcolor' is not present in all distrib.
@@ -109,39 +111,56 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\providetranslation[to=english]{Supervisor}{Supervisor}
+\providetranslation[to=english]{Supervisors}{Supervisors}
+\providetranslation[to=english]{Co-supervisors}{Co-supervisors}
+\providetranslation[to=english]{Examiners}{Examiners}
+\providetranslation[to=english]{umons@team}{Team}
+\providetranslation[to=english]{umons@teams}{Teams}
+\providetranslation[to=english]{umons@mathematics}{Mathematics}
+\providetranslation[to=english]{Department of Mathematics}{%
+  Department of Mathematics}
+\providetranslation[to=english]{Faculty of Sciences}{Faculty of Sciences}
+\providetranslation[to=english]{University of Mons}{University of Mons}
+\providetranslation[to=english]{Master's Thesis submitted by}{%
+  Master's Thesis submitted by}
+\providetranslation[to=english]{umons@obtain@master}{%
+  With a view of getting the degree of Master in}
+\providetranslation[to=english]{Academic Year}{Academic Year}
+
+\providetranslation[to=french]{Supervisor}{Directeur}
+\providetranslation[to=french]{Supervisors}{Directeurs}
+\providetranslation[to=french]{Co-supervisors}{Co-directeurs}
+\providetranslation[to=french]{Examiners}{Rapporteurs}
+\providetranslation[to=french]{umons@team}{Service}
+\providetranslation[to=french]{umons@team}{Services}
+\providetranslation[to=french]{umons@mathematics}{sciences math\'ematiques}
+\providetranslation[to=french]{Department of Mathematics}{%
+  D\'epartement de Math\'ematique}
+\providetranslation[to=french]{Faculty of Sciences}{Facult\'e des Sciences}
+\providetranslation[to=french]{University of Mons}{Universit\'e de Mons}
+\providetranslation[to=french]{Master's Thesis submitted by}{%
+  M\'emoire r\'ealis\'e par}
+\providetranslation[to=french]{umons@obtain@master}{%
+  pour l'obtention du dipl\^ome de Master en}
+\providetranslation[to=french]{Academic Year}{Ann\'ee acad\'emique}
+
 \AtBeginDocument{%
-  \iflanguage{english}{% -- always defined
-    \def\memoire@directeur{Supervisor}
-    \def\memoire@directeurs{Supervisors}
-    \def\memoire@codirecteurs{Co-supervisors}
-    \def\memoire@rapporteurs{Examiners}
-    \def\memoire@service{Team}
-    \def\memoire@services{Teams}
-    \def\@discipline{Mathematics}
-    \def\@institut{Department of Mathematics}
-    \def\memoire@realise{%
-      Master's Thesis submitted by \@author\\
-      With a view of getting the degree of
-      Master in \@discipline\\[2ex]
-      Academic Year \@date}
-    \def\memoire@faculte{Faculty of Sciences}
-    \def\memoire@universite{University of Mons}
-  }{% Default language assumed to be French
-    \def\memoire@directeur{Directeur}
-    \def\memoire@directeurs{Directeurs}
-    \def\memoire@codirecteurs{Co-directeurs}
-    \def\memoire@rapporteurs{Rapporteurs}
-    \def\memoire@service{Service}
-    \def\memoire@services{Services}
-    \def\@discipline{math\'ematiques}
-    \def\@institut{D\'epartement de Math\'ematique}
-    \def\memoire@realise{%
-      M\'emoire r\'ealis\'e par \@author\\
-      pour l'obtention du dipl\^ome de Master en sciences \@discipline\\[2ex]
-      Ann\'ee acad\'emique \@date}
-    \def\memoire@faculte{Facult\'e des Sciences}
-    \def\memoire@universite{Universit\'e de Mons}
-  }}
+  \translatelet{\@discipline}{umons@mathematics}
+  \translatelet{\@department}{Department of Mathematics}
+  \translatelet{\memoire@faculte}{Faculty of Sciences}
+  \translatelet{\memoire@universite}{University of Mons}
+  \def\memoire@realise{%
+    \translate{Master's Thesis submitted by} \@author\\
+    \translate{umons@obtain@master} \@discipline\\[2ex]
+    \translate{Academic Year} \@date}
+}
+
+\begingroup
+\catcode`\:=\active
+\gdef\umons@activecolon{:}% For e.g. French (or other languages)
+\gdef:{\string:}% Default value of the macro
+\endgroup
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -165,24 +184,24 @@
 \def\@directeur{}
 \newcommand{\directeur}[1]{%
   \def\@directeur{#1}%
-  \def\@directeur@name{\memoire@directeur}}
+  \translatelet{\@directeur@name}{Supervisor}}
 \newcommand{\directeurs}[1]{%
   \def\@directeur{#1}%
-  \def\@directeur@name{\memoire@directeurs}}
+  \translatelet{\@directeur@name}{Supervisors}}
 \newcommand{\codirecteurs}[1]{%
   \def\@directeur{#1}%
-  \def\@directeur@name{\memoire@codirecteurs}}
+  \translatelet{\@directeur@name}{Co-supervisors}}
 \def\umons@service{}
 \newcommand{\service}[1]{%
   \def\umons@service{#1}%
-  \def\@service@name{\memoire@service}}
+  \translatelet{\@service@name}{umons@team}}
 \newcommand{\services}[1]{%
   \def\umons@service{#1}%
-  \def\@service@name{\memoire@services}}
+  \translatelet{\@service@name}{umons@teams}}
 \def\@rapporteurs{}
 \newcommand{\rapporteurs}[1]{\def\@rapporteurs{#1}}
 \newcommand{\discipline}[1]{\def\@discipline{#1}}
-\newcommand{\institut}[1]{\def\@institut{#1}}
+\newcommand{\departement}[1]{\def\@department{#1}}
 \def\@date{}
 
 \newcommand{\umons@notempty}[3]{{%
@@ -216,7 +235,7 @@
           \begin{tabular}[t]{@{}l@{}}
             %\resizebox{!}{20mm}{\includegraphics{lorentz}}\\[-5mm]
             \resizebox{!}{15mm}{\includegraphics{UMONS_FS}}\\%
-            \@institut
+            \@department
           \end{tabular}%
           %\fi
           \hfill        
@@ -244,15 +263,15 @@
       \vfill
       \null\hfill
       \begin{tabular}[t]{@{}r@{ }l@{}}
-        \textbf{\@directeur@name :}&
+        \textbf{\@directeur@name\umons@activecolon}&
         \begin{tabular}[t]{@{}l@{}} \@directeur \end{tabular}%
         \\[2\jot]
-        \textbf{\@service@name :}&
+        \textbf{\@service@name\umons@activecolon}&
         \begin{tabular}[t]{@{}l@{}} \umons@service \end{tabular}%
         \\[2\jot]
         % Facultatif:        
         \ifx \@rapporteurs\empty \else
-        \textbf{\memoire@rapporteurs :}&
+        \textbf{\translate{Examiners}\umons@activecolon}&
         \begin{tabular}[t]{@{}l@{}} \@rapporteurs \end{tabular}%
         \fi
       \end{tabular}
