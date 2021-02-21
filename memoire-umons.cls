@@ -13,6 +13,11 @@
 \newif\ifumons@print \umons@printfalse
 \DeclareOption{print}{\umons@printtrue}
 
+\newif\ifumons@draft \umons@draftfalse
+\DeclareOption{draft}{%
+  \umons@drafttrue
+  \PassOptionsToClass{draft}{book}}
+
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 
 \ProcessOptions
@@ -42,8 +47,10 @@
   \definecolor{umonsturquoise}{RGB}{0, 171, 204}
 }
 
+\ifumons@draft
 \setlength{\overfullrule}{10pt}
 %\errorcontextlines=10 % debugging
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
