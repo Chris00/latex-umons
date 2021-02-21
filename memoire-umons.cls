@@ -114,7 +114,6 @@
 \providetranslation[to=english]{Supervisor}{Supervisor}
 \providetranslation[to=english]{Supervisors}{Supervisors}
 \providetranslation[to=english]{Co-supervisors}{Co-supervisors}
-\providetranslation[to=english]{Examiners}{Examiners}
 \providetranslation[to=english]{umons@team}{Team}
 \providetranslation[to=english]{umons@teams}{Teams}
 \providetranslation[to=english]{umons@mathematics}{Mathematics}
@@ -131,7 +130,6 @@
 \providetranslation[to=french]{Supervisor}{Directeur}
 \providetranslation[to=french]{Supervisors}{Directeurs}
 \providetranslation[to=french]{Co-supervisors}{Co-directeurs}
-\providetranslation[to=french]{Examiners}{Rapporteurs}
 \providetranslation[to=french]{umons@team}{Service}
 \providetranslation[to=french]{umons@team}{Services}
 \providetranslation[to=french]{umons@mathematics}{sciences math\'ematiques}
@@ -198,8 +196,7 @@
 \newcommand{\services}[1]{%
   \def\umons@service{#1}%
   \translatelet{\@service@name}{umons@teams}}
-\def\@rapporteurs{}
-\newcommand{\rapporteurs}[1]{\def\@rapporteurs{#1}}
+
 \newcommand{\discipline}[1]{\def\@discipline{#1}}
 \newcommand{\departement}[1]{\def\@department{#1}}
 \def\@date{}
@@ -221,7 +218,6 @@
 \renewcommand{\maketitle}{%
   % Checks:
   \umons@notempty{\@directeur}{directeur}{\directeur}%
-  %\umons@notempty{\@rapporteurs}{rapporteurs}{\rapporteurs}%
   \umons@notempty{\umons@service}{service}{\service}%
   \umons@notempty{\@date}{d'annee academique}{\date}%
   \begin{titlepage}
@@ -275,11 +271,6 @@
         \textbf{\@service@name\umons@activecolon}&
         \begin{tabular}[t]{@{}l@{}} \umons@service \end{tabular}%
         \\[2\jot]
-        % Facultatif:        
-        \ifx \@rapporteurs\empty \else
-        \textbf{\translate{Examiners}\umons@activecolon}&
-        \begin{tabular}[t]{@{}l@{}} \@rapporteurs \end{tabular}%
-        \fi
       \end{tabular}
       \hfill\null\\
       \vfill\vfill
