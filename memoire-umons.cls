@@ -295,8 +295,6 @@
   \thispagestyle{empty}
   \null % No content
   \newpage
-  % From now on, report errors with context:
-  \errorcontextlines=3
   % Roman numbered pages: 
   \setcounter{page}{1}%
   \renewcommand{\thepage}{\arabic{page}}%
