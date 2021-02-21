@@ -227,8 +227,9 @@
   \begin{titlepage}
     % Le logo DOIT être en haut à droite du document
     \addtolength{\hoffset}{5mm}% recenter slightly (local to this page)
+    \noindent
     \smash{\raisebox{13mm}{\hbox to \textwidth{%
-          \hspace{-14mm}%
+          \hspace{-8mm}%
           % \resizebox{!}{15mm}{\includegraphics{Sciences-gray}}%
           \fontfamily{phv}\fontsize{9}{12}\selectfont
           % http://dante.ctan.org/CTAN/fonts/winfonts/
@@ -253,7 +254,7 @@
             %\llap{\raisebox{3mm}{\vrule width 30cm height 0pt depth 0.3pt}}%
             %\llap{\raisebox{15mm}{\vrule width 30cm height 0pt depth 0.3pt}}%
           }%
-          \hspace{-18mm}%
+          \hspace{-24mm}%
         }}}%
     \vfill
     \begin{center}
