@@ -1,0 +1,67 @@
+\documentclass[12pt,a4paper]{memoire-umons}
+% On peut passer l'option « print » à la classe pour que tous les
+% hyperliens (très utiles pour naviguer dans le document à l'écran)
+% soient en noir.
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{hyperref}
+
+\title{Titre}
+\author{Prénom \textsc{Nom}}
+\date{2020--2021}
+\directeur{Nom du directeur}
+%\directeurs{Directeur1\\ Directeur 2}
+%\codirecteurs{}
+\service{Service dans lequel vous avez fait votre mémoire}
+%\discipline{mathématiques}
+%\logofac{UMONS_FS}
+%\departement{Département de Mathématique}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Vos macros
+
+\let\phi=\varphi                             % I prefer \varphi
+\let\epsilon=\varepsilon                     % and \varepsilon
+
+% \setlength{\overfullrule}{10pt}
+% Marque par un carré noir des lignes mal coupées pour pouvoir les
+% repérer facilement.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Compile uniquement certains morceaux sans perdre les références
+% automatiques et la table des matières des parties déjà compilées :
+%\includeonly{introduction,chapitre1}
+
+\begin{document}
+% Éventuellement utiliser l'environnement « preface » pour avoir une
+% numérotation des pages en chiffres romains.
+\tableofcontents
+
+\include{introduction}
+\include{chapitre1}
+\include{chapitre2}
+% etc
+
+
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+\markboth{\textsl{Conclusion}}{\textsl{Conclusion}}
+
+Quelques lignes pour finir...
+
+% Si vous utilisez (conseillé) BibTeX pour votre bibliographie :
+\bibliographystyle{acm}
+\bibliography{memoire}% si le fichier BibTeX est memoire.bib
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% ispell-local-dictionary: "fr"
+%%% End: 

@@ -1,5 +1,12 @@
 *.aux
+*.eps
+*.bb
+*.eps.gz
 *.log
+*.png
+*.out
 *.pdf
+*.toc
 *.csv
 auto/
+memoire-template/*.cls
