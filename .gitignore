@@ -1,4 +1,7 @@
 *.aux
+*.bbl
+*.bcf
+*.blg
 *.eps
 *.bb
 *.eps.gz
@@ -6,6 +9,7 @@
 *.png
 *.out
 *.pdf
+*.run.xml
 *.toc
 *.csv
 auto/

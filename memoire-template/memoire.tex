@@ -7,6 +7,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 \usepackage{amssymb,amsmath,amsthm}
+%\usepackage{times,mathptmx}
+\usepackage{biblatex}% Utilise le programme "biber"
 \usepackage{hyperref}
 
 \title{Titre}
@@ -19,6 +21,9 @@
 %\discipline{mathématiques}
 %\logofac{UMONS_FS}
 %\departement{Département de Mathématique}
+
+% Si vous utilisez (conseillé) BibLaTeX pour votre bibliographie :
+\addbibresource{memoire.bib}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Vos macros
@@ -54,9 +59,7 @@
 
 Quelques lignes pour finir...
 
-% Si vous utilisez (conseillé) BibTeX pour votre bibliographie :
-\bibliographystyle{acm}
-\bibliography{memoire}% si le fichier BibTeX est memoire.bib
+\printbibliography
 
 \end{document}
 %%% Local Variables:
