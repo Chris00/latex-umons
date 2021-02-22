@@ -150,8 +150,7 @@
   \translatelet{\memoire@universite}{University of Mons}
   \def\memoire@realise{%
     \translate{Master's Thesis submitted by} \@author\\
-    \translate{umons@obtain@master} \@discipline\\[2ex]
-    \translate{Academic Year} \@date}
+    \translate{umons@obtain@master} \@discipline}
 }
 
 \begingroup
@@ -235,7 +234,7 @@
           \begin{tabular}[t]{@{}l@{}}
             % \resizebox{!}{20mm}{\includegraphics{lorentz}}\\[-5mm]
             \ifx \umons@logofac\empty \else
-              \resizebox{!}{15mm}{\includegraphics{\umons@logofac}}\\%
+              \resizebox{!}{15mm}{\includegraphics{\umons@logofac}}\\[3pt]%
             \fi
             \@department
           \end{tabular}%
@@ -252,7 +251,7 @@
           }%
           \hspace{-24mm}%
         }}}%
-    \vfill
+    \vspace{10em}
     \begin{center}
       \vspace{-5mm}
       {\bfseries\sffamily
@@ -263,17 +262,17 @@
       \memoire@realise
       
       \vfill
-      \null\hfill
       \begin{tabular}[t]{@{}r@{ }l@{}}
-        \textbf{\@directeur@name\umons@activecolon}&
-        \begin{tabular}[t]{@{}l@{}} \@directeur \end{tabular}%
-        \\[2\jot]
         \textbf{\@service@name\umons@activecolon}&
         \begin{tabular}[t]{@{}l@{}} \umons@service \end{tabular}%
         \\[2\jot]
+        \textbf{\@directeur@name\umons@activecolon}&
+        \begin{tabular}[t]{@{}l@{}} \@directeur \end{tabular}%
       \end{tabular}
-      \hfill\null\\
-      \vfill\vfill
+      \\
+      \vfill\vfill\vfill
+      \translate{Academic Year} \@date\par
+      \vfill
       \smash{\raisebox{-23mm}{\vtop{%
             %\centerline{\resizebox{!}{15mm}{\includegraphics{Acad-logoumh}}}
             \memoire@faculte\bottomsep
