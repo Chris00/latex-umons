@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[1998/12/01]
 \ProvidesClass{memoire-umons}[2009/05/05 v0.1 ^^J
   \space
-  Memoires de l'Université de Mons.]
+  Memoires de l'UniversitÃ© de Mons.]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -221,7 +221,7 @@
   \umons@notempty{\umons@service}{service}{\service}%
   \umons@notempty{\@date}{d'annee academique}{\date}%
   \begin{titlepage}
-    % Le logo DOIT être en haut à droite du document
+    % Le logo DOIT Ãªtre en haut Ã  droite du document
     \addtolength{\hoffset}{5mm}% recenter slightly (local to this page)
     \noindent
     \smash{\raisebox{13mm}{\hbox to \textwidth{%
