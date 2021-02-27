@@ -87,6 +87,13 @@
     \fi
   }}
 
+\AddToHook{begindocument/end}{%
+  %% Automatic references (provided by hyperref)
+  \providecommand{\equationname}{\translate{umons@Equation}}
+  \def\equationautorefname~#1\null{%
+    \equationname~(#1)\null}
+}
+
 \newif\ifpdf@umons
 \@ifundefined{pdfoutput}{%
   \pdf@umonsfalse
@@ -126,6 +133,7 @@
 \providetranslation[to=english]{umons@obtain@master}{%
   With a view of getting the degree of Master in}
 \providetranslation[to=english]{Academic Year}{Academic Year}
+\providetranslation[to=english]{umons@Equation}{Equation}
 
 \providetranslation[to=french]{Supervisor}{Directeur}
 \providetranslation[to=french]{Supervisors}{Directeurs}
@@ -142,6 +150,7 @@
 \providetranslation[to=french]{umons@obtain@master}{%
   pour l'obtention du dipl\^ome de Master en}
 \providetranslation[to=french]{Academic Year}{Ann\'ee acad\'emique}
+\providetranslation[to=french]{umons@Equation}{\'equation}
 
 \AtBeginDocument{%
   \translatelet{\@discipline}{umons@mathematics}
@@ -165,17 +174,11 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\umons@expandonce}[1]{%
-  \unexpanded\expandafter{#1}}
-
 % \maketitle should run in the document and not in the preamble (as
 % with \AtBeginDocument).
-\edef\document{%
-  \umons@expandonce\document
-  \unexpanded{%
-    \renewcommand{\thepage}{\Roman{page}}% => no clash for PDF links
-    \maketitle
-  }%
+\AddToHook{begindocument/end}{%
+  \renewcommand{\thepage}{\Roman{page}}% => no clash for PDF links
+  \maketitle
 }
 
 \def\@directeur{}
