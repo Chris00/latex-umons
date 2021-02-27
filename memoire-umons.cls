@@ -28,6 +28,7 @@
 % \addtolength{\textheight}{2cm}
 % \setlength{\parindent}{0pt}
 
+\RequirePackage{amsthm,aliascnt}
 \RequirePackage{translator}
 
 \RequirePackage{graphics}
@@ -134,6 +135,12 @@
   With a view of getting the degree of Master in}
 \providetranslation[to=english]{Academic Year}{Academic Year}
 \providetranslation[to=english]{umons@Equation}{Equation}
+\providetranslation[to=english]{umons@Theorem}{Theorem}
+\providetranslation[to=english]{umons@Proposition}{Proposition}
+\providetranslation[to=english]{umons@Lemma}{Lemma}
+\providetranslation[to=english]{umons@Corollary}{Corollary}
+\providetranslation[to=english]{umons@Definition}{Definition}
+\providetranslation[to=english]{umons@Remark}{Remark}
 
 \providetranslation[to=french]{Supervisor}{Directeur}
 \providetranslation[to=french]{Supervisors}{Directeurs}
@@ -151,6 +158,17 @@
   pour l'obtention du dipl\^ome de Master en}
 \providetranslation[to=french]{Academic Year}{Ann\'ee acad\'emique}
 \providetranslation[to=french]{umons@Equation}{\'equation}
+\providetranslation[to=french]{Theorem}{Th\'eor\`eme}
+\providetranslation[to=french]{Lemma}{Lemme}
+\providetranslation[to=french]{Corollary}{Corollaire}
+\providetranslation[to=french]{Definition}{D\'efinition}
+\providetranslation[to=french]{Remark}{Remarque}
+\providetranslation[to=french]{umons@Theorem}{th\'eor\`eme}
+\providetranslation[to=french]{umons@Proposition}{proposition}
+\providetranslation[to=french]{umons@Lemma}{lemme}
+\providetranslation[to=french]{umons@Corollary}{corollaire}
+\providetranslation[to=french]{umons@Definition}{d\'efinition}
+\providetranslation[to=french]{umons@Remark}{remarque}
 
 \AtBeginDocument{%
   \translatelet{\@discipline}{umons@mathematics}
@@ -367,6 +385,46 @@
     \markboth{\textsl{\appendixname\ \thechapter\ ---\ ##1}}{%
       \textsl{\appendixname\ \thechapter\ ---\ ##1}}}%
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%                           Theorems,...
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{theorem}{\translate{Theorem}}[chapter]
+\AddToHook{begindocument/end}{% Do nor capitalize in French
+  \renewcommand*{\theoremautorefname}{\translate{umons@Theorem}}}
+
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{\translate{Proposition}}
+\aliascntresetthe{proposition}
+\providecommand*{\propositionautorefname}{\translate{umons@Proposition}}
+
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{\translate{Lemma}}
+\aliascntresetthe{lemma}
+\providecommand*{\lemmaautorefname}{\translate{umons@Lemma}}
+
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{\translate{Corollary}}
+\aliascntresetthe{corollary}
+\providecommand*{\corollaryautorefname}{\translate{umons@Corollary}}
+
+\theoremstyle{definition}
+
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{\translate{Definition}}
+\aliascntresetthe{definition}
+\providecommand*{\definitionautorefname}{\translate{umons@Definition}}
+
+\theoremstyle{remark}
+
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{\translate{Remark}}
+\aliascntresetthe{remark}
+\providecommand*{\remarkautorefname}{\translate{umons@Remark}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
