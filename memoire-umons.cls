@@ -438,6 +438,7 @@
 \newcommand{\Ran}{\mathop{\operator@font Im}\nolimits}   % range
 \newcommand{\Ker}{\mathop{\operator@font Ker}\nolimits}  % kernel of lin. map
 \newcommand{\supp}{\mathop{\operator@font supp}\nolimits}% support of a function
+\newcommand{\e}{{\operator@font e}}% exp
 
 \renewcommand\limsup{\mathop{\overline{\operator@font lim}}}
 \renewcommand\liminf{\mathop{\underline{\operator@font lim}}}
