@@ -371,12 +371,57 @@
   \ifnum\value{chapter}>0 \thechapter .\fi
   \arabic{section}}
 
+\renewcommand{\@makechapterhead}[1]{%
+  \vspace*{50\p@}{%
+    \parindent \z@
+    \raggedright \normalfont \sffamily
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \huge \bfseries \@chapapp \space \thechapter \par
+        \nobreak \vskip 20\p@
+      \fi
+    \fi
+    \interlinepenalty \@M
+    \Huge \bfseries #1\par
+    \nobreak \vskip 40\p@}}
+
+\renewcommand{\@makeschapterhead}[1]{%
+  \vspace*{50\p@ }{%
+    \parindent \z@
+    \raggedright \normalfont \sffamily
+    \interlinepenalty \@M
+    \Huge \bfseries #1\par
+    \nobreak \vskip 40\p@}}
+
 \renewcommand{\chaptermark}[1]{%
   \markboth{\textsl{\chaptername\ \thechapter\ ---\ #1}}{%
     \textsl{\chaptername\ \thechapter\ ---\ #1}}}
 
+\renewcommand{\section}{%
+  \@startsection {section}{1}{\z@ }{%
+    -3.5ex \@plus -1ex \@minus -.2ex}{%
+    2.3ex \@plus .2ex}{%
+    \normalfont \Large \sffamily\bfseries }}
+
 \renewcommand{\sectionmark}[1]{%
   \markright{\thesection\ ---\ #1}}
+
+\renewcommand{\subsection}{%
+  \@startsection {subsection}{2}{\z@ }{%
+    -3.25ex\@plus -1ex \@minus -.2ex}{%
+    1.5ex \@plus .2ex}{%
+    \normalfont \large \sffamily\bfseries }}
+
+\renewcommand{\subsubsection}{%
+  \@startsection {subsubsection}{3}{\z@ }{%
+    -3.25ex\@plus -1ex \@minus -.2ex}{%
+    1.5ex \@plus .2ex}{%
+    \normalfont \normalsize\sffamily \bfseries }}
+
+\renewcommand{\paragraph}{%
+  \@startsection {paragraph}{4}{\z@ }{%
+    3.25ex \@plus 1ex \@minus .2ex}{-1em}{%
+    \normalfont \normalsize \sffamily\bfseries }}
 
 \let\appendix@umons=\appendix
 
