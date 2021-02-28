@@ -29,6 +29,7 @@
 % \setlength{\parindent}{0pt}
 
 \RequirePackage{amsthm,aliascnt}
+\RequirePackage{amssymb}
 \RequirePackage{translator}
 
 \RequirePackage{graphics}
@@ -451,6 +452,8 @@
 
 \newcommand{\C}{\texorpdfstring{\mathcal C}{C}}
 
+\let\emptyset=\varnothing
+
 % .......... Intervals, norms ..................................................
 %
 \newcommand{\intervalcc}[1]{\mathopen[#1\mathclose]}
@@ -533,3 +536,8 @@
 % .......... Logic ..................................................
 %
 \newcommand{\limplies}{\Rightarrow}
+
+% .......... Misc ...................................................
+%
+\let\phi=\varphi
+\let\epsilon=\varepsilon
