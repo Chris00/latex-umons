@@ -186,13 +186,6 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \maketitle should run in the document and not in the preamble (as
-% with \AtBeginDocument).
-\AddToHook{begindocument/end}{%
-  \renewcommand{\thepage}{\Roman{page}}% => no clash for PDF links
-  \maketitle
-}
-
 \def\@directeur{}
 \newcommand{\directeur}[1]{%
   \def\@directeur{#1}%
@@ -230,6 +223,7 @@
   \hspace{0.5em}\ignorespaces}
 
 \renewcommand{\maketitle}{%
+  \renewcommand{\thepage}{\Roman{page}}% => no clash for PDF links
   % Checks:
   \umons@notempty{\@directeur}{directeur}{\directeur}%
   \umons@notempty{\umons@service}{service}{\service}%
