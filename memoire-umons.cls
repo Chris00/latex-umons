@@ -89,13 +89,6 @@
     \fi
   }}
 
-\AddToHook{begindocument/end}{%
-  %% Automatic references (provided by hyperref)
-  \providecommand{\equationname}{\translate{umons@Equation}}
-  \def\equationautorefname~#1\null{%
-    \equationname~(#1)\null}
-}
-
 \newif\ifpdf@umons
 \@ifundefined{pdfoutput}{%
   \pdf@umonsfalse
@@ -437,6 +430,7 @@
 %%                           Theorems,...
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Be compatible with \autoref (provided by hyperref)
 
 \newtheorem{theorem}{\translate{Theorem}}[chapter]
 \AddToHook{begindocument/end}{% Do nor capitalize in French
@@ -471,6 +465,12 @@
 \aliascntresetthe{remark}
 \providecommand*{\remarkautorefname}{\translate{umons@Remark}}
 
+
+\AddToHook{begindocument/end}{%
+  \providecommand{\equationname}{\translate{umons@Equation}}
+  \def\equationautorefname~#1\null{%
+    \equationname~(#1)\null}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
