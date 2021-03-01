@@ -59,10 +59,8 @@
 %% Compatibility
 
 \@ifundefined{AddToHook}{%
-  \newcommand*{\umons@AfterBeginDocument}[1]{%
-    \xdef\@afterendpreamblehook{%
-      \unexpanded\expandafter{\@afterendpreamblehook}% expand once
-      \unexpanded{#1}}}
+  \RequirePackage{etoolbox}
+  \let\umons@AfterBeginDocument=\AfterEndPreamble
 }{
   \newcommand*{\umons@AfterBeginDocument}[1]{%
     \AddToHook{begindocument/end}{#1}}
