@@ -56,6 +56,19 @@
 %\errorcontextlines=10 % debugging
 \fi
 
+%% Compatibility
+
+\@ifundefined{AddToHook}{%
+  \newcommand*{\umons@AfterBeginDocument}[1]{%
+    \xdef\@afterendpreamblehook{%
+      \unexpanded\expandafter{\@afterendpreamblehook}% expand once
+      \unexpanded{#1}}}
+}{
+  \newcommand*{\umons@AfterBeginDocument}[1]{%
+    \AddToHook{begindocument/end}{#1}}
+}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %%                              P D F
@@ -427,7 +440,7 @@
 %% Be compatible with \autoref (provided by hyperref)
 
 \newtheorem{theorem}{\translate{Theorem}}[chapter]
-\AddToHook{begindocument/end}{% Do nor capitalize in French
+\umons@AfterBeginDocument{% Do nor capitalize in French
   \renewcommand*{\theoremautorefname}{\translate{umons@Theorem}}}
 
 \newaliascnt{proposition}{theorem}
@@ -460,8 +473,8 @@
 \providecommand*{\remarkautorefname}{\translate{umons@Remark}}
 
 
-\AddToHook{begindocument/end}{%
-  \providecommand{\equationname}{\translate{umons@Equation}}
+\umons@AfterBeginDocument{%
+  \providecommand{\equationname}{\translate{umons@Equation}}%
   \def\equationautorefname~#1\null{%
     \equationname~(#1)\null}
 }
