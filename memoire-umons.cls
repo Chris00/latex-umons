@@ -439,7 +439,7 @@
 
 \newtheorem{theorem}{\translate{Theorem}}[chapter]
 \umons@AfterBeginDocument{% Do nor capitalize in French
-  \renewcommand*{\theoremautorefname}{\translate{umons@Theorem}}}
+  \def\theoremautorefname{\translate{umons@Theorem}}}
 
 \newaliascnt{proposition}{theorem}
 \newtheorem{proposition}[proposition]{\translate{Proposition}}
