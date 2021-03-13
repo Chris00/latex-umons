@@ -392,8 +392,8 @@
     \nobreak \vskip 40\p@}}
 
 \renewcommand{\chaptermark}[1]{%
-  \markboth{\textsl{\chaptername\ \thechapter\ ---\ #1}}{%
-    \textsl{\chaptername\ \thechapter\ ---\ #1}}}
+  \markboth{\textsl{\@chapapp \space \thechapter\ ---\ #1}}{%
+    \textsl{\@chapapp \space \thechapter\ ---\ #1}}}
 
 \renewcommand{\section}{%
   \@startsection {section}{1}{\z@ }{%
@@ -421,14 +421,6 @@
     3.25ex \@plus 1ex \@minus .2ex}{-1em}{%
     \normalfont \normalsize \sffamily\bfseries }}
 
-\let\appendix@umons=\appendix
-
-\renewcommand{\appendix}{%
-  \appendix@umons
-  \renewcommand{\chaptermark}[1]{%
-    \markboth{\textsl{\appendixname\ \thechapter\ ---\ ##1}}{%
-      \textsl{\appendixname\ \thechapter\ ---\ ##1}}}%
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
