@@ -81,6 +81,16 @@ Spécial$, $Virg#i~n{,}i^e%, 12121, 1, 1, \pi
   Le symbole utilisé pour cocher est différent si le package
   \verb+amssymb+ ou \verb+pifont+ est installé.  Vous pouvez aussi
   (re)définir \verb+\checkmark+ (défini par \verb+amssymb+).
+
+  Il suffit d'ajouter une étoile à la fin du nom de l'environnement
+  pour supprimer la numérotation :
+  \begin{TrueFalse*}
+  \item Une affirmation sur laquelle on doit se prononcer.
+  \item[true] Ici la réponse «~vraie~» est cochée (utile pour les
+    corrections)
+  \item[false] Ici la réponse «~faux~» est cochée (utile pour les
+    corrections)
+  \end{TrueFalse*}
 \end{question}
 
 \newpage
@@ -89,10 +99,15 @@ Spécial$, $Virg#i~n{,}i^e%, 12121, 1, 1, \pi
 
 \begin{question}
   Une autre question (sans points).  On doit choisir la bonne réponse :
-  \begin{TrueFalse*}
+  \begin{choices}
   \item La terre est plate.
   \item La terre est sphérique.
-  \end{TrueFalse*}
+  \end{choices}
+  ou sans numérotation :
+  \begin{choices*}
+  \item La terre est plate.
+  \item La terre est sphérique.
+  \end{choices*}
 \end{question}
 
 Ci-dessous, il y a une réponse.  Elle est visible uniquement si

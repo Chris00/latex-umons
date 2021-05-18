@@ -1298,12 +1298,13 @@
   \end{tests@TF@gen}
   \egroup}
 
-% Boxes to tick (no "True"/"False").
-% Optional argument "true" to tick the box.
-\newenvironment{TrueFalse*}[1][]{\bgroup
-  \def\tests@TF@label{\tests@TF@number
-    \iftests@TF@item@thickT \tests@TF@drawbox@large@ticked
-    \else \tests@TF@drawbox@large\fi}%
+% No numbering
+\newenvironment{TrueFalse*}{\bgroup
+  \def\tests@TF@label{%
+    \testsTrueLabel\
+    \iftests@TF@item@thickT \tests@TF@tickedbox \else \tests@TF@drawbox\fi\quad
+    \testsFalseLabel\
+    \iftests@TF@item@thickF \tests@TF@tickedbox \else \tests@TF@drawbox\fi}%
   \let\item\tests@TF@item % locally
   \begin{tests@TF@gen}
   }{%
@@ -1342,9 +1343,26 @@
 }
 
 
+% Boxes to tick (no "True"/"False").
+% Optional argument "true" to tick the box.
 \newenvironment{choices}[1][]{%
   \bgroup
-  \def\tests@TF@label{#1\tests@TF@drawbox@large}%
+  \def\tests@TF@label{\tests@TF@number
+    \iftests@TF@item@thickT #1\tests@TF@drawbox@large@ticked
+    \else #1\tests@TF@drawbox@large\fi}%
+  \let\item\tests@TF@item % locally
+  \begin{tests@TF@gen}
+  }{%
+  \end{tests@TF@gen}
+  \egroup}
+
+% No numbering
+\newenvironment{choices*}[1][]{%
+  \bgroup
+  \def\tests@TF@label{%
+    \iftests@TF@item@thickT #1\tests@TF@drawbox@large@ticked
+    \else #1\tests@TF@drawbox@large\fi}%
+  \let\item\tests@TF@item % locally
   \begin{tests@TF@gen}
   }{%
   \end{tests@TF@gen}
