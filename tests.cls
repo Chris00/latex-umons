@@ -1193,10 +1193,11 @@
     \expandafter\list \csname label\@enumctr \endcsname {%
       \usecounter\@enumctr
       \ifdim\parindent<2.3em \leftmargin=2.3em \else \leftmargin=\parindent \fi
+      \setlength{\labelsep}{1ex}
       \setlength{\itemindent}{0pt}%
       \setlength{\topsep}{10.0pt plus 4.0pt minus 6.0pt}%
       \setlength{\itemsep}{5.0pt plus 2.5pt minus 1.0pt}%
-      \def\makelabel##1{\hss\llap{\textsf{##1}}}%
+      \def\makelabel##1{\hss\llap{##1}}%
     }%
   \fi
 }{%
@@ -1266,7 +1267,10 @@
 
 \newcounter{TrueFalse}
 
-\def\tests@TF@number{\hbox to 1.8em{\textsf{(\theTrueFalse)}\hss}}
+\newcommand{\labelTrueFalse}{(\theTrueFalse)}
+
+\def\tests@TF@number{% See \leftmargin in the definition of "tests@TF@gen"
+  \hbox to 1.8em{\hss \labelTrueFalse}}
 
 % For corrections: allow to put a check mark
 
@@ -1288,6 +1292,7 @@
 % Optional argument "true" and "false" to check the appropriate box.
 \newenvironment{TrueFalse}{\bgroup
   \def\tests@TF@label{\tests@TF@number
+    \hskip 1ex % Same as \labelsep of "enumerate"
     \testsTrueLabel\
     \iftests@TF@item@checkT \tests@TF@checkedbox \else \tests@TF@drawbox\fi\quad
     \testsFalseLabel\
@@ -1325,10 +1330,9 @@
       \tests@TF@label
     }{%
       \settowidth{\labelwidth}{\tests@TF@label}
-      \addtolength{\labelwidth}{6pt}
-      \settowidth{\leftmargin}{\tests@TF@number}
-      \addtolength{\leftmargin}{6pt}% same as for \labelwidth
-      \setlength{\labelsep}{1em}
+      \addtolength{\labelwidth}{0.1em}% as for \leftmargin
+      \settowidth{\leftmargin}{1.9em}% width(\tests@TF@number) + 0.1em
+      \setlength{\labelsep}{1ex}% Same as for "enumerate"
       \setlength{\itemindent}{\labelwidth}
       \addtolength{\itemindent}{\labelsep}
       \addtolength{\itemindent}{-\leftmargin}
