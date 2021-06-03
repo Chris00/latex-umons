@@ -1239,12 +1239,12 @@
 \AtBeginDocument{% Choose the symbol for the tick
   \ifx\ding\@undefined
     \ifx\checkmark\@undefined
-    \newcommand{\teststick}{$\times$}%
+    \providecommand{\teststick}{$\times$}%
     \else
-    \newcommand{\teststick}{$\checkmark$}%
+    \providecommand{\teststick}{$\checkmark$}%
     \fi
   \else
-    \newcommand{\teststick}{\ding{52}}%
+    \providecommand{\teststick}{\ding{52}}%
   \fi}
 
 \newcommand{\tests@TF@tickedbox}{%
