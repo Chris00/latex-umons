@@ -1236,7 +1236,7 @@
         \hbox{\vrule width 0pt height 1.7ex depth 0.3ex\hskip 2ex}}%
       \hrule}\vrule}}
 
-\AtBeginDocument{% Choose the symbol for the tick
+\AtBeginDocument{% Choose the symbol for the check mark
   \ifx\ding\@undefined
     \ifx\checkmark\@undefined
     \providecommand{\testscheck}{$\times$}%
@@ -1247,7 +1247,7 @@
     \providecommand{\testscheck}{\ding{52}}%
   \fi}
 
-\newcommand{\tests@TF@tickedbox}{%
+\newcommand{\tests@TF@checkedbox}{%
   \hbox{\vrule \vtop{\vbox{\hrule
         \hbox{\vrule width 0pt height 1.7ex depth 0.3ex
           \hbox to 2ex{\hss \testscheck \hss}}}%
@@ -1258,7 +1258,7 @@
         \hbox{\vrule width 0pt height 1.8ex depth 0.5ex\hskip 2.2ex}}%
       \hrule}\vrule}}
 
-\newcommand{\tests@TF@drawbox@large@ticked}{%
+\newcommand{\tests@TF@drawbox@large@checked}{%
   \hbox{\vrule \vtop{\vbox{\hrule
         \hbox{\vrule width 0pt height 1.8ex depth 0.5ex
           \hbox to 2.2ex{\hss \testscheck \hss}}}%
@@ -1268,30 +1268,30 @@
 
 \def\tests@TF@number{\hbox to 1.8em{\textsf{(\theTrueFalse)}\hss}}
 
-% For corrections: allow to put a tick
+% For corrections: allow to put a check mark
 
 \let\tests@TF@item@orig=\item
-\newif\iftests@TF@item@thickT
-\newif\iftests@TF@item@thickF
+\newif\iftests@TF@item@checkT
+\newif\iftests@TF@item@checkF
 
-\define@key{tests@TF}{true}[true]{\csname tests@TF@item@thickT#1\endcsname}
-\define@key{tests@TF}{false}[true]{\csname tests@TF@item@thickF#1\endcsname}
+\define@key{tests@TF}{true}[true]{\csname tests@TF@item@checkT#1\endcsname}
+\define@key{tests@TF}{false}[true]{\csname tests@TF@item@checkF#1\endcsname}
 
 \newcommand{\tests@TF@item}[1][]{%
-  % Optional arguments "true" and "false" to tick the box.
-  \tests@TF@item@thickTfalse
-  \tests@TF@item@thickFfalse
+  % Optional arguments "true" and "false" to check the box.
+  \tests@TF@item@checkTfalse
+  \tests@TF@item@checkFfalse
   \setkeys{tests@TF}{#1}%
   \tests@TF@item@orig}
 
-% Label "True □ False □", with boxes to tick.
-% Optional argument "true" and "false" to tick tha appropriate box.
+% Label "True □ False □", with boxes to check.
+% Optional argument "true" and "false" to check the appropriate box.
 \newenvironment{TrueFalse}{\bgroup
   \def\tests@TF@label{\tests@TF@number
     \testsTrueLabel\
-    \iftests@TF@item@thickT \tests@TF@tickedbox \else \tests@TF@drawbox\fi\quad
+    \iftests@TF@item@checkT \tests@TF@checkedbox \else \tests@TF@drawbox\fi\quad
     \testsFalseLabel\
-    \iftests@TF@item@thickF \tests@TF@tickedbox \else \tests@TF@drawbox\fi}%
+    \iftests@TF@item@checkF \tests@TF@checkedbox \else \tests@TF@drawbox\fi}%
   \let\item\tests@TF@item % locally
   \begin{tests@TF@gen}
   }{%
@@ -1302,9 +1302,9 @@
 \newenvironment{TrueFalse*}{\bgroup
   \def\tests@TF@label{%
     \testsTrueLabel\
-    \iftests@TF@item@thickT \tests@TF@tickedbox \else \tests@TF@drawbox\fi\quad
+    \iftests@TF@item@checkT \tests@TF@checkedbox \else \tests@TF@drawbox\fi\quad
     \testsFalseLabel\
-    \iftests@TF@item@thickF \tests@TF@tickedbox \else \tests@TF@drawbox\fi}%
+    \iftests@TF@item@checkF \tests@TF@checkedbox \else \tests@TF@drawbox\fi}%
   \let\item\tests@TF@item % locally
   \begin{tests@TF@gen}
   }{%
@@ -1343,12 +1343,12 @@
 }
 
 
-% Boxes to tick (no "True"/"False").
-% Optional argument "true" to tick the box.
+% Boxes to check (no "True"/"False").
+% Optional argument "true" to check the box.
 \newenvironment{choices}[1][]{%
   \bgroup
   \def\tests@TF@label{\tests@TF@number
-    \iftests@TF@item@thickT #1\tests@TF@drawbox@large@ticked
+    \iftests@TF@item@checkT #1\tests@TF@drawbox@large@checked
     \else #1\tests@TF@drawbox@large\fi}%
   \let\item\tests@TF@item % locally
   \begin{tests@TF@gen}
@@ -1360,7 +1360,7 @@
 \newenvironment{choices*}[1][]{%
   \bgroup
   \def\tests@TF@label{%
-    \iftests@TF@item@thickT #1\tests@TF@drawbox@large@ticked
+    \iftests@TF@item@checkT #1\tests@TF@drawbox@large@checked
     \else #1\tests@TF@drawbox@large\fi}%
   \let\item\tests@TF@item % locally
   \begin{tests@TF@gen}
