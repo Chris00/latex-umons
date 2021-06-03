@@ -1239,18 +1239,18 @@
 \AtBeginDocument{% Choose the symbol for the tick
   \ifx\ding\@undefined
     \ifx\checkmark\@undefined
-    \providecommand{\teststick}{$\times$}%
+    \providecommand{\testscheck}{$\times$}%
     \else
-    \providecommand{\teststick}{$\checkmark$}%
+    \providecommand{\testscheck}{$\checkmark$}%
     \fi
   \else
-    \providecommand{\teststick}{\ding{52}}%
+    \providecommand{\testscheck}{\ding{52}}%
   \fi}
 
 \newcommand{\tests@TF@tickedbox}{%
   \hbox{\vrule \vtop{\vbox{\hrule
         \hbox{\vrule width 0pt height 1.7ex depth 0.3ex
-          \hbox to 2ex{\hss \teststick \hss}}}%
+          \hbox to 2ex{\hss \testscheck \hss}}}%
       \hrule}\vrule}}
 
 \newcommand{\tests@TF@drawbox@large}{%
@@ -1261,7 +1261,7 @@
 \newcommand{\tests@TF@drawbox@large@ticked}{%
   \hbox{\vrule \vtop{\vbox{\hrule
         \hbox{\vrule width 0pt height 1.8ex depth 0.5ex
-          \hbox to 2.2ex{\hss \teststick \hss}}}%
+          \hbox to 2.2ex{\hss \testscheck \hss}}}%
       \hrule}\vrule}}
 
 \newcounter{TrueFalse}
