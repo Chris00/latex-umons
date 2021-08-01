@@ -1351,7 +1351,7 @@
 % Optional argument "true" to check the box.
 \newenvironment{choices}[1][]{%
   \bgroup
-  \def\tests@TF@label{\tests@TF@number
+  \def\tests@TF@label{\tests@TF@number \hskip 1.2ex
     \iftests@TF@item@checkT #1\tests@TF@drawbox@large@checked
     \else #1\tests@TF@drawbox@large\fi}%
   \let\item\tests@TF@item % locally
