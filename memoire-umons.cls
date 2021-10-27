@@ -151,7 +151,7 @@
 \providetranslation[to=french]{Supervisors}{Directeurs}
 \providetranslation[to=french]{Co-supervisors}{Co-directeurs}
 \providetranslation[to=french]{umons@team}{Service}
-\providetranslation[to=french]{umons@team}{Services}
+\providetranslation[to=french]{umons@teams}{Services}
 \providetranslation[to=french]{umons@mathematics}{sciences math\'ematiques}
 \providetranslation[to=french]{Department of Mathematics}{%
   D\'epartement de Math\'ematique}
