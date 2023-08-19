@@ -436,6 +436,8 @@
 \newlength{\tests@titleskip}    \setlength{\tests@titleskip}{6pt}
 \newlength{\tests@rulethickness}\setlength{\tests@rulethickness}{0.5pt}
 \newcommand\tests@beforetext{3ex}
+\newcommand{\tests@skipBeforeQuestion}{1.5ex}
+\newcommand{\tests@skipAfterQuestion}{4ex}
 
 \newcommand{\tests@FirstPage@studentbox}{%
   % Box for `nom',... to fill
@@ -479,7 +481,7 @@
   \hfill \kern 3mm
   \box 0
   \vspace*{6pt}\hrule height 2\tests@rulethickness
-  \par\vspace*{\tests@beforetext}}}
+  \par\addvspace{\tests@beforetext}}}
 
 \else
 %% Test or its correction
@@ -516,7 +518,7 @@
   \fi \fi
   \box0
   \vspace*{6pt}\hrule height 2\tests@rulethickness
-  \par\vspace*{\tests@beforetext}}}
+  \par\addvspace{\tests@beforetext}}}
 
 \fi
 
@@ -694,13 +696,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \renewenvironment{abstract}{%
-  \vspace*{-\tests@beforetext}\vspace*{6pt}%
+  \vskip -\lastskip
+  \vspace*{6pt}%
   \begin{quote}
     \small
   }{%
   \end{quote}
   \vspace*{2pt}  \hrule height 1pt
-  \vspace*{\tests@beforetext}%
+  \addvspace{\tests@beforetext}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -762,7 +765,7 @@
 }{%
   \par
   \iftestscorrection \vskip 2ex plus 1\jot
-  \else \vspace{4ex}\fi
+  \else \vspace{\tests@skipAfterQuestion}\fi
   \pagebreak[2]%
 }
 
@@ -789,7 +792,13 @@
 
 \newcommand\make@question@[1]{%
   \gdef\@currentlabel{\thequestion}%
-  \iftestscorrection \vspace{3ex plus 3ex minus 1ex}\pagebreak[2]\fi
+  \iftestscorrection \vspace{3ex plus 3ex minus 1ex}\pagebreak[2]%
+  \else
+    \ifvmode \addvspace{\tests@skipBeforeQuestion}%
+    \else \message{^^JClass test Warning: It is recommended to insert %
+        questions in vertical mode.^^J^^J}%
+    \fi
+  \fi
   \noindent\textsf{#1}\quad
   \iftestscorrection \itshape \else \upshape\fi
   \ignorespaces
