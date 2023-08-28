@@ -196,9 +196,11 @@
 \def\letterumons@phone{+32(0)65 37 33 01-02-03}
 \newcommand{\phone}[1]{\gdef\letterumons@phone{#1}}
 
-\def\letterumons@fax{+32(0)65 37 33 18}
+\def\letterumons@fax{}
 \newcommand{\fax}[1]{\gdef\letterumons@fax{#1}}
 
+\def\letterumons@department@logo{UMONS_FS}
+\newcommand{\departmentlogo}[1]{\gdef\letterumons@department@logo{#1}}
 
 \def\yourref{\@ifnextchar[{\yourref@}{%
     \yourref@[\translate{Your ref.}\xspace :~]}}
@@ -312,12 +314,15 @@
   \letterumons@department\\
   Place du Parc, 20\\
   B-7000 Mons\\
-  t\'el \letterumons@phone\\
-  fax \letterumons@fax\\
+  \ifthenelse{\equal{\letterumons@phone}{}}{}{%
+    t\'el \letterumons@phone\\}%
+  \ifthenelse{\equal{\letterumons@fax}{}}{}{%
+    fax \letterumons@fax\\}%
   \ifthenelse{\equal{\letterumons@email}{}}{%
     math@umons.ac.be}{\letterumons@email}\\
   \letterumons@web\\[3mm]
-  \includegraphics[height=10mm]{UMONS_FS}%
+  \ifthenelse{\equal{\letterumons@department@logo}{}}{}{%
+    \includegraphics[height=10mm]{\letterumons@department@logo}}%
 }
 
 \newcommand{\letterumons@address@left}{%

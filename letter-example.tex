@@ -1,0 +1,50 @@
+\documentclass[11pt,a4paper]{letter-umons}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\pagestyle{empty}
+
+\begin{document}
+\renewcommand{\fromname}{Docteur Jacques Legrand}
+\signature{Dr. Jacques Legrand}
+\department{Institut de philatélie}
+%\departmentlogo{XXX.pdf}% nom de l'image à inclure par LaTeX (retiré si vide)
+% \phone{+32(0)65 37 33 01-02-03}
+% \fax{+32(0)65 37 33 18}
+\email{example@umons.ac.be}
+\web{https://example.umons.ac.be}
+\date{Mons, le 28 août 2023}
+
+% Normalement l'adresse est composée pour l'UMONS à partir de
+% \department, \fax, \email, \web mais redéfinir cette macro permet de
+% la personnaliser complètement.
+% \renewcommand{\fromaddress}{%
+%   Rue du Paradis 21,
+%   Septième ciel}
+
+\begin{letter}{}
+  \subject{Letter of support} % facultatif
+  \yourref{Your reference} % facultatif
+  \ourref{My reference} % facultatif
+
+  \opening{Dear colleagues,}
+
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+  ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+  aliquip ex ea commodo consequat. Duis aute irure dolor in
+  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+  culpa qui officia deserunt mollit anim id est laborum.
+
+  \closing{Sincerely,}
+
+\end{letter}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
