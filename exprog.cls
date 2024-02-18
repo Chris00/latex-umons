@@ -180,6 +180,12 @@
   \renewcommand{\title}[1]{\gdef\exprog@title{#1}}%
 }
 
+\newcommand{\exprog@logo}{%
+  \IfFileExists{UMONS.pdf}{\includegraphics[width=0.22\paperwidth]{UMONS}}{%
+    \IfFileExists{UMONS.png}{\includegraphics[width=0.22\paperwidth]{UMONS}}{}}%
+}
+\newcommand{\logo}[1]{\gdef\exprog@logo{#1}}
+
 
 \AtEndDocument{%
   \null % if (by mistake?) a new page was started => label well
@@ -195,21 +201,17 @@
     \newcommand{\thetotalpage}{\pageref*{exprog:totalpages}}
   }}
 
-\newcommand{\exprog@firstpage@set@oddhead}{%
-  \renewcommand{\@oddhead}{%
+\newcommand\ps@firstpage{%
+  \renewcommand\@mkboth[2]{}%
+    \renewcommand{\@oddhead}{%
     \smash{\vtop to \textheight{%
         %\vspace*{-1in}
         \vspace*{\voffset}\vspace*{-1in}\vspace*{-\topmargin}%
         \noindent
         \hspace*{-\hoffset}\hspace*{-1in}\hspace*{-\oddsidemargin}%
         \hspace*{5mm}% visual
-        \includegraphics[width=0.22\paperwidth]{UMONS}
-        \vss}}}}
-
-\newcommand\ps@firstpage{%
-  \renewcommand\@mkboth[2]{}%
-  \IfFileExists{UMONS.pdf}{\exprog@firstpage@set@oddhead}{%
-    \IfFileExists{UMONS.png}{\exprog@firstpage@set@oddhead}{}}%
+        \exprog@logo
+        \vss}}}
   \renewcommand\@oddfoot{\reset@font \hfil \thepage/\thetotalpage}%
   \let\@evenhead\@empty
   \let\@evenfoot\@oddfoot}
@@ -513,3 +515,7 @@
 
 
 \endinput
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: nil
+%%% End:
