@@ -1391,13 +1391,16 @@
 
 \AtBeginDocument{%
   \@ifpackageloaded{hyperref}{%
-    \RequirePackage{color}%
+    \RequirePackage{xcolor}%
     \definecolor{tests@green}{rgb}{0.56862745,0.78039216,0.63137255}% #91c7a1
     \definecolor{tests@darkgreen}{rgb}{0.4,0.47,0.42}% #667a6a
     \definecolor{tests@blue}{rgb}{0.23,0.85,0.98}% #3ad9fc
     \definecolor{tests@darkblue}{rgb}{0.23,0.33,0.95}%
     \definecolor{tests@metalblue}{rgb}{0.21,0.67,0.61}%
     \definecolor{tests@red}{rgb}{0.67,0.03,0.06}%
+    \definecolor{tests@lightred}{rgb}{1,0.87,0.87}%
+    \definecolor{tests@lightgreen}{rgb}{0.8,1,0.8}%
+    \definecolor{tests@lightblue}{rgb}{0.8,0.8,1}%
     \tests@activate@changes % Apply settings from the preamble
     \hypersetup{%
       %% Changes (to \tests@thetestpdf,...) must have been applied.
@@ -1406,10 +1409,13 @@
       pdfsubject={\@title},
       pdfpagemode=UseNone,
       pdfstartview=FitH,
-      colorlinks=true,
+      % colorlinks=true,
       urlcolor=tests@darkgreen,
       citecolor=tests@red,
-      linkcolor=tests@darkblue
+      linkcolor=tests@darkblue,
+      linkbordercolor=tests@lightred,
+      citebordercolor=tests@lightgreen,
+      urlbordercolor=exprog@lightblue,
     }%
     \ifx \tests@datepdf\empty
     \hypersetup{%

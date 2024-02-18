@@ -58,16 +58,23 @@
 %% Recently \pdfinfo became defined even with "latex".
 \AtBeginDocument{%
   \@ifpackageloaded{hyperref}{%
+    \RequirePackage{xcolor}%
+    \definecolor{exprog@lightred}{rgb}{1,0.87,0.87}%
+    \definecolor{exprog@lightgreen}{rgb}{0.8,1,0.8}%
+    \definecolor{exprog@lightblue}{rgb}{0.8,0.8,1}%
     \hypersetup{
       pdftitle={\exprog@title@pdfinfo},
       pdfauthor={Troestler Christophe},
       pdfkeywords={numerical analysis},
       pdfsubject={\exprog@course@pdfinfo},
       pdfpagemode={UseNone},
-      colorlinks=true,
-      urlcolor=umons-turquoise,
-      citecolor=umons-turquoise,
-      linkcolor=umons-red,
+      % colorlinks=true,
+      % urlcolor=umons-turquoise,
+      % citecolor=umons-turquoise,
+      % linkcolor=umons-red,
+      linkbordercolor=exprog@lightred,
+      citebordercolor=exprog@lightgreen,
+      urlbordercolor=exprog@lightblue,
     }}{%
     \message{exprog: package "hyperref" not loaded.}%
   }%
