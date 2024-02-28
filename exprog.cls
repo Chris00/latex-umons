@@ -64,7 +64,7 @@
     \definecolor{exprog@lightblue}{rgb}{0.8,0.8,1}%
     \hypersetup{
       pdftitle={\exprog@title@pdfinfo},
-      pdfauthor={Troestler Christophe},
+      pdfauthor={\@author},
       pdfkeywords={numerical analysis},
       pdfsubject={\exprog@course@pdfinfo},
       pdfpagemode={UseNone},
