@@ -1415,7 +1415,7 @@
       linkcolor=tests@darkblue,
       linkbordercolor=tests@lightred,
       citebordercolor=tests@lightgreen,
-      urlbordercolor=exprog@lightblue,
+      urlbordercolor=tests@lightblue,
     }%
     \ifx \tests@datepdf\empty
     \hypersetup{%
