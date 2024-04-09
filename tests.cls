@@ -443,7 +443,7 @@
   % Box for `nom',... to fill
   \tests@namesfont
   \offinterlineskip
-  \halign to 55mm{\vrule width \tests@rulethickness ##&
+  \halign to 56mm{\vrule width \tests@rulethickness ##&
       \strut \ ##\hfil\tabskip 0pt plus 1000pt&
       \vrule width \tests@rulethickness ##\tabskip 0pt\crcr
     \noalign{\hrule height \tests@rulethickness depth 0pt}
@@ -532,7 +532,7 @@
   \multiply\tests@rulethickness by2
   \tests@namesfont
   \offinterlineskip
-  \halign to 55mm{\vrule width \tests@rulethickness ##&
+  \halign to 56mm{\vrule width \tests@rulethickness ##&
       \strut \ ##\hfil\tabskip 0pt plus 1000pt&
       \vrule width \tests@rulethickness ##\tabskip 0pt\crcr
     \noalign{\hrule height \tests@rulethickness depth 0pt}%
@@ -667,7 +667,7 @@
 
 \newcommand\tests@lastname@rulers{\bgroup
   \color[gray]{0.5}%
-  \hspace{3pt}%
+  \hspace{1pt}%
   \tests@onechar\tests@onechar\tests@onechar\tests@onechar\tests@onechar
   \tests@onechar\tests@onechar\tests@onechar\tests@onechar\tests@onechar
   \tests@onechar\tests@onechar
@@ -675,9 +675,9 @@
 
 \newcommand\tests@firstname@rulers{\bgroup
   \color[gray]{0.5}%
-  \hspace{3pt}%
+  \hspace{1pt}%
   \tests@onechar\tests@onechar\tests@onechar\tests@onechar\tests@onechar
-  \tests@onechar\tests@onechar\tests@onechar\tests@onechar\tests@onechar
+  \tests@onechar\tests@onechar\tests@onechar\tests@onechar
   \egroup}
 
 \newcommand{\tests@section@rulers}{{%
