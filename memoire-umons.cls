@@ -146,6 +146,10 @@
 \providetranslation[to=english]{umons@Corollary}{Corollary}
 \providetranslation[to=english]{umons@Definition}{Definition}
 \providetranslation[to=english]{umons@Remark}{Remark}
+\providetranslation[to=english]{umons@Charter}{%
+  The Author, \@author,
+  attests to having adhered to the current ethical rules, including
+  the University’s charter regarding the use of Artificial Intelligence.}
 
 \providetranslation[to=french]{Supervisor}{Directeur}
 \providetranslation[to=french]{Supervisors}{Directeurs}
@@ -174,6 +178,11 @@
 \providetranslation[to=french]{umons@Corollary}{corollaire}
 \providetranslation[to=french]{umons@Definition}{d\'efinition}
 \providetranslation[to=french]{umons@Remark}{remarque}
+\providetranslation[to=french]{umons@Charter}{%
+  L'auteur, \@author,
+  atteste avoir respecté les règles éthiques en vigueur, y compris la
+  charte de l'Université relative à l'utilisation de l'intelligence
+  artificielle.}
 
 \AtBeginDocument{%
   \translatelet{\@discipline}{umons@mathematics}
@@ -218,6 +227,8 @@
 \newcommand{\discipline}[1]{\def\@discipline{#1}}
 \newcommand{\departement}[1]{\def\@department{#1}}
 \def\@date{}
+
+\newcommand{\charte}[1]{\def\@charter@additional{#1}}
 
 \def\umons@logofac{UMONS_FS}
 \newcommand{\logofac}[1]{\def\umons@logofac{#1}}
@@ -302,6 +313,22 @@
           }}}%
     \end{center}
   \end{titlepage}
+  \newpage
+  \thispagestyle{empty}
+  \null % No content
+  \newpage
+  \thispagestyle{empty}
+  % https://web.umons.ac.be/app/uploads/sites/34/2024/05/CharteIA-UMONS.pdf
+  \null
+  \vfill
+  \translate{umons@Charter}
+  \par
+  \ifx \@charter@additional\empty \else
+    \bigskip
+    \@charter@additional
+  \fi
+  \vfill
+  \null
   \newpage
   \thispagestyle{empty}
   \null % No content
