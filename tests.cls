@@ -1333,6 +1333,7 @@
     \ifnum \@enumdepth > \@ne
       \def\theTrueFalse{\@roman \c@TrueFalse}%
     \else \def\theTrueFalse{\@alph \c@TrueFalse}\fi
+    \unskip \par
     \expandafter\list{%
       \addtocounter{TrueFalse}{1}%
       \gdef\@currentlabel{\theTrueFalse}%
