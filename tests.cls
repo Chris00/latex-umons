@@ -747,7 +747,7 @@
 %% Optional <mark>
 \newenvironment{question}[1][]{%
   \stepcounter{question}%
-  \edef\question@comment{#1}%
+  \def\question@comment{#1}%
   \make@question{%
     \ifx \question@comment \empty \question@with@number.
     \else \question@with@number \ \ignorespaces #1.%
