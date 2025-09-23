@@ -304,7 +304,9 @@
   }}
 
 \newcommand{\tests@set@totalpages}{%
-  % To be called AFTER the last page of the current test is outputted.
+  % To be called on the first page of the next test (using \maketitle
+  % inside the document) and AFTER the last page of the current test
+  % is outputted.
   \addtocounter{page}{-1}%
   \setcounter{tests@tmp}{\value{page}}%
   \addtocounter{tests@tmp}{\value{tests@offset@page}}%
@@ -332,6 +334,11 @@
 
 \AfterLastShipout{%
   \begingroup
+  \@ifl@t@r{\fmtversion}{2025/06/01}{%
+    % With more recent LaTeX versions, the page number is no longer
+    % incremented after the last page.
+    \addtocounter{page}{1}%
+  }{}%
   \tests@set@totalpages
   \endgroup}
 
