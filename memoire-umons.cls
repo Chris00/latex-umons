@@ -229,6 +229,7 @@
 \def\@date{}
 
 \newcommand{\charte}[1]{\def\@charter@additional{#1}}
+\charte{}% Empty by default
 
 \def\umons@logofac{UMONS_FS}
 \newcommand{\logofac}[1]{\def\umons@logofac{#1}}
