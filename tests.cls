@@ -1045,7 +1045,6 @@
 
 \newread\tests@CSV@file
 
-\let\tests@CSV@par=\par
 \def\tests@CSV@readline{{% In a group
     \catcode`\$=12%
     \catcode`\#=12%
@@ -1061,7 +1060,7 @@
 
 \def\tests@CSV@processheadline{%
   \tests@CSV@readline
-  \if\tests@CSV@par\tests@CSVline\relax
+  \if\tests@CSVline\par\relax
     \ClassError{tests}{%
       File `\tests@CSV@input@filename' starts with an empty line!}{}%
   \fi
@@ -1118,7 +1117,7 @@
       \else
         \global\let\tests@CSV@next=\tests@CSV@loop
         \tests@CSV@readline
-        \if\tests@CSV@par\tests@CSVline \else
+        \if\tests@CSVline\par \else
           \tests@CSV@escanline{\tests@CSVline}%
           % Generate a new test from the data
           \tests@CSV@apply\testlastname{Nom}%
