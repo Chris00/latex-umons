@@ -799,10 +799,7 @@
   \gdef\@currentlabel{\thequestion}%
   \iftestscorrection \vspace{3ex plus 3ex minus 1ex}\pagebreak[2]%
   \else
-    \ifvmode \addvspace{\tests@skipBeforeQuestion}%
-    \else \message{^^JClass test Warning: It is recommended to insert %
-        questions in vertical mode.^^J^^J}%
-    \fi
+    \ifvmode \addvspace{\tests@skipBeforeQuestion}\fi
   \fi
   \noindent\textsf{#1}\quad
   \iftestscorrection \itshape \else \upshape\fi
