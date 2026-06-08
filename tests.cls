@@ -353,8 +353,6 @@
 \newif\iftests@studentbox
 
 \newcommand{\tests@activate@changes}{%
-  \addtocounter{tests@part}{1}% new test
-  \typeout{-- Test \arabic{tests@part} --}%
   %% Activate the changes (expand now):
   %\message{--- Activating the changes. ---}
   \tests@defexpand\tests@number{\tests@number@change}%
@@ -392,16 +390,14 @@
 \renewcommand{\document}{%
   \tests@begindocument@orig
   \iftests@auto@maketitle
-  \tests@exists@previous@testtrue
-  \tests@activate@changes
-  \tests@FirstPage
+    \maketitle
   \fi}
 
 % After \begin{document}, one may want to start another test in the 
 % same file
 % With a star: Same test but different course,... (merging)
 % Without: ``independent'' test, optional arg to redefine
-\renewcommand\maketitle{\@ifstar{\maketitle@cont}{\maketitle@new}}
+\renewcommand{\maketitle}{\@ifstar{\maketitle@cont}{\maketitle@new}}
 \newcommand\maketitle@cont{
   \newpage
   \tests@activate@changes
@@ -414,6 +410,8 @@
   \newpage % make sure the last page of the previous test is outputted
   \tests@set@totalpages
   \fi
+  \addtocounter{tests@part}{1}% new test
+  \typeout{-- Test \arabic{tests@part} --}%
   \tests@exists@previous@testtrue % start new test
   \tests@activate@changes
   \setcounter{question}{0}%
