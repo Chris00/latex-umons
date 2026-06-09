@@ -315,19 +315,23 @@
   % Does not work after the document is closed.  Must save label by hand.
   % \edef\@currentlabel{\the\c@tests@tmp}% # of pages
   % \expandafter\label{test:totalpages-\the\c@tests@part}%
-  %% Extract the number of pages of this part stored in the reference.
-  \expandafter\edef\expandafter\tests@totalpages@part{%
-    \csname r@test:totalpages-\the\c@tests@part\endcsname}%
-  \edef\tests@totalpages@part{%
-    \expandafter\tests@extract@label\tests@totalpages@part}%
-  %% Print a message to recompile if the number of pages has changed.
-  %% Normally LaTeX should mention it but lately AUCTeX did not
-  %% propose to recompile when pages where added — something that is
-  %% easily missed if not automatized.
-  \ifnum \tests@totalpages@part = \c@tests@tmp \else
-    \message{LaTeX Warning: Label(s) may have changed.
-      Rerun to get cross-references right.}%
-  \fi
+  \@ifundefined{r@test:totalpages-\the\c@tests@part}{%
+    %% The message outputted by LaTeX is enough.
+  }{%
+    %% Extract the number of pages of this part stored in the reference.
+    \expandafter\edef\expandafter\tests@totalpages@part{%
+      \csname r@test:totalpages-\the\c@tests@part\endcsname}%
+    \edef\tests@totalpages@part{%
+      \expandafter\tests@extract@label\tests@totalpages@part}%
+    %% Print a message to recompile if the number of pages has changed.
+    %% Normally LaTeX should mention it but lately AUCTeX did not
+    %% propose to recompile when pages where added — something that is
+    %% easily missed if not automatized.
+    \ifnum \tests@totalpages@part = \c@tests@tmp \else
+      \message{LaTeX Warning: Label(s) may have changed.
+        Rerun to get cross-references right.}%
+    \fi
+  }%
   \ltx@ifpackageloaded{hyperref}{%
     \immediate\write\@auxout{\string\newlabel{test:totalpages-\the\c@tests@part}%
       {{\the\c@tests@tmp}{\thepage}{}{}{}}}%
