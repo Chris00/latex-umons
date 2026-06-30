@@ -187,6 +187,11 @@
   \renewcommand{\title}[1]{\gdef\exprog@title{#1}}%
 }
 
+\newcommand{\exprog@subtitle}{}
+\newcommand{\subtitle}[1]{%
+  \gdef\exprog@subtitle{#1}%
+}
+
 \newcommand{\exprog@logo}{%
   \IfFileExists{UMONS.pdf}{\includegraphics[width=0.22\paperwidth]{UMONS}}{%
     \IfFileExists{UMONS.png}{\includegraphics[width=0.22\paperwidth]{UMONS}}{}}%
@@ -233,9 +238,15 @@
   \vspace*{-15mm}%
   \thispagestyle{firstpage}%
   \begin{center}
-    \exprog@coursefont \exprog@course
+    \ifx \exprog@course \empty \else
+      \exprog@coursefont \exprog@course
+    \fi
 
     \exprog@titlefont  \exprog@title
+    \ifx \exprog@subtitle \empty \else
+      \par\vspace*{6pt}
+      \exprog@smalltitlefont \exprog@subtitle
+    \fi
     \ifx \@author\empty \else
       \par\vspace*{6pt}
       \exprog@coursefont \@author
