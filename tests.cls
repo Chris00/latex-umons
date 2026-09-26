@@ -1410,6 +1410,14 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand*{\tests@pdftranslate}[1]{%
+  \ifcsname tr@@@\languagename @#1\endcsname
+    \csname tr@@@\languagename @#1\endcsname
+  \else
+    #1%
+  \fi
+}
+
 \AtBeginDocument{%
   \@ifpackageloaded{hyperref}{%
     \RequirePackage{xcolor}%
@@ -1439,12 +1447,14 @@
       urlbordercolor=tests@lightblue,
     }%
     \ifx \tests@datepdf\empty
-    \hypersetup{%
-      pdftitle={\tests@thetestpdf\space (\@title)}}%
+      \def\tests@pdftitle{\tests@thetestpdf\space (\@title)}%
     \else
-    \hypersetup{%
-      pdftitle={\tests@thetestpdf\space (\tests@datepdf)}}%
+      \def\tests@pdftitle{\tests@thetestpdf\space (\tests@datepdf)}%
     \fi
+    {%
+      \let\translate=\tests@pdftranslate
+      \hypersetup{pdftitle={\tests@pdftitle}}%
+    }%
   }{}%
 }
 
